@@ -1,5 +1,6 @@
 import {UserRole} from './user-role.enum';
 import {Gender} from './gender.enum';
+import { Location } from './location.enum';
 import { Trainee } from './user-role.types/trainee.type';
 import { Coach } from './user-role.types/coach.type';
 
