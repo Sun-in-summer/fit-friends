@@ -2,6 +2,7 @@ import {CRUDRepository} from '@fitfriends/core';
 import {User} from '@fitfriends/shared-types';
 import { Injectable } from '@nestjs/common';
 import {FitUserEntity} from './fit-user.entity';
+import crypto from "crypto";
 
 @Injectable()
 export class FitUserMemoryRepository implements CRUDRepository<FitUserEntity, string, User> {
