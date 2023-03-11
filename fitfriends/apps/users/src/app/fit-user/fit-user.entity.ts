@@ -1,6 +1,8 @@
 import {Gender, Location, User, UserRole} from '@fitfriends/shared-types';
 import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
 import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
+import {compare, genSalt, hash} from 'bcrypt';
+import {SALT_ROUNDS} from './fit-user.constant';
 
 export class FitUserEntity implements User {
   public _id: string;
@@ -13,12 +15,21 @@ export class FitUserEntity implements User {
   public role: UserRole;
   public location: Location;
   public createdAt: Date;
-  public trainee?: Trainee;
-  public coach?: Coach;
+  public traineeOrCoach: Trainee | Coach;
 
 
   constructor(fitUser: User) {
      this.fillEntity(fitUser);
+  }
+
+  public async setPassword(password: string) : Promise<FitUserEntity>{
+    const salt =await genSalt(SALT_ROUNDS);
+    this.passwordHash = await hash(password, salt);
+    return this;
+  }
+
+  public async comparePassword(password: string): Promise<boolean>{
+    return compare(password, this.passwordHash);
   }
 
   public toObject() {
@@ -36,7 +47,8 @@ export class FitUserEntity implements User {
     this.role = fitUser.role;
     this.location = fitUser.location;
     this.createdAt = fitUser.createdAt;
-    this.trainee = fitUser.trainee;
-    this.coach = fitUser.coach;
+    this.traineeOrCoach = fitUser.traineeOrCoach;
   }
+
+
 }

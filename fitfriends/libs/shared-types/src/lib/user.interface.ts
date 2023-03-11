@@ -19,6 +19,6 @@ export interface BasicUser {
 
 
 export interface User extends BasicUser {
-  trainee?: Trainee
-  coach?: Coach
+  traineeOrCoach: Trainee | Coach
+
 }
