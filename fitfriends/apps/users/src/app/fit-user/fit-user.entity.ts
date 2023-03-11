@@ -1,4 +1,4 @@
-import {Gender, Location, User, UserRole} from '@fitfriends/shared-types';
+import {Gender, Place, User, UserRole} from '@fitfriends/shared-types';
 import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
 import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
 import {compare, genSalt, hash} from 'bcrypt';
@@ -13,7 +13,7 @@ export class FitUserEntity implements User {
   public gender: Gender;
   public passwordHash: string;
   public role: UserRole;
-  public location: Location;
+  public place: Place;
   public createdAt: Date;
   public traineeOrCoach: Trainee | Coach;
 
@@ -45,7 +45,7 @@ export class FitUserEntity implements User {
     this.gender = fitUser.gender;
     this.passwordHash = fitUser.passwordHash;
     this.role = fitUser.role;
-    this.location = fitUser.location;
+    this.place = fitUser.place;
     this.createdAt = fitUser.createdAt;
     this.traineeOrCoach = fitUser.traineeOrCoach;
   }

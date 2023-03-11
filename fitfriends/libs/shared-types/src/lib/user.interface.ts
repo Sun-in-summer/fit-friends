@@ -1,6 +1,6 @@
 import {UserRole} from './user-role.enum';
 import {Gender} from './gender.enum';
-import { Location } from './location.enum';
+import { Place } from './place.enum';
 import { Trainee } from './user-role.types/trainee.type';
 import { Coach } from './user-role.types/coach.type';
 
@@ -13,7 +13,7 @@ export interface BasicUser {
   gender: Gender;
   dateBirth?: Date;
   role: UserRole;
-  location: Location;
+  place: Place;
   createdAt?: Date;
 }
 

@@ -1,4 +1,4 @@
-export enum Location {
+export enum Place {
   Pionerskaya = 'Пионерская',
   Petrogradskaya = 'Петроградская',
   Udelnaya = 'Удельная',

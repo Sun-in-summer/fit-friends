@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   async register(dto: CreateUserDto){
-    const {email, firstname, password, dateBirth, role, avatar, gender, location, traineeOrCoach } = dto;
+    const {email, firstname, password, dateBirth, role, avatar, gender, place, traineeOrCoach } = dto;
     const fitUser = {
       email,
       firstname,
@@ -21,7 +21,7 @@ export class AuthService {
       avatar,
       dateBirth: dayjs(dateBirth).toDate(),
       gender,
-      location,
+      place,
       traineeOrCoach,
       passwordHash: ''
     };
