@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
-import { FitUserMemoryRepository } from '../fit-user/fit-user-memory.repository';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
+import { FitUserRepository } from '../fit-user/fit-user.repository';
 import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './auth.constant';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -9,7 +9,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly fitUserRepository: FitUserMemoryRepository
+    private readonly fitUserRepository: FitUserRepository
   ) {}
 
   async register(dto: CreateUserDto){
