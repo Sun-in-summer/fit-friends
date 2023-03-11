@@ -1,0 +1,68 @@
+import { Document } from 'mongoose';
+import { Gender, Place, User, UserRole } from '@fitfriends/shared-types';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
+import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
+
+@Schema({
+  collection: 'users',
+})
+export class FitUserModel extends Document implements User {
+  @Prop()
+  public avatar: string;
+
+  @Prop({
+    required: true,
+  })
+  public dateBirth: Date;
+
+  @Prop({
+    required: true,
+    unique: true,
+  })
+  public email: string;
+
+  @Prop({
+    required: true,
+  })
+  public firstname: string;
+
+  @Prop({
+    required: true,
+  })
+  public passwordHash: string;
+
+  @Prop({
+    required: true,
+    type: String,
+    enum: UserRole,
+  })
+  public role: UserRole;
+
+  @Prop({
+    required: true,
+    type: String,
+    enum: Gender,
+  })
+  public gender: Gender;
+
+  @Prop({
+    required: true,
+    type: String,
+    enum: Place,
+  })
+  public place: Place;
+
+  @Prop({
+    required: true,
+  })
+  public createdAt: Date;
+
+  @Prop({
+    required: true,
+  })
+  public traineeOrCoach: Trainee | Coach;
+
+}
+
+export const FitUserSchema = SchemaFactory.createForClass(FitUserModel);
