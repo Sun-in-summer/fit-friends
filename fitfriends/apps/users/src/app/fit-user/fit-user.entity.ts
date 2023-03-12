@@ -47,7 +47,7 @@ export class FitUserEntity implements User {
     this.role = fitUser.role;
     this.place = fitUser.place;
     this.createdAt = fitUser.createdAt;
-    this.traineeOrCoach = fitUser.traineeOrCoach;
+    this.traineeOrCoach = {...fitUser.traineeOrCoach};
   }
 
 

@@ -1,9 +1,9 @@
 import { Gender, UserRole, Place} from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsISO8601, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
-import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
-import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
+import { Type } from 'class-transformer';
+import { IsEmail, IsEnum, IsISO8601, IsNotEmptyObject, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
 import { AUTH_USER_DATE_BIRTH_NOT_VALID, AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
+import { UserDetailsDto } from './user-type.dto.ts/user-details.dto';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -73,7 +73,9 @@ export class CreateUserDto {
 
  @ApiProperty({
     description: 'Detailed info about trainings',
+    required: true
   })
   @ValidateNested()
-  public traineeOrCoach: Trainee | Coach;
+  @IsNotEmptyObject()
+  public traineeOrCoach: UserDetailsDto
 }

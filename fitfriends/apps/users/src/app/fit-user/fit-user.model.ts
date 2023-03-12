@@ -1,8 +1,25 @@
 import { Document } from 'mongoose';
 import { Gender, Place, User, UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
-import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
+import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
+import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
+import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
+import { UserDetailsDto } from '../auth/dto/user-type.dto.ts/user-details.dto';
+
+
+class TraineeOrCoachUser  {
+  trainingLevel: TrainingLevel;
+  trainingType: TrainingType[];
+  trainingTime?: TrainingTime;
+  caloriesToDrop?: number;
+  caloriesToSpendPerDay?: number;
+  isReadyForTraining?: boolean;
+  role: UserRole;
+  certificate?: string;
+  credits?: string;
+  isReadyToTrainPersonally?: boolean;
+}
+
 
 @Schema({
   collection: 'users',
@@ -54,14 +71,15 @@ export class FitUserModel extends Document implements User {
   public place: Place;
 
   @Prop({
-    required: true,
+    type: Date
   })
   public createdAt: Date;
 
   @Prop({
     required: true,
+    type: TraineeOrCoachUser
   })
-  public traineeOrCoach: Trainee | Coach;
+  public traineeOrCoach: UserDetailsDto;
 
 }
 

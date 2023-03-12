@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -7,6 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -38,10 +39,11 @@ export class AuthController {
     description: 'Password or Login is wrong.',
   })
   async login(@Body() dto: LoginUserDto) {
-    const verifiedUser = await this.authService.verifyUser(dto);
-    return fillObject(LoggedUserRdo, verifiedUser);
+    const user = await this.authService.verifyUser(dto);
+    return this.authService.loginUser(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiResponse({
     type: UserRdo,

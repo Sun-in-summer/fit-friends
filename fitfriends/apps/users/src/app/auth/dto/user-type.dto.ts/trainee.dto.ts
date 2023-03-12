@@ -5,9 +5,9 @@ import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsEnum, IsInt, IsNotEmp
 import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
-import { CreateUserDto } from '../create-user.dto';
+import { UserDetailsBaseDto } from './user-details.dto';
 
-export class TraineeDto extends CreateUserDto {
+export class TraineeDto extends UserDetailsBaseDto {
   @ApiProperty({
     description: 'User training level',
     example: 'Beginner'
@@ -15,6 +15,8 @@ export class TraineeDto extends CreateUserDto {
   @IsEnum(TrainingLevel)
   @IsNotEmpty()
   trainingLevel: TrainingLevel;
+
+
 
   @ApiProperty({
     description: 'User prefferred training types ',
@@ -27,6 +29,7 @@ export class TraineeDto extends CreateUserDto {
   @IsEnum(TrainingType, { each: true })
   trainingType: TrainingType[];
 
+
   @ApiProperty({
     description: 'User prefferred training duration ',
     example: '10-30 min'
@@ -34,6 +37,7 @@ export class TraineeDto extends CreateUserDto {
   @IsNotEmpty()
   @IsEnum(TrainingTime)
   trainingTime: TrainingTime;
+
 
   @ApiProperty({
     description: 'Qty of calories  user needs to drop ',
@@ -56,7 +60,8 @@ export class TraineeDto extends CreateUserDto {
   @Max(CaloriesToSpendADay.Max)
   caloriesToSpendPerDay: number;
 
- @ApiProperty({
+
+  @ApiProperty({
     description: 'User is ready to accept invitations for training  ',
     example: 'True'
   })

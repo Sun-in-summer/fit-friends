@@ -1,23 +1,29 @@
 import { UserRole } from '@fitfriends/shared-types';
-import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsEnum, IsMimeType, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsDefined, IsEnum, IsMimeType, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { CreateUserDto } from '../create-user.dto';
 import {CoachCreditsLength, TrainingTypesQty} from '@fitfriends/shared-constants'
 import { ApiProperty } from '@nestjs/swagger';
+import { UserDetailsBaseDto } from './user-details.dto';
+import { Expose } from 'class-transformer';
 
-export class CoachDto extends CreateUserDto {
+export class CoachDto extends UserDetailsBaseDto {
+
   @ApiProperty({
     description: 'User training level',
-    example: 'Beginner'
+    example: 'Beginner',
+    required: true
   })
+  @IsDefined()
   @IsEnum(TrainingLevel)
   @IsNotEmpty()
   trainingLevel: TrainingLevel;
 
+
   @ApiProperty({
     description: 'User prefferred training types ',
-    example: 'Yoga, Boxing, Stretching'
+    example: 'Yoga, Boxing, Stretching',
+    required: true
   })
   @IsArray()
   @IsNotEmpty()
@@ -29,7 +35,8 @@ export class CoachDto extends CreateUserDto {
 
   @ApiProperty({
     description: 'Coach certificate, 1 file, PDF',
-    example: '.../images/certificate.pdf'
+    example: '.../images/certificate.pdf',
+    required: true
   })
   @IsNotEmpty()
   @IsMimeType()
@@ -49,6 +56,7 @@ export class CoachDto extends CreateUserDto {
     message: 'The lenght of description of  credits is too long',
   })
   credits?: string;
+
 
   @ApiProperty({
     description: 'Coach is ready to  train  personally , not only groups',

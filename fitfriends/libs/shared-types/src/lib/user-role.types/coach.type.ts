@@ -5,7 +5,7 @@ import { TrainingLevel } from '../training.types/training-level.enum';
 
 export type  Coach  = {
   trainingLevel: TrainingLevel;
-  trainingType: TrainingType;
+  trainingType: TrainingType[];
   certificate: string;
   credits?: string;
   isReadyToTrainPersonally?: boolean;

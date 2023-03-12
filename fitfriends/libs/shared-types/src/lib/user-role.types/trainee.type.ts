@@ -7,7 +7,7 @@ import { TrainingLevel } from '../training.types/training-level.enum';
 
 export type  Trainee  = {
   trainingLevel: TrainingLevel;
-  trainingType: TrainingType;
+  trainingType: TrainingType[];
   trainingTime: TrainingTime;
   caloriesToDrop: number;
   caloriesToSpendPerDay: number;

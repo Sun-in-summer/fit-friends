@@ -1,4 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { User } from '@fitfriends/shared-types';
+import { Injectable , UnauthorizedException} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import dayjs from 'dayjs';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
 import { FitUserRepository } from '../fit-user/fit-user.repository';
@@ -9,7 +11,8 @@ import { LoginUserDto } from './dto/login-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly fitUserRepository: FitUserRepository
+    private readonly fitUserRepository: FitUserRepository,
+    private readonly jwtService: JwtService,
   ) {}
 
   async register(dto: CreateUserDto){
@@ -43,12 +46,12 @@ export class AuthService {
     const existUser = await this.fitUserRepository.findByEmail(email);
 
     if(!existUser) {
-      throw new Error(AUTH_USER_NOT_FOUND);
+      throw new UnauthorizedException(AUTH_USER_NOT_FOUND);
     }
 
     const fitUserEntity = new FitUserEntity(existUser);
     if (!await fitUserEntity.comparePassword(password)){
-      throw new Error (AUTH_USER_PASSWORD_WRONG)
+      throw new UnauthorizedException (AUTH_USER_PASSWORD_WRONG)
     }
 
     return fitUserEntity.toObject();
@@ -57,6 +60,19 @@ export class AuthService {
 
   async getUser(id: string) {
     return this.fitUserRepository.findById(id);
+  }
+
+  async loginUser(user: User) {
+    const payload = {
+      sub: user._id,
+      email: user.email,
+      role: user.role,
+      firstname: user.firstname
+    };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 
 
