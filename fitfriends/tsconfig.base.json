@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@fitfriends/core": ["libs/core/src/index.ts"],
+      "@fitfriends/shared-constants": ["libs/shared-constants/src/index.ts"],
       "@fitfriends/shared-types": ["libs/shared-types/src/index.ts"]
     }
   },

@@ -1,6 +1,7 @@
 import { fillObject } from '@fitfriends/core';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -47,7 +48,7 @@ export class AuthController {
     status: HttpStatus.OK,
     description: 'User found'
   })
-  async getUser(@Param('id') id: string){
+  async getUser(@Param('id', MongoidValidationPipe) id: string){
     const existUser= await this.authService.getUser(id);
     return fillObject(UserRdo, existUser);
   }
