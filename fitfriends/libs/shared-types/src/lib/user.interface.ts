@@ -15,6 +15,8 @@ export interface BasicUser {
   role: UserRole;
   place: Place;
   createdAt?: Date;
+  myFriends?: User[];
+
 }
 
 

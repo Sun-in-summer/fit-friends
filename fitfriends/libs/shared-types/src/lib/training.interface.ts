@@ -20,3 +20,8 @@ export interface Training {
   coachId?: number;
   isSpecialOffer: boolean;
 }
+
+export interface SoldTraining extends Training {
+   soldTrainingQty: number;
+   sum: number;
+}
