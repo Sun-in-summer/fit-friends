@@ -4,7 +4,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
-import { UserDetailsDto } from '../auth/dto/user-type.dto.ts/user-details.dto';
+import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
+import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
 
 
 class TraineeOrCoachUser  {
@@ -79,7 +80,7 @@ export class FitUserModel extends Document implements User {
     required: true,
     type: TraineeOrCoachUser
   })
-  public traineeOrCoach: UserDetailsDto;
+  public traineeOrCoach: Trainee | Coach;
 
 }
 

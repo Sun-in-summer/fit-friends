@@ -1,8 +1,7 @@
 import { UserRole } from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
-import { CoachDto } from './coach.dto';
-import { TraineeDto } from './trainee.dto';
+
 
 
 export class UserDetailsBaseDto {
@@ -16,7 +15,7 @@ export class UserDetailsBaseDto {
 }
 
 
-export type UserDetailsDto = TraineeDto | CoachDto
+
 
 
 

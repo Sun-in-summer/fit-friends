@@ -1,7 +1,9 @@
 import { Gender, Place, UserRole,  } from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import {Expose, Transform, Type} from 'class-transformer';
-import { UserDetailsDto } from '../dto/user-type.dto.ts/user-details.dto';
+import { CoachDto } from '../dto/user-type.dto.ts/coach.dto';
+import { TraineeDto } from '../dto/user-type.dto.ts/trainee.dto';
+
 
 export class UserRdo {
   @Expose({ name: '_id'})
@@ -68,6 +70,6 @@ export class UserRdo {
     description: 'Detailed info about trainings',
     required: true
   })
-  public traineeOrCoach: UserDetailsDto
+  public traineeOrCoach: TraineeDto | CoachDto
 
 }

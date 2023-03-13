@@ -3,7 +3,7 @@ POST http://localhost:3333/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user34@notfound.local",
+  "email": "user53@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
@@ -12,8 +12,39 @@ Content-Type: application/json
   "role": "тренер",
   "place": "Удельная",
   "traineeOrCoach": {
+    "trainingLevel": "новичок",
+    "trainingType": ["бокс"],
+    "certificate": "images/1.pdf",
+    "credits": "some credits",
+    "isReadyToTrainPersonally": false,
+    "role": "тренер"
 
-    "trainingType": "6756"
+   }
+}
+###
+
+# Create a new user
+
+POST http://localhost:3333/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user50@notfound.local",
+  "dateBirth": "2012-02-22",
+  "firstname": "Keks",
+  "password": "123456",
+  "avatar": "1.jpg",
+  "gender": "мужской",
+  "role": "пользователь",
+  "place": "Удельная",
+  "traineeOrCoach": {
+    "trainingLevel": "любитель",
+    "trainingType": ["бокс"],
+    "trainingTime": "10-30 мин",
+    "caloriesToDrop": 2000,
+    "caloriesToSpendPerDay": 1010,
+    "isReadyForTraining": true,
+    "role": "пользователь"
   }
 }
 

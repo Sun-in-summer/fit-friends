@@ -3,9 +3,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsEmail, IsEnum, IsISO8601, IsNotEmptyObject, IsString, MaxLength, MinLength, ValidateNested } from 'class-validator';
 import { AUTH_USER_DATE_BIRTH_NOT_VALID, AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
-import { UserDetailsDto } from './user-type.dto.ts/user-details.dto';
+import { CoachDto } from './user-type.dto.ts/coach.dto';
+import { TraineeDto } from './user-type.dto.ts/trainee.dto';
+import { UserDetailsBaseDto } from './user-type.dto.ts/user-details.dto';
 
-export class CreateUserDto {
+
+export class CreateUserDto  {
   @ApiProperty({
     description: 'User firstname',
     example: 'Ivan'
@@ -75,7 +78,16 @@ export class CreateUserDto {
     description: 'Detailed info about trainings',
     required: true
   })
-  @ValidateNested()
   @IsNotEmptyObject()
-  public traineeOrCoach: UserDetailsDto
+  @ValidateNested()
+  @Type(() =>UserDetailsBaseDto,  {
+    discriminator: {
+      property: 'role',
+      subTypes: [
+        { value: CoachDto , name: UserRole.Coach },
+        { value: TraineeDto, name: UserRole.Trainee },
+      ],
+    },
+  })
+  public traineeOrCoach: TraineeDto | CoachDto
 }

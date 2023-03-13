@@ -23,7 +23,7 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
 
   public async findById(id: string): Promise<User | null> {
     return this.fitUserModel
-      .findOne({id})
+      .findOne({_id: id})
       .exec();
   }
 

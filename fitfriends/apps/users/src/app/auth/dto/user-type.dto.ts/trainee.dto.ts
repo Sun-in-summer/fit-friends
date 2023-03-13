@@ -8,13 +8,14 @@ import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-
 import { UserDetailsBaseDto } from './user-details.dto';
 
 export class TraineeDto extends UserDetailsBaseDto {
+
   @ApiProperty({
     description: 'User training level',
     example: 'Beginner'
   })
   @IsEnum(TrainingLevel)
   @IsNotEmpty()
-  trainingLevel: TrainingLevel;
+  public trainingLevel: TrainingLevel;
 
 
 
@@ -27,7 +28,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   @ArrayMinSize(TrainingTypesQty.Min)
   @ArrayMaxSize(TrainingTypesQty.Max)
   @IsEnum(TrainingType, { each: true })
-  trainingType: TrainingType[];
+  public trainingType: TrainingType[];
 
 
   @ApiProperty({
@@ -36,7 +37,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   })
   @IsNotEmpty()
   @IsEnum(TrainingTime)
-  trainingTime: TrainingTime;
+  public trainingTime: TrainingTime;
 
 
   @ApiProperty({
@@ -47,7 +48,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   @IsNotEmpty()
   @Min(CaloriesToDrop.Min)
   @Max(CaloriesToDrop.Max)
-  caloriesToDrop: number;
+  public caloriesToDrop: number;
 
 
   @ApiProperty({
@@ -58,7 +59,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   @IsNotEmpty()
   @Min(CaloriesToSpendADay.Min)
   @Max(CaloriesToSpendADay.Max)
-  caloriesToSpendPerDay: number;
+  public caloriesToSpendPerDay: number;
 
 
   @ApiProperty({
@@ -67,7 +68,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   })
   @IsBoolean()
   @IsNotEmpty()
-  isReadyForTraining: boolean;
+  public isReadyForTraining: boolean;
 
   constructor() {
     super()

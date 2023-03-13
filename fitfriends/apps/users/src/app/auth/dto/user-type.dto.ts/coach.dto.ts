@@ -1,11 +1,12 @@
 import { UserRole } from '@fitfriends/shared-types';
-import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsDefined, IsEnum, IsMimeType, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import {CoachCreditsLength, TrainingTypesQty} from '@fitfriends/shared-constants'
 import { ApiProperty } from '@nestjs/swagger';
 import { UserDetailsBaseDto } from './user-details.dto';
-import { Expose } from 'class-transformer';
+
+
 
 export class CoachDto extends UserDetailsBaseDto {
 
@@ -17,7 +18,7 @@ export class CoachDto extends UserDetailsBaseDto {
   @IsDefined()
   @IsEnum(TrainingLevel)
   @IsNotEmpty()
-  trainingLevel: TrainingLevel;
+  public trainingLevel: TrainingLevel;
 
 
   @ApiProperty({
@@ -30,7 +31,7 @@ export class CoachDto extends UserDetailsBaseDto {
   @ArrayMinSize(TrainingTypesQty.Min)
   @ArrayMaxSize(TrainingTypesQty.Max)
   @IsEnum(TrainingType, { each: true })
-  trainingType: TrainingType[];
+  public trainingType: TrainingType[];
 
 
   @ApiProperty({
@@ -39,10 +40,8 @@ export class CoachDto extends UserDetailsBaseDto {
     required: true
   })
   @IsNotEmpty()
-  @IsMimeType()
   @Contains('pdf')
-  certificate: string;
-
+  public certificate: string;
 
   @ApiProperty({
     description: 'Coach credits, text',
@@ -55,7 +54,7 @@ export class CoachDto extends UserDetailsBaseDto {
   @MaxLength(CoachCreditsLength.Max, {
     message: 'The lenght of description of  credits is too long',
   })
-  credits?: string;
+  public credits?: string;
 
 
   @ApiProperty({
@@ -63,11 +62,12 @@ export class CoachDto extends UserDetailsBaseDto {
     example: 'True'
   })
   @IsBoolean()
-  isReadyToTrainPersonally?: boolean;
-
+  public isReadyToTrainPersonally?: boolean;
 
   constructor() {
     super()
     this.role = UserRole.Coach
   }
+
 }
+
