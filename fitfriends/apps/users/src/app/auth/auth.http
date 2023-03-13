@@ -66,3 +66,7 @@ Content-Type: application/json
 }
 
 ###
+# Get new access token
+
+POST http://localhost:3333/api/auth/refresh HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXI0QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzg3MzAyNjAsImV4cCI6MTY3OTMzNTA2MH0.DR24z6b-ba5qXWlWbgRC9ZUpzjYQ9l8AHkdDlERf0vI

@@ -1,13 +1,15 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { RequestWithTokenPayload, RequestWithUser } from '@fitfriends/shared-types';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -27,6 +29,7 @@ export class AuthController {
     return fillObject(UserRdo, newUser);
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({
@@ -38,9 +41,21 @@ export class AuthController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Password or Login is wrong.',
   })
-  async login(@Body() dto: LoginUserDto) {
-    const user = await this.authService.verifyUser(dto);
+  async login(@Req() request: RequestWithUser) {
+    const {user }= request;
     return this.authService.loginUser(user);
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get a new access/refresh tokens'
+  })
+  async refresh(@Req() request: RequestWithTokenPayload) {
+    const { user: tokenPayload } = request;
+    return this.authService.loginUser(tokenPayload);
   }
 
   @UseGuards(JwtAuthGuard)

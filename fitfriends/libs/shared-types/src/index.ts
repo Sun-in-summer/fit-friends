@@ -8,6 +8,9 @@ export *  from './lib/comment.interface';
 export *  from './lib/gender.enum';
 export *  from './lib/notification.interface';
 export *  from './lib/order.interface';
+export * from './lib/request-with-user.interface';
+export * from './lib/token-payload.interface';
+export * from './lib/request-with-token-payload.interface';
 
 
 
