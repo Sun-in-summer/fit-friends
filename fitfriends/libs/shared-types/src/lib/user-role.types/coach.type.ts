@@ -1,5 +1,5 @@
 import { UserRole } from '../user-role.enum';
-import { TrainingType } from '../training.types/trainging-type.enum';
+import { TrainingType } from '../training.types/training-type.enum';
 import { TrainingLevel } from '../training.types/training-level.enum';
 import { SoldTraining, Training } from '../training.interface';
 
@@ -11,6 +11,6 @@ export type  Coach  = {
   credits?: string;
   isReadyToTrainPersonally?: boolean;
   role: UserRole;
-  myTrainings: Training[]
+  myTrainings?: Training[]
   mySoldTrainings?: SoldTraining[]
 }

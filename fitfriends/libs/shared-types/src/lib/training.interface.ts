@@ -1,7 +1,7 @@
-import { Gender } from './gender.enum';
-import { TrainingType } from './training.types/trainging-type.enum';
+import { TrainingType } from './training.types/training-type.enum';
 import { TrainingLevel } from './training.types/training-level.enum';
 import { TrainingTime } from './training.types/training-time.enum';
+import { TrainingForGender } from './training.types/traning-for-gender';
 
 
 
@@ -14,7 +14,7 @@ export interface Training {
   trainingTime: TrainingTime;
   price: number;
   calories: number;
-  gender: Gender;
+  trainingForGender: TrainingForGender;
   video: string;
   rating: number;
   coachId?: number;

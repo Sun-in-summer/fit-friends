@@ -1,5 +1,5 @@
 import { UserRole } from '../user-role.enum';
-import { TrainingType } from '../training.types/trainging-type.enum';
+import { TrainingType } from '../training.types/training-type.enum';
 import { TrainingTime } from '../training.types/training-time.enum';
 import { TrainingLevel } from '../training.types/training-level.enum';
 
