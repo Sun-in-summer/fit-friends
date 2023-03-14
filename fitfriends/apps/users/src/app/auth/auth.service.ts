@@ -1,20 +1,23 @@
-import { TokenPayload, User } from '@fitfriends/shared-types';
-import { Inject, Injectable , UnauthorizedException} from '@nestjs/common';
+import { RefreshTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { randomUUID } from 'crypto';
 import dayjs from 'dayjs';
 import { jwtOptions } from '../../config/jwt.config';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
 import { FitUserRepository } from '../fit-user/fit-user.repository';
-import { AUTH_USER_EXISTS, AUTH_USER_NOT_FOUND, AUTH_USER_PASSWORD_WRONG } from './auth.constant';
+import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly fitUserRepository: FitUserRepository,
     private readonly jwtService: JwtService,
+    private readonly refreshTokenService: RefreshTokenService,
     @Inject (jwtOptions.KEY) private readonly jwtConfig: ConfigType<typeof jwtOptions>,
   ) {}
 
@@ -35,7 +38,7 @@ export class AuthService {
     const existUser = await this.fitUserRepository.findByEmail(email);
 
     if (existUser) {
-      throw new Error(AUTH_USER_EXISTS);
+      throw new UserExistsException(email);
     }
 
     const userEntity = await new FitUserEntity(fitUser)
@@ -49,33 +52,46 @@ export class AuthService {
     const existUser = await this.fitUserRepository.findByEmail(email);
 
     if(!existUser) {
-      throw new UnauthorizedException(AUTH_USER_NOT_FOUND);
+      throw new UserNotRegisteredException(email);
     }
 
     const fitUserEntity = new FitUserEntity(existUser);
     if (!await fitUserEntity.comparePassword(password)){
-      throw new UnauthorizedException (AUTH_USER_PASSWORD_WRONG)
-    }
+      throw new UserPasswordWrongException();
 
+       }
     return fitUserEntity.toObject();
   }
 
 
   async getUser(id: string) {
-    return this.fitUserRepository.findById(id);
+    const existUser = await this.fitUserRepository.findById(id);
+    if (!existUser){
+      throw new UserNotFoundException(id);
+    }
+    return existUser;
   }
 
-  async loginUser(user: Pick<User, '_id' | 'email' | 'role' |  'firstname'>) {
-    const payload: TokenPayload= {
+  async loginUser(user: Pick<User, '_id' | 'email' | 'role' |  'firstname'>, refreshTokenId?: string) {
+    const payload: TokenPayload = {
       sub: user._id,
       email: user.email,
       role: user.role,
       firstname: user.firstname
     };
 
+    await this.refreshTokenService.
+        deleteRefreshSession(refreshTokenId);
+
+    const refreshTokenPayload: RefreshTokenPayload = {...payload, refreshTokenId: randomUUID()}
+
+    await this.refreshTokenService
+      .createRefreshSession(refreshTokenPayload);
+
+
     return {
       access_token: await this.jwtService.signAsync(payload),
-      refresh_token: await this.jwtService.signAsync(payload, {
+      refresh_token: await this.jwtService.signAsync(refreshTokenPayload, {
         secret: this.jwtConfig.refreshTokenSecret,
         expiresIn: this.jwtConfig.refreshTokenExpiresIn,
       })

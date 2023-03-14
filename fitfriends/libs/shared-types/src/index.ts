@@ -12,6 +12,8 @@ export * from './lib/request-with-user.interface';
 export * from './lib/token-payload.interface';
 export * from './lib/request-with-token-payload.interface';
 export * from './lib/training.types/training-type.enum';
+export * from './lib/token.interface';
+export * from './lib/refresh-token-payload.interface';
 
 
 

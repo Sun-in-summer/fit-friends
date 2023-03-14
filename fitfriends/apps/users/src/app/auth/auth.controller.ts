@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -8,9 +8,12 @@ import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { RequestWithTokenPayload, RequestWithUser } from '@fitfriends/shared-types';
+import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
+import { HttpExceptionFilter } from './http.exception-filter';
 
+
+@UseFilters(HttpExceptionFilter)
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -53,9 +56,14 @@ export class AuthController {
     status: HttpStatus.OK,
     description: 'Get a new access/refresh tokens'
   })
-  async refresh(@Req() request: RequestWithTokenPayload) {
+  async refresh(@Req() request: RequestWithTokenPayload<RefreshTokenPayload>) {
     const { user: tokenPayload } = request;
-    return this.authService.loginUser(tokenPayload);
+     return this.authService.loginUser({
+      firstname: tokenPayload.firstname,
+      role: tokenPayload.role,
+      email: tokenPayload.email,
+      _id: tokenPayload.sub
+    }, tokenPayload.refreshTokenId);
   }
 
   @UseGuards(JwtAuthGuard)

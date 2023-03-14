@@ -4,6 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { getJwtConfig } from '../../config/jwt.config';
 import { FitUserModule } from '../fit-user/fit-user.module';
+import { RefreshTokenModule } from '../refresh-token/refresh-token.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
@@ -14,6 +15,7 @@ import { LocalStrategy } from './strategies/local.strategy';
   imports: [
     FitUserModule,
     PassportModule,
+    RefreshTokenModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

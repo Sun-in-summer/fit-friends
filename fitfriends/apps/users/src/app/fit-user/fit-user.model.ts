@@ -24,6 +24,7 @@ class TraineeOrCoachUser  {
 
 @Schema({
   collection: 'users',
+  timestamps: true
 })
 export class FitUserModel extends Document implements User {
   @Prop()
