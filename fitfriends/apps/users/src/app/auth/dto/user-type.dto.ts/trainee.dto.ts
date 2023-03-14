@@ -2,7 +2,7 @@ import { CaloriesToDrop, TrainingTypesQty, CaloriesToSpendADay } from '@fitfrien
 import { UserRole } from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsEnum, IsInt, IsNotEmpty, Max, Min } from 'class-validator';
-import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
+import { TrainingType } from 'libs/shared-types/src/lib/training.types/training-type.enum';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { UserDetailsBaseDto } from './user-details.dto';

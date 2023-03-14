@@ -1,6 +1,6 @@
 import { UserRole } from '@fitfriends/shared-types';
 import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { TrainingType } from 'libs/shared-types/src/lib/training.types/trainging-type.enum';
+import { TrainingType } from 'libs/shared-types/src/lib/training.types/training-type.enum';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import {CoachCreditsLength, TrainingTypesQty} from '@fitfriends/shared-constants'
 import { ApiProperty } from '@nestjs/swagger';
