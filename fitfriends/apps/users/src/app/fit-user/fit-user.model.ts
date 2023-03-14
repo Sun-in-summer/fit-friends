@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Gender, Place, User, UserRole } from '@fitfriends/shared-types';
+import { Gender, Place,  User,  UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingType } from 'libs/shared-types/src/lib/training.types/training-type.enum';
@@ -8,7 +8,8 @@ import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type'
 import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
 
 
-class TraineeOrCoachUser  {
+
+class TraineeOrCoachUser   {
   trainingLevel: TrainingLevel;
   trainingType: TrainingType[];
   trainingTime?: TrainingTime;
@@ -26,7 +27,7 @@ class TraineeOrCoachUser  {
   collection: 'users',
   timestamps: true
 })
-export class FitUserModel extends Document implements User {
+export class FitUserModel extends Document  implements User{
   @Prop()
   public avatar: string;
 
@@ -77,6 +78,7 @@ export class FitUserModel extends Document implements User {
   })
   public createdAt: Date;
 
+
   @Prop({
     required: true,
     type: TraineeOrCoachUser
@@ -84,5 +86,6 @@ export class FitUserModel extends Document implements User {
   public traineeOrCoach: Trainee | Coach;
 
 }
+
 
 export const FitUserSchema = SchemaFactory.createForClass(FitUserModel);

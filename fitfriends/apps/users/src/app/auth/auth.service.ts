@@ -31,8 +31,9 @@ export class AuthService {
       dateBirth: dayjs(dateBirth).toDate(),
       gender,
       place,
-      traineeOrCoach,
-      passwordHash: ''
+      passwordHash: '',
+      traineeOrCoach: {...traineeOrCoach}
+
     };
 
     const existUser = await this.fitUserRepository.findByEmail(email);
