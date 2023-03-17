@@ -1,7 +1,7 @@
 import { GymFeatureType } from './gym.types/gym-feature.enum';
 
 export interface Gym {
-  _id?: string;
+  id?: number;
   name: string;
   location: Location;
   isVerified?: boolean;

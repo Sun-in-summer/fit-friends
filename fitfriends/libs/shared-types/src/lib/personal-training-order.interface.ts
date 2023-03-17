@@ -4,7 +4,7 @@ export  interface personalTrainingOrder {
 
   id?: string;
   initiatorId: string;
-  userId: string;
+  conductorId: string;
   createdAt?: Date;
   statusChangeDate: Date;
   status: OrderStatus;

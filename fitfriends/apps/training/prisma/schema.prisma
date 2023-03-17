@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Training {
+  id                Int      @id @default(autoincrement())
+  title             String
+  backgroundImage   String
+  customerLevel     String
+  trainingType      String
+  trainingTime      String
+  price             Int
+  calories          Int
+  description       String
+  trainingForGender String
+  video             String
+  rating            Int
+  coachId           String
+  isSpecialOffer    Boolean
+  reviews           Review[]
+  createdAt         DateTime @default(now())
+  orders            Order[]
+
+  @@map("trainings")
+}
+
+model Gym {
+  id               Int      @id @default(autoincrement())
+  name             String
+  location         String
+  isVerified       Boolean
+  features         String[]
+  photos           String[]
+  description      String
+  oneTrainingPrice Int
+  createdAt        DateTime @default(now())
+  orders           Order[]
+
+  @@map("gyms")
+}
+
+model Review {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  trainingId Int
+  training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  rating     Int
+  text       String
+  createdAt  DateTime @default(now())
+
+  @@map("reviews")
+}
+
+model Order {
+  id         Int       @id @default(autoincrement())
+  orderType  String
+  userId     String
+  trainingId Int?
+  workout    Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  gymId      Int?
+  gym        Gym?      @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  price      Int
+  quantity   Int
+  amount     Int
+  paymentWay String
+  createdAt  DateTime  @default(now())
+
+  @@map("orders")
+}
+
+model PersonalTrainingOrder {
+  id          Int      @id @default(autoincrement())
+  initiatorId Int
+  conductorId Int
+  status      String
+  createdAt   DateTime @default(now())
+
+  @@map("personal_training_orders")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  notifyAt  DateTime
+  text      String
+  createdAt DateTime @default(now())
+
+  @@map("notificatons")
+}

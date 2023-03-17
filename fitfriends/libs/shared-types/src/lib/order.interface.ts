@@ -2,7 +2,7 @@ import { OrderCategory } from './order.types/order-category.enum';
 import { PaymentMethod } from './order.types/payment-method.enum';
 
 export interface Order {
-  id?: string;
+  id?: number;
   userId: string;
   orderCategory: OrderCategory;
   service: string;

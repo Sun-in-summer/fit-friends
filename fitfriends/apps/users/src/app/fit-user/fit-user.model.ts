@@ -25,7 +25,7 @@ class TraineeOrCoachUser   {
 
 @Schema({
   collection: 'users',
-  timestamps: true
+  timestamps: true,
 })
 export class FitUserModel extends Document  implements User{
   @Prop()
@@ -89,3 +89,5 @@ export class FitUserModel extends Document  implements User{
 
 
 export const FitUserSchema = SchemaFactory.createForClass(FitUserModel);
+
+

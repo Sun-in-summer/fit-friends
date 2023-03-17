@@ -19,23 +19,39 @@ export interface BasicUser {
   place: Place;
   createdAt?: Date;
   myFriends?: User[];
-
 }
 
 
 export interface User extends BasicUser {
   traineeOrCoach: Trainee | Coach
-
 }
 
-export interface ExtendedUser extends BasicUser {
+
+export interface TraineeUser extends BasicUser {
   trainingLevel:TrainingLevel;
   trainingType: TrainingType[];
-  certificate?: string;
-  credits?: string;
-  isReadyToTrainPersonally?: boolean;
   trainingTime?: TrainingTime;
   caloriesToDrop?: number;
   caloriesToSpendPerDay?: number;
   isReadyForTraining?: boolean;
 }
+
+export interface CoachUser extends BasicUser {
+  trainingLevel:TrainingLevel;
+  trainingType: TrainingType[];
+  certificate?: string;
+  credits?: string;
+  isReadyToTrainPersonally?: boolean;
+}
+
+// export interface ExtendedUser extends BasicUser {
+//   trainingLevel:TrainingLevel;
+//   trainingType: TrainingType[];
+//   certificate?: string;
+//   credits?: string;
+//   isReadyToTrainPersonally?: boolean;
+//   trainingTime?: TrainingTime;
+//   caloriesToDrop?: number;
+//   caloriesToSpendPerDay?: number;
+//   isReadyForTraining?: boolean;
+// }

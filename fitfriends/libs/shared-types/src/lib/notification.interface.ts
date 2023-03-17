@@ -3,4 +3,5 @@ export interface Notification {
   createdAt: Date;
   userId: string;
   text: string;
+  notifyAt?: Date;
 }
