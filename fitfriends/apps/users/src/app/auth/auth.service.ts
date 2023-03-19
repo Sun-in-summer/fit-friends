@@ -8,8 +8,6 @@ import { jwtOptions } from '../../config/jwt.config';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
 import { FitUserRepository } from '../fit-user/fit-user.repository';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
-import { CreateCoachUserDto } from './dto/create-coach-user.dto';
-import { CreateTraineeUserDto } from './dto/create-trainee-user.dto';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';

@@ -1,8 +1,7 @@
 import {CRUDRepository} from '@fitfriends/core';
 import {FitUserEntity} from './fit-user.entity';
-import {CoachUser, TraineeUser, UserRole} from '@fitfriends/shared-types';
+import {CoachUser, TraineeUser} from '@fitfriends/shared-types';
 import {InjectModel} from '@nestjs/mongoose';
-import {FitUserModel} from './fit-user.model';
 import { FitUserCoachModel } from './fit-user-coach.model';
 import {Model} from 'mongoose';
 import {Injectable} from '@nestjs/common';

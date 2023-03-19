@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { BasicUser,  ExtendedUser,  Gender, Place,    TrainingType,    User,    UserRole } from '@fitfriends/shared-types';
+import {  ExtendedUser,  Gender, Place,    TrainingType,    User,    UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
