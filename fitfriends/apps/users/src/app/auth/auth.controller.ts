@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -9,9 +9,6 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
-import { HttpExceptionFilter } from './http.exception-filter';
-import { CreateCoachUserDto } from './dto/create-coach-user.dto';
-import { CreateTraineeUserDto } from './dto/create-trainee-user.dto';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 
 
@@ -83,7 +80,7 @@ export class AuthController {
   @Patch('update/:id')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({status: HttpStatus.OK, description: 'The user has been successfully updated '})
-  async update(@Param('id', MongoidValidationPipe) id: string, @Body() dto: CreateUserNewDto){
+  async update(@Param('id', MongoidValidationPipe) id: string, @Body(new ValidationPipe()) dto: CreateUserNewDto){
     const newUser = await  this.authService.updateUser(id, dto);
     return fillObject(UserRdo, newUser);
   }
