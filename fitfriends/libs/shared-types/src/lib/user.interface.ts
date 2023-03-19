@@ -8,7 +8,7 @@ import { TrainingLevel } from './training.types/training-level.enum';
 import { TrainingType } from './training.types/training-type.enum';
 
 export interface BasicUser {
-  _id?: string;
+  _id?: string ;
   firstname: string;
   email: string;
   avatar: string;
@@ -19,6 +19,8 @@ export interface BasicUser {
   place: Place;
   createdAt?: Date;
   myFriends?: User[];
+  trainingLevel:TrainingLevel;
+  trainingType: TrainingType[];
 }
 
 
@@ -28,8 +30,6 @@ export interface User extends BasicUser {
 
 
 export interface TraineeUser extends BasicUser {
-  trainingLevel:TrainingLevel;
-  trainingType: TrainingType[];
   trainingTime?: TrainingTime;
   caloriesToDrop?: number;
   caloriesToSpendPerDay?: number;
@@ -37,21 +37,17 @@ export interface TraineeUser extends BasicUser {
 }
 
 export interface CoachUser extends BasicUser {
-  trainingLevel:TrainingLevel;
-  trainingType: TrainingType[];
   certificate?: string;
   credits?: string;
   isReadyToTrainPersonally?: boolean;
 }
 
-// export interface ExtendedUser extends BasicUser {
-//   trainingLevel:TrainingLevel;
-//   trainingType: TrainingType[];
-//   certificate?: string;
-//   credits?: string;
-//   isReadyToTrainPersonally?: boolean;
-//   trainingTime?: TrainingTime;
-//   caloriesToDrop?: number;
-//   caloriesToSpendPerDay?: number;
-//   isReadyForTraining?: boolean;
-// }
+export interface ExtendedUser extends BasicUser {
+  certificate?: string;
+  credits?: string;
+  isReadyToTrainPersonally?: boolean;
+  trainingTime?: TrainingTime;
+  caloriesToDrop?: number;
+  caloriesToSpendPerDay?: number;
+  isReadyForTraining?: boolean;
+}

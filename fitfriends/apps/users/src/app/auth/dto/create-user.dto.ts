@@ -74,6 +74,7 @@ export class CreateUserDto  {
   @IsEnum(Place)
   public place: Place;
 
+
  @ApiProperty({
     description: 'Detailed info about trainings',
     required: true

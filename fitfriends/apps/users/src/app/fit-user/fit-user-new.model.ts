@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
-import { BasicUser,  Gender, Place,    TrainingType,    User,    UserRole } from '@fitfriends/shared-types';
+import { BasicUser,  ExtendedUser,  Gender, Place,    TrainingType,    User,    UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-
+import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 
 
 
@@ -25,7 +25,7 @@ import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training
   timestamps: true,
   discriminatorKey: 'role'
 })
-export class FitUserModel extends Document implements BasicUser{
+export class FitUserNewModel extends Document implements ExtendedUser{
   @Prop()
   public avatar: string;
 
@@ -104,10 +104,54 @@ export class FitUserModel extends Document implements BasicUser{
   })
   public trainingType: TrainingType[];
 
+  @Prop({
+    type: String,
+  })
+  public certificate?: string;
+
+  @Prop({
+    type: String,
+  })
+  public credits?: string;
+
+  @Prop({
+    type: Boolean,
+  })
+  public isReadyToTrainPersonally?: boolean;
+
+  @Prop({
+    type: String,
+    enum: TrainingTime,
+  })
+  public trainingTime?: TrainingTime;
+
+  @Prop({
+    type: Number,
+     min: 1000,
+    max: 5000,
+  })
+  public caloriesToDrop?: number;
+
+  @Prop({
+    min: 1000,
+    max: 5000,
+    type: Number,
+  })
+  public caloriesToSpendPerDay?: number;
+
+  @Prop({
+    type: Boolean,
+  })
+  public isReadyForTraining?: boolean;
+
+
+
+
+
 
 }
 
 
-export const FitUserSchema = SchemaFactory.createForClass(FitUserModel);
+export const FitUserNewSchema = SchemaFactory.createForClass(FitUserNewModel);
 
 

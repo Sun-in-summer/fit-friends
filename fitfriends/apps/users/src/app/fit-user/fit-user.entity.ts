@@ -1,11 +1,11 @@
-import {Gender, Place, User, UserRole} from '@fitfriends/shared-types';
+import { CoachUser, ExtendedUser, Gender, Place, TraineeUser, TrainingType, UserRole} from '@fitfriends/shared-types';
 import {compare, genSalt, hash} from 'bcrypt';
 import {SALT_ROUNDS} from './fit-user.constant';
-import { Coach } from 'libs/shared-types/src/lib/user-role.types/coach.type';
-import { Trainee } from 'libs/shared-types/src/lib/user-role.types/trainee.type';
+import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
+import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 
 
-export class FitUserEntity implements User {
+export class FitUserEntity implements ExtendedUser {
   public _id: string;
   public firstname: string;
   public email: string;
@@ -16,11 +16,19 @@ export class FitUserEntity implements User {
   public role: UserRole;
   public place: Place;
   public createdAt: Date;
-  public traineeOrCoach: Trainee | Coach
+  public trainingLevel: TrainingLevel;
+  public trainingType: TrainingType[];
+  public trainingTime?: TrainingTime;
+  public caloriesToDrop?: number;
+  public caloriesToSpendPerDay?: number;
+  public isReadyForTraining?: boolean;
+  public isReadyToTrainPersonally?: boolean;
+  public credits?: string;
+  public certificate?: string;
 
 
 
-  constructor(fitUser: User) {
+  constructor(fitUser: TraineeUser | CoachUser) {
      this.fillEntity(fitUser);
   }
 
@@ -40,7 +48,7 @@ export class FitUserEntity implements User {
   }
 
 
-  public fillEntity(fitUser: User) {
+  public fillEntity(fitUser: ExtendedUser) {
     this._id = fitUser._id;
     this.firstname = fitUser.firstname;
     this.email = fitUser.email;
@@ -51,7 +59,14 @@ export class FitUserEntity implements User {
     this.role = fitUser.role;
     this.place = fitUser.place;
     this.createdAt = fitUser.createdAt;
-    this.traineeOrCoach= fitUser.traineeOrCoach;
-
+    this.trainingLevel = fitUser.trainingLevel;
+    this.trainingTime= fitUser.trainingTime;
+    this.trainingType = fitUser.trainingType;
+    this.caloriesToDrop = fitUser.caloriesToDrop;
+    this.caloriesToSpendPerDay = fitUser.caloriesToSpendPerDay;
+    this.isReadyForTraining = fitUser.isReadyForTraining;
+    this.isReadyToTrainPersonally = fitUser.isReadyToTrainPersonally;
+    this.certificate = fitUser.certificate;
+    this.credits = fitUser.credits;
   }
 }

@@ -25,7 +25,7 @@ async function bootstrap() {
   SwaggerModule.setup('spec', app, document)
 
   app.useGlobalPipes(new ValidationPipe({
-    transform: true
+    transform: true,
   }));
 
   const port = process.env.PORT || 3333;

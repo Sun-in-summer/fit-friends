@@ -8,7 +8,9 @@ import { jwtOptions } from '../../config/jwt.config';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
 import { FitUserRepository } from '../fit-user/fit-user.repository';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateCoachUserDto } from './dto/create-coach-user.dto';
+import { CreateTraineeUserDto } from './dto/create-trainee-user.dto';
+import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
 
@@ -21,29 +23,33 @@ export class AuthService {
     @Inject (jwtOptions.KEY) private readonly jwtConfig: ConfigType<typeof jwtOptions>,
   ) {}
 
-  async register(dto: CreateUserDto){
-    const {email, firstname, password, dateBirth, role, avatar, gender, place, traineeOrCoach } = dto;
-    const fitUser = {
-      email,
-      firstname,
-      role,
-      avatar,
-      dateBirth: dayjs(dateBirth).toDate(),
-      gender,
-      place,
-      passwordHash: '',
-      traineeOrCoach: {...traineeOrCoach}
+  async register(dto: CreateUserNewDto
+    ){
 
+    const {email, password, dateBirth  } = dto;
+
+  const passwordToSave= password;
+
+  const fitUser = {
+      ...dto,
+      dateBirth: dayjs(dateBirth).toDate(),
+      password: '',
+      passwordHash: '',
     };
 
+
+
     const existUser = await this.fitUserRepository.findByEmail(email);
+
 
     if (existUser) {
       throw new UserExistsException(email);
     }
 
     const userEntity = await new FitUserEntity(fitUser)
-    .setPassword(password);
+    .setPassword(passwordToSave);
+
+
 
     return this.fitUserRepository.create(userEntity);
   }
@@ -99,6 +105,33 @@ export class AuthService {
     };
   }
 
+  async updateUser(id: string, dto:CreateUserNewDto) {
 
+    const existUser = await this.fitUserRepository.findById(id);
+
+    if (!existUser) {
+      throw new UserExistsException(dto.email);
+    }
+
+     const updatedUserEntity = new FitUserEntity({...existUser, ...dto});
+     const updatedUser =  await this.fitUserRepository.update(id, updatedUserEntity);
+
+     // this.rabbitClient.emit(
+    //     createEvent(CommandEvent.DeleteSubscriber),////
+    //     {
+    //       id: updatedUserEntity._id,
+    //       firstname: updatedUserEntity.firstname,
+    //       lastname: updatedUserEntity.lastname,
+    //       email: updatedUserEntity.email,
+    //       isSubscribed: updatedUserEntity.isSubscribed,
+    //     }
+    //   )
+
+    return updatedUser;
+
+  }
 }
+
+
+
 

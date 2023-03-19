@@ -1,9 +1,8 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -11,9 +10,12 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { HttpExceptionFilter } from './http.exception-filter';
+import { CreateCoachUserDto } from './dto/create-coach-user.dto';
+import { CreateTraineeUserDto } from './dto/create-trainee-user.dto';
+import { CreateUserNewDto } from './dto/create-user-new.dto';
 
 
-@UseFilters(HttpExceptionFilter)
+// @UseFilters(HttpExceptionFilter)
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -27,7 +29,7 @@ export class AuthController {
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.'
   })
-  async create(@Body() dto: CreateUserDto) {
+  async create(@Body() dto: CreateUserNewDto ) {
     const newUser = await this.authService.register(dto);
     return fillObject(UserRdo, newUser);
   }
@@ -76,5 +78,13 @@ export class AuthController {
   async getUser(@Param('id', MongoidValidationPipe) id: string){
     const existUser= await this.authService.getUser(id);
     return fillObject(UserRdo, existUser);
+  }
+
+  @Patch('update/:id')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({status: HttpStatus.OK, description: 'The user has been successfully updated '})
+  async update(@Param('id', MongoidValidationPipe) id: string, @Body() dto: CreateUserNewDto){
+    const newUser = await  this.authService.updateUser(id, dto);
+    return fillObject(UserRdo, newUser);
   }
 }

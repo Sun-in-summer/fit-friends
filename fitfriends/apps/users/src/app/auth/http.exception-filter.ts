@@ -19,7 +19,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         message,
         date: new Date().toISOString(),
         resource: request.url,
-        sourceData: body
+        sourceData: body,
       });
   }
 }

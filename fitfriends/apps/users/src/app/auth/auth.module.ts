@@ -28,6 +28,6 @@ import { LocalStrategy } from './strategies/local.strategy';
     JwtStrategy,
     LocalStrategy,
     JwtRefreshStrategy
-  ],
+   ],
 })
 export class AuthModule {}

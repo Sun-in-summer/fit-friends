@@ -1,41 +1,60 @@
 import {CRUDRepository} from '@fitfriends/core';
 import {FitUserEntity} from './fit-user.entity';
-import {User} from '@fitfriends/shared-types';
+import {CoachUser, TraineeUser, UserRole} from '@fitfriends/shared-types';
 import {InjectModel} from '@nestjs/mongoose';
 import {FitUserModel} from './fit-user.model';
+import { FitUserCoachModel } from './fit-user-coach.model';
 import {Model} from 'mongoose';
 import {Injectable} from '@nestjs/common';
+import { FitUserTraineeModel } from './fit-user-trainee.model';
+import { FitUserNewModel } from './fit-user-new.model';
 
 @Injectable()
-export class FitUserRepository implements CRUDRepository<FitUserEntity, string, User> {
+export class FitUserRepository implements CRUDRepository<FitUserEntity, string, TraineeUser |CoachUser> {
   constructor(
-    @InjectModel(FitUserModel.name) private readonly fitUserModel: Model<FitUserModel>) {
-  }
+    @InjectModel(FitUserNewModel.name) private readonly fitUserNewModel: Model<FitUserNewModel>,
+    // @InjectModel(UserRole.Coach) private readonly fitUserCoachModel: Model<FitUserCoachModel>,
+    // @InjectModel(UserRole.Trainee) private readonly fitUserTraineeModel: Model<FitUserTraineeModel>,
+    )
+     {}
 
-  public async create(item: FitUserEntity): Promise<User> {
-    const newFitUser = new this.fitUserModel(item);
-    return newFitUser.save();
+  public async create(item: FitUserEntity): Promise<FitUserNewModel> {
+
+
+    // if (item.role === UserRole.Coach) {
+    //   const newFitUser = new this.fitUserCoachModel(item);
+    //   return newFitUser.save()
+    // }
+    const newFitUser = new this.fitUserNewModel(item);
+    return newFitUser.save()
   }
 
   public async destroy(id: string): Promise<void> {
-    this.fitUserModel.deleteOne({id});
+    this.fitUserNewModel.deleteOne({id});
   }
 
-  public async findById(id: string): Promise<User | null> {
-    return this.fitUserModel
+  public async findById(id: string): Promise<FitUserTraineeModel | FitUserCoachModel | null> {
+    const user =  this.fitUserNewModel
       .findOne({_id: id})
       .exec();
+
+
+      return user;
   }
 
-  public async findByEmail(email: string): Promise<User | null> {
-    return this.fitUserModel
+  public async findByEmail(email: string): Promise<FitUserTraineeModel | FitUserCoachModel | null> {
+    const user =  this.fitUserNewModel
       .findOne({email})
       .exec();
+
+    return user;
   }
 
-  public async update(id: string, item: FitUserEntity): Promise<User> {
-    return this.fitUserModel
+  public async update(id: string, item: FitUserEntity): Promise<FitUserNewModel> {
+
+    return this.fitUserNewModel
       .findByIdAndUpdate(id, item.toObject(), {new: true})
       .exec();
   }
+
 }
