@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Req, UseFilters, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Req, UseFilters, UseGuards, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -10,6 +10,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
+import { UserQuery } from './query/user.query';
 
 
 // @UseFilters(HttpExceptionFilter)
@@ -83,5 +84,16 @@ export class AuthController {
   async update(@Param('id', MongoidValidationPipe) id: string, @Body(new ValidationPipe()) dto: CreateUserNewDto){
     const newUser = await  this.authService.updateUser(id, dto);
     return fillObject(UserRdo, newUser);
+  }
+
+  @Get('/')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'All users are  found'
+  })
+  async showAllUsers(@Query() query: UserQuery){
+    const users = await this.authService.getUsers(query);
+    return fillObject(UserRdo, users);
+
   }
 }

@@ -5,12 +5,14 @@ import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
 import dayjs from 'dayjs';
 import { jwtOptions } from '../../config/jwt.config';
+import { FitUserNewModel } from '../fit-user/fit-user-new.model';
 import { FitUserEntity } from '../fit-user/fit-user.entity';
 import { FitUserRepository } from '../fit-user/fit-user.repository';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
+import {UserQuery} from './query/user.query';
 
 @Injectable()
 export class AuthService {
@@ -126,8 +128,15 @@ export class AuthService {
     //   )
 
     return updatedUser;
-
   }
+
+   async getUsers(query: UserQuery): Promise <FitUserNewModel[]>{
+    return await this.fitUserRepository.find(query)
+  }
+
+
+
+
 }
 
 

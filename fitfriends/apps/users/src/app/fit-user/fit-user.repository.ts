@@ -1,12 +1,13 @@
 import {CRUDRepository} from '@fitfriends/core';
 import {FitUserEntity} from './fit-user.entity';
-import {CoachUser, TraineeUser} from '@fitfriends/shared-types';
+import {CoachUser, TraineeUser, User} from '@fitfriends/shared-types';
 import {InjectModel} from '@nestjs/mongoose';
 import { FitUserCoachModel } from './fit-user-coach.model';
 import {Model} from 'mongoose';
 import {Injectable} from '@nestjs/common';
 import { FitUserTraineeModel } from './fit-user-trainee.model';
 import { FitUserNewModel } from './fit-user-new.model';
+import { UserQuery } from '../auth/query/user.query';
 
 @Injectable()
 export class FitUserRepository implements CRUDRepository<FitUserEntity, string, TraineeUser |CoachUser> {
@@ -54,6 +55,18 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
     return this.fitUserNewModel
       .findByIdAndUpdate(id, item.toObject(), {new: true})
       .exec();
+  }
+
+  public async find({limit, page, sortDirection, sortBy, role, trainingType}: UserQuery): Promise<FitUserNewModel[]> {
+    const users = await this.fitUserNewModel.find({
+        $or: [{
+          userRole: {$eq: role }
+        }, {
+          trainingType: { $in: trainingType}
+        }]
+
+    }).limit(limit).sort({sortBy: 1})
+      return users;
   }
 
 }
