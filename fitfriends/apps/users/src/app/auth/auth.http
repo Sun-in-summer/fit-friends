@@ -111,3 +111,16 @@ Content-Type: application/json
   "caloriesToSpendPerDay": 3500,
   "isReadyForTraining": true
 }
+
+### Get all users
+#
+
+GET http://localhost:3333/api/auth HTTP/1.1
+Content-Type: application/json
+
+
+### Get all users with query parameters
+#
+
+GET http://localhost:3333/api/auth?trainingType=бокс&page=3&sortDirection=1 HTTP/1.1
+Content-Type: application/json

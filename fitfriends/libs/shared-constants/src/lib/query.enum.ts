@@ -1,12 +1,12 @@
 export enum SortDirection {
-  Default ='desc',
-  Desc ='desc',
-  Asc = 'asc'
+  Default =-1,
+  Desc = -1,
+  Asc = 1
 }
 
 
 export enum UserPagination {
-  DefaultCountLimit = 25,
+  DefaultCountLimit = 5,
   DefaultPageCount =1
 }
 

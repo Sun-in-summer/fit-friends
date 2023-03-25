@@ -58,15 +58,18 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
   }
 
   public async find({limit, page, sortDirection, sortBy, role, trainingType}: UserQuery): Promise<FitUserNewModel[]> {
-    const users = await this.fitUserNewModel.find({
-        $or: [{
-          userRole: {$eq: role }
-        }, {
-          trainingType: { $in: trainingType}
-        }]
 
-    }).limit(limit).sort({sortBy: 1})
+
+      const users = await this.fitUserNewModel.find({
+
+         $and: [{role: {$eq: role }},
+           {trainingType: { $eq: trainingType}}]
+    })
+    .sort({[sortBy]: sortDirection,  _id: 1})
+    .skip( page > 0 ? ( ( page - 1 ) * limit ) : 0 )
+      .limit( limit )
       return users;
   }
 
 }
+

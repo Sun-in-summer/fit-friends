@@ -102,6 +102,9 @@ export class UserRdo {
   @Expose()
   caloriesToDrop?: number;
 
+    @Expose()
+ createdAt?: Date;
+
 }
 
 

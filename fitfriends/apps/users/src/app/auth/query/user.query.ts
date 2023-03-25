@@ -14,9 +14,10 @@ export class UserQuery {
   @IsOptional()
   public page = UserPagination.DefaultPageCount;
 
-  @IsIn(['asc', 'desc'])
+  @Transform(({value})=> +value || SortDirection.Default)
+  @IsIn([1 ,-1])
   @IsOptional()
-  public sortDirection?: 'desc' | 'asc' = SortDirection.Default;
+  public sortDirection?: SortDirection.Desc| SortDirection.Asc = SortDirection.Default;
 
 
   @IsOptional()
@@ -28,8 +29,8 @@ export class UserQuery {
   public role =UserRole.Coach;
 
   @IsOptional()
-  @IsEnum(TrainingType)
-  public trainingType: TrainingType[];
+  @IsEnum(TrainingType, { each: true })
+  public trainingType: TrainingType[] =[TrainingType.Boxing];
 
 
 

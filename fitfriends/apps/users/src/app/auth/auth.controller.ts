@@ -94,6 +94,5 @@ export class AuthController {
   async showAllUsers(@Query() query: UserQuery){
     const users = await this.authService.getUsers(query);
     return fillObject(UserRdo, users);
-
   }
 }

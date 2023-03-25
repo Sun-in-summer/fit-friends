@@ -131,11 +131,8 @@ export class AuthService {
   }
 
    async getUsers(query: UserQuery): Promise <FitUserNewModel[]>{
-    return await this.fitUserRepository.find(query)
+    return await this.fitUserRepository.find(query);
   }
-
-
-
 
 }
 
