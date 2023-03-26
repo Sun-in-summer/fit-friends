@@ -1,0 +1,19 @@
+# Create a new training
+POST http://localhost:3333/api/trainings HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "Первая тренировка",
+    "backgroundImage": "1.png",
+   "trainingLevel": "для начинающих",
+   "trainingType": "бокс",
+   "trainingTime": "10-30 минут",
+   "price": 2000,
+   "calories": 2050,
+   "description": "какое-то описание",
+   "trainingForGender": "для женщин",
+   "video": "1.mov",
+   "rating": 3,
+   "coachId": "13435235",
+   "isSpecialOffer": true
+}

@@ -1,4 +1,4 @@
-import { CoachCreditsLength, TrainingTypesQty } from '@fitfriends/shared-constants';
+import { CoachCreditsLength, TrainingTypesQty, UserNameLength } from '@fitfriends/shared-constants';
 import { Gender, UserRole, Place, TrainingType} from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsDefined, IsEmail, IsEnum, IsISO8601, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
@@ -13,8 +13,8 @@ export class CreateCoachUserDto   {
     example: 'Ivan'
   })
   @IsString()
-  @MinLength(1)
-  @MaxLength(15)
+  @MinLength(UserNameLength.Min)
+  @MaxLength(UserNameLength.Max)
   public firstname: string;
 
   @ApiProperty({

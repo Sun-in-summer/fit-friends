@@ -1,7 +1,3 @@
-import { TrainingType } from './training.types/training-type.enum';
-import { TrainingLevel } from './training.types/training-level.enum';
-import { TrainingTime } from './training.types/training-time.enum';
-import { TrainingForGender } from './training.types/traning-for-gender';
 import { Review } from './review.interface';
 import { Order } from './order.interface';
 
@@ -11,21 +7,26 @@ export interface Training {
   id?: number;
   title: string;
   backgroundImage: string;
-  trainingLevel: TrainingLevel;
-  traingingType: TrainingType;
-  trainingTime: TrainingTime;
+  trainingLevel: string;
+  trainingType: string;
+  trainingTime: string;
   price: number;
   calories: number;
   description: string;
-  trainingForGender: TrainingForGender;
+  trainingForGender: string;
   video: string;
   rating: number;
-  coachId?: number;
+  coachId?: string;
   isSpecialOffer: boolean;
-  reviews: Review[];
-  orders: Order[];
+  reviews?: Review[];
+  orders?: Order[];
   createdAt: Date;
 }
+
+export type CreateTraining = Omit<
+  Training,
+  'id' | 'backgroundImage' | 'rating' | 'video'
+>;
 
 export interface SoldTraining extends Training {
    soldTrainingQty: number;

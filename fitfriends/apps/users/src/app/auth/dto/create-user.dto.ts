@@ -1,3 +1,4 @@
+import { UserNameLength } from '@fitfriends/shared-constants';
 import { Gender, UserRole, Place} from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
@@ -14,8 +15,8 @@ export class CreateUserDto  {
     example: 'Ivan'
   })
   @IsString()
-  @MinLength(1)
-  @MaxLength(15)
+  @MinLength(UserNameLength.Min)
+  @MaxLength(UserNameLength.Max)
   public firstname: string;
 
   @ApiProperty({
@@ -30,7 +31,7 @@ export class CreateUserDto  {
 
   @ApiProperty({
     description: 'User avatar',
-    example: '1.img'
+    example: '1.jpg'
   })
   @IsString()
   public avatar: string;

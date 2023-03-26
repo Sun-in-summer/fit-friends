@@ -1,3 +1,4 @@
+import { PasswordLength } from '@fitfriends/shared-constants';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 import { AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
@@ -18,7 +19,7 @@ export class LoginUserDto {
     example: '123456'
   })
   @IsString()
-  @MinLength(6)
-  @MaxLength(12)
+  @MinLength(PasswordLength.Min)
+  @MaxLength(PasswordLength.Max)
   public password: string;
 }
