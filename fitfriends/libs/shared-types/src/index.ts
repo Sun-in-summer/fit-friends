@@ -15,6 +15,7 @@ export * from './lib/training.types/training-type.enum';
 export * from './lib/token.interface';
 export * from './lib/refresh-token-payload.interface';
 export * from './lib/review.interface';
+export * from './lib/jwt-payload.interface';
 
 
 
