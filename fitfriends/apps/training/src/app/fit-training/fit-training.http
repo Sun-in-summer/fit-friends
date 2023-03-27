@@ -1,7 +1,7 @@
 ###
 # Create a new training
 POST http://localhost:3333/api/trainings HTTP/1.
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk4Njg4MjUsImV4cCI6MTY3OTg2OTcyNX0.gRKb_zekrB0OGwLp6IhHa1g1sCK32mX4BMmMrHht0Qc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTQxMDc4LCJleHAiOjE2Nzk5NDE5Nzh9.rN814hdjWqWaac3-AF6Lqgg7jJ8khP12YwSaUUGiVaA
 Content-Type: application/json
 
 {
@@ -21,21 +21,24 @@ Content-Type: application/json
 }
 
 ###
-# Get the list of all trainings
+# Get the list of all trainings of the coach
 GET http://localhost:3333/api/trainings HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTMzNDg1LCJleHAiOjE2Nzk5MzQzODV9.h87Q5rZn6u7y9yJyl6GAONkZ_75i-5c8X-ajpHxKFUY
 
 ###
-# Get the list of trainings with price
+# Get the list of trainings of the coach with price
 
 GET http://localhost:3333/api/trainings?priceMin=1300&trainingTime=30-50 мин HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTMzNDg1LCJleHAiOjE2Nzk5MzQzODV9.h87Q5rZn6u7y9yJyl6GAONkZ_75i-5c8X-ajpHxKFUY
 
 
 ### Update training
-PATCH http://localhost:3333/api/trainings/1
+PATCH http://localhost:3333/api/trainings/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk5MzIwMzIsImV4cCI6MTY3OTkzMjkzMn0.dbjXqd8kFUgY3yDkVZhOyDuP-UNkfEfz6nIkpPwgIOA
 Content-Type: application/json
 
 {
-   "title": "Вторая тренир",
+   "title": "Восьмая тренир",
    "backgroundImage": "1.png",
    "trainingLevel": "любитель",
    "trainingType": "бокс",
@@ -53,6 +56,7 @@ Content-Type: application/json
 ### Get detailed information about training
 
 GET http://localhost:3333/api/trainings/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTM0Mzk2LCJleHAiOjE2Nzk5MzUyOTZ9.LiHlP2iEaWYwQUb-0j_lQKdKbdeXUyty-48-soAgasA
 
 
 
