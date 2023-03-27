@@ -46,9 +46,8 @@ Content-Type: application/json
 ###
 
 # Get user by ID
-GET http://localhost:3332/api/auth/640f670f0c1311f9fc571148  HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDBkYmRjYjM2N2UyYjc1YWQxZjNkNTciLCJlbWFpbCI6InVzZXI0QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzg4MTY0OTYsImV4cCI6MTY3ODgxNzM5Nn0.8wrwB8EtkNyGChVzsedDmMuXo7V0HHrvL9RD39gMclQ
-
+GET http://localhost:3332/api/auth/6416c69d7be04eac59a9987c  HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk5MjY4NjAsImV4cCI6MTY3OTkyNzc2MH0.ozOPiPb5G9PKXqEjyFP_CwnLCsSo1H1M4i5xQ8vro6U
 ###
 
 # Login user by email and password
@@ -56,8 +55,8 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user9@notfound.local",
-  "password": "123456"
+  "email": "user10@notfound.local",
+ "password": "123456"
 }
 
 ###

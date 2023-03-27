@@ -16,7 +16,7 @@ export class CreatedFitTrainingRdo  implements Training {
     example: true
   })
   @IsOptional()
-  @Expose({name: '_id'})
+  @Expose()
   id?: number;
 
 

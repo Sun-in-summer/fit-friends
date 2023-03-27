@@ -8,18 +8,28 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule } from '@nestjs/config';
 import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
+import { RoleStrategy } from './strategies/role.strategy';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+
+
 
 @Module({
-  imports: [    PrismaModule, FitTrainingModule, OrderModule, GymModule, ReviewModule,
-  ConfigModule.forRoot({
-      cache: true,
-      isGlobal: true,
-      envFilePath: ENV_FILE_PATH,
-      load: [jwtOptions],
-    })],
+  imports: [
+      PrismaModule,
+      FitTrainingModule,
+      OrderModule,
+      GymModule,
+      ReviewModule,
+      ConfigModule.forRoot({
+        cache: true,
+        isGlobal: true,
+        envFilePath: ENV_FILE_PATH,
+        load: [jwtOptions],
+      }),
+  ],
   controllers: [],
   providers: [
-    JwtStrategy
+    JwtStrategy, RoleStrategy
   ],
 })
 export class AppModule {}

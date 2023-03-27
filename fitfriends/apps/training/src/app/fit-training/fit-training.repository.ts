@@ -1,6 +1,6 @@
 import { CRUDRepository } from '@fitfriends/core';
 import { FitTrainingEntity } from './fit-training.entity'
-import { Training } from '@fitfriends/shared-types';
+import { Training, User } from '@fitfriends/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { TrainingQuery } from './query/training.query';
@@ -38,7 +38,9 @@ export class FitTrainingRepository implements CRUDRepository<FitTrainingEntity, 
   }
 
 
-  public find(query: TrainingQuery): Promise<Training[]> {
+
+
+  public find(query: TrainingQuery, userId : string): Promise<Training[]> {
     const {
       priceMin,
       priceMax,
@@ -56,33 +58,34 @@ export class FitTrainingRepository implements CRUDRepository<FitTrainingEntity, 
 
     return this.prisma.training.findMany({
       where: {
-        trainingTime: { in: trainingTime },
-        AND: [
-          {
-            price: {
-              gte: priceMin
-            }
-          },
-          {
-            price: {
-              lte: priceMax ?? Price.Max
-            }
-          },
-          {
-            rating: {
-              gte: ratingMin ?? Rating.Min
-            }
-          },
-          {
-            rating: {
-              lte: ratingMax ?? Rating.Max
-            }
-          }
-        ],
+        coachId: userId,
+        // trainingTime: { in: trainingTime },
+        // AND: [
+        //   {
+        //     price: {
+        //       gte: priceMin
+        //     }
+        //   },
+        //   {
+        //     price: {
+        //       lte: priceMax ?? Price.Max
+        //     }
+        //   },
+        //   {
+        //     rating: {
+        //       gte: ratingMin ?? Rating.Min
+        //     }
+        //   },
+        //   {
+        //     rating: {
+        //       lte: ratingMax ?? Rating.Max
+        //     }
+        //   }
+        // ],
       },
-      orderBy: {
-        [sortBy]: sortDirection,
-      },
+      // orderBy: {
+      //   [sortBy]: sortDirection,
+      // },
       include: {
         reviews: true,
       },
