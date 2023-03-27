@@ -23,12 +23,17 @@ export class RolesGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    console.log('ROLE', role);
-
     if (role) {
 
+
+
       const request = context.switchToHttp().getRequest();
+
+      console.log(request);
+
       const user = request.user;
+
+      console.log({...user});
 
       if (user.role !== role) {
         throw new ForbiddenException(WRONG_ROLE_MESSAGE);

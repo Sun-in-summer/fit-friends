@@ -33,8 +33,7 @@ export class FitTrainingController {
 
   @Post('/')
   @ApiBearerAuth()
-  // @Role(UserRole.Coach)
-  @Role('тренер')
+  @Role(UserRole.Coach)
   @UseGuards(RolesGuard)
   @HttpCode(HttpStatus.CREATED)
   async create(@Body(new ValidationPipe()) dto: CreateFitTrainingDto, @Req()
