@@ -50,7 +50,7 @@ model Gym {
 
 model Review {
   id         Int      @id @default(autoincrement())
-  userId     Int
+  userId     String
   trainingId Int
   training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
   rating     Int

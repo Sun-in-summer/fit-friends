@@ -1,12 +1,13 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req, UseFilters, RawBodyRequest } from '@nestjs/common';
+import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req, UseFilters, RawBodyRequest, Query, Patch } from '@nestjs/common';
 import { FitTrainingService } from './fit-training.service';
 import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
 import { fillObject } from '@fitfriends/core';
 import { CreatedFitTrainingRdo } from './rdo/created-fit-training.rdo';
-import { RolesGuard } from '@fitfriends/core';
+import { RolesGuard } from '../guards/roles.guard';
 import { RequestWithTokenPayload, TokenPayload, UserRole } from '@fitfriends/shared-types';
 import { Role } from './decorators/role.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { TrainingQuery } from './query/training.query';
 
 
 
@@ -25,8 +26,8 @@ export class FitTrainingController {
   }
 
   @Get('/')
-  async index() {
-    const trainings = await this.fitTrainingService.getTrainings();
+  async index(@Query () query: TrainingQuery) {
+    const trainings = await this.fitTrainingService.getTrainings(query);
     return fillObject(CreatedFitTrainingRdo, trainings);
   }
 
@@ -51,10 +52,10 @@ req: RequestWithTokenPayload<TokenPayload>
     this.fitTrainingService.deleteTraining(trainingId);
   }
 
-  // @Patch('/:id')
-  // async update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
-  //   const trainingId = parseInt(id, 10);
-  //   const updatedCategory = await this.fitTrainingService.updateTraining(trainingId, dto)
-  //   return fillObject(CreatedFitTrainingRdo, updatedCategory);
-  // }
+  @Patch('/:id')
+  async update(@Param('id') id: string, @Body() dto: CreateFitTrainingDto) {
+    const trainingId = parseInt(id, 10);
+    const updatedTraining = await this.fitTrainingService.updateTraining(trainingId, dto)
+    return fillObject(CreatedFitTrainingRdo, updatedTraining);
+  }
 }

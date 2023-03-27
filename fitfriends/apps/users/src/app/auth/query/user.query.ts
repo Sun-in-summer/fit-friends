@@ -15,7 +15,7 @@ export class UserQuery {
   public page = UserPagination.DefaultPageCount;
 
   @Transform(({value})=> +value || SortDirection.Default)
-  @IsIn([1 ,-1])
+  @IsIn([SortDirection.Asc , SortDirection.Desc])
   @IsOptional()
   public sortDirection?: SortDirection.Desc| SortDirection.Asc = SortDirection.Default;
 

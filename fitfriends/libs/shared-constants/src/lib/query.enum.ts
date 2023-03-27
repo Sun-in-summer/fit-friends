@@ -6,7 +6,7 @@ export enum SortDirection {
 
 
 export enum UserPagination {
-  DefaultCountLimit = 5,
+  DefaultCountLimit = 25,
   DefaultPageCount =1
 }
 
@@ -14,4 +14,27 @@ export enum SortByType {
   Date = 'createdAt',
   TrainingLevel = 'level',
   Place = 'place',
+}
+
+
+export enum TrainingPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
+
+export enum TraningSortDirection {
+  Default = 'desc',
+  Desc = 'desc',
+  Asc = 'asc'
+}
+
+
+export enum Rating {
+  Min = 0,
+  Max = 5
+}
+
+export enum Price {
+  Min = 0,
+  Max = 1000000
 }

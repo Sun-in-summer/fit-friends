@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
 import { FitTrainingEntity } from './fit-training.entity';
 import { FitTrainingRepository } from './fit-training.repository';
+import { TrainingQuery } from './query/training.query';
 
 @Injectable()
 export class FitTrainingService {
@@ -24,11 +25,11 @@ export class FitTrainingService {
     return this.fitTrainingRepository.findById(id);
   }
 
-  async getTrainings(): Promise<Training[]> {
-    return this.fitTrainingRepository.find();
+  async getTrainings(query: TrainingQuery): Promise<Training[]> {
+    return this.fitTrainingRepository.find(query);
   }
 
-  // async updateTraining(id: number, dto: UpdateFitTrainingDto): Promise<Training> {
-  //   return this.fitTrainingRepository.update(id, new FitTrainingEntity(dto));
-  // }
+  async updateTraining(id: number, dto: CreateFitTrainingDto): Promise<Training> {
+    return this.fitTrainingRepository.update(id, new FitTrainingEntity(dto));
+  }
 }

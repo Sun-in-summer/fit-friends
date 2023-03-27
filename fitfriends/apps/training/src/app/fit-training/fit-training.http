@@ -24,4 +24,36 @@ Content-Type: application/json
 # Get the list of all trainings
 GET http://localhost:3333/api/trainings HTTP/1.1
 
+###
+# Get the list of trainings with price
+
+GET http://localhost:3333/api/trainings?priceMin=1300&trainingTime=30-50 мин HTTP/1.1
+
+
+### Update training
+PATCH http://localhost:3333/api/trainings/1
+Content-Type: application/json
+
+{
+   "title": "Вторая тренир",
+   "backgroundImage": "1.png",
+   "trainingLevel": "любитель",
+   "trainingType": "бокс",
+   "trainingTime": "10-30 мин",
+   "price": 2000,
+   "calories": 2050,
+   "description": "какое-то описание",
+   "trainingForGender": "для женщин",
+   "video": "1.mov",
+   "rating": 3,
+   "coachId": "13435235",
+   "isSpecialOffer": true
+}
+
+### Get detailed information about training
+
+GET http://localhost:3333/api/trainings/1
+
+
+
 
