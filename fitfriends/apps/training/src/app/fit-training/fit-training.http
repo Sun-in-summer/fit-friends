@@ -1,13 +1,15 @@
+###
 # Create a new training
-POST http://localhost:3333/api/trainings HTTP/1.1
+POST http://localhost:3333/api/trainings HTTP/1.
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk4Njg4MjUsImV4cCI6MTY3OTg2OTcyNX0.gRKb_zekrB0OGwLp6IhHa1g1sCK32mX4BMmMrHht0Qc
 Content-Type: application/json
 
 {
-    "title": "Первая тренировка",
-    "backgroundImage": "1.png",
-   "trainingLevel": "для начинающих",
+   "title": "Пе=",
+   "backgroundImage": "1.png",
+   "trainingLevel": "любитель",
    "trainingType": "бокс",
-   "trainingTime": "10-30 минут",
+   "trainingTime": "10-30 мин",
    "price": 2000,
    "calories": 2050,
    "description": "какое-то описание",
@@ -17,3 +19,9 @@ Content-Type: application/json
    "coachId": "13435235",
    "isSpecialOffer": true
 }
+
+###
+# Get the list of all trainings
+GET http://localhost:3333/api/trainings HTTP/1.1
+
+

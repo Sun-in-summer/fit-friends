@@ -1,9 +1,9 @@
 import { CreateTraining, TrainingType } from '@fitfriends/shared-types';
-import {CaloriesToDrop, TrainingDescriptionLength, TrainingPrice, TrainingTitleLength, VIDEO_URL_REG_EXP, DEFAULT_RATING} from '@fitfriends/shared-constants';
+import {CaloriesToDrop, TrainingDescriptionLength, TrainingPrice, TrainingTitleLength, VIDEO_URL_REG_EXP, IMAGE_URL_REG_EXP ,DEFAULT_RATING} from '@fitfriends/shared-constants';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { TrainingForGender } from 'libs/shared-types/src/lib/training.types/traning-for-gender';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsBoolean, IsDataURI, IsDefined, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Matches, Max, MaxLength, Min, MinLength} from 'class-validator';
+import {IsBoolean, IsDefined, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Length, Matches, Max, MaxLength, Min, MinLength} from 'class-validator';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 
 
@@ -30,9 +30,7 @@ export class CreateFitTrainingDto implements CreateTraining {
     required: true
   })
   @IsDefined()
-  @IsDataURI()
-  // eslint-disable-next-line no-useless-escape
-  @Matches('(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\.(?:jpg|png))(?:\?([^#]*))?(?:#(.*))?')
+  @Matches(IMAGE_URL_REG_EXP)
   @IsString()
   backgroundImage: string;
 
@@ -92,8 +90,7 @@ export class CreateFitTrainingDto implements CreateTraining {
     required: true
   })
   @IsNotEmpty()
-  @Min(TrainingDescriptionLength.Min)
-  @Max(TrainingDescriptionLength.Max)
+  @Length(TrainingDescriptionLength.Min, TrainingDescriptionLength.Max )
   description: string;
 
  @ApiProperty({
@@ -101,6 +98,7 @@ export class CreateFitTrainingDto implements CreateTraining {
     example: 'Male/Female/NoInfo',
     required: true
   })
+  @IsNotEmpty()
   @IsEnum(TrainingForGender)
   trainingForGender: TrainingForGender;
 
@@ -110,7 +108,6 @@ export class CreateFitTrainingDto implements CreateTraining {
     required: true
   })
   @IsDefined()
-  @IsDataURI()
   @Matches(VIDEO_URL_REG_EXP)
   @IsString()
   video: string;

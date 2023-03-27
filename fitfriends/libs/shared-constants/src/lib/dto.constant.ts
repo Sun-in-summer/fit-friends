@@ -45,6 +45,7 @@ export enum TrainingDescriptionLength {
   Max = 140
 }
 
+export const IMAGE_URL_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/ ;
 export const VIDEO_URL_REG_EXP = /^.+(?:.mov)|.+(?:.avi)|.+(?:.mp4)$/;
 
 export const DEFAULT_RATING = 0;

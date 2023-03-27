@@ -10,8 +10,9 @@ export class FitTrainingService {
     private readonly fitTrainingRepository: FitTrainingRepository
   ) {}
 
-  async createTraining(dto: CreateFitTrainingDto): Promise<Training> {
-    const trainingEntity = new FitTrainingEntity(dto);
+  async createTraining(dto: CreateFitTrainingDto, userId: string): Promise<Training> {
+
+    const trainingEntity = new FitTrainingEntity({...dto, coachId: userId });
     return this.fitTrainingRepository.create(trainingEntity);
   }
 
