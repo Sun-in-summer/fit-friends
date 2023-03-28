@@ -1,4 +1,4 @@
-export enum OrderCategory {
+export enum OrderType {
   Subscription = 'абонемент',
   OneTimeTraining = 'тренировка',
 }

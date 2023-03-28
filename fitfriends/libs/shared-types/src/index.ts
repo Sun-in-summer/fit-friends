@@ -16,6 +16,8 @@ export * from './lib/token.interface';
 export * from './lib/refresh-token-payload.interface';
 export * from './lib/review.interface';
 export * from './lib/jwt-payload.interface';
+export * from './lib/order.types/order-type.enum'
+export * from './lib/order.types/payment-method.enum'
 
 
 

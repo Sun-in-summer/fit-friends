@@ -65,7 +65,7 @@ model Order {
   orderType  String
   userId     String
   trainingId Int?
-  workout    Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
   gymId      Int?
   gym        Gym?      @relation(fields: [gymId], references: [id], onDelete: Cascade)
   price      Int

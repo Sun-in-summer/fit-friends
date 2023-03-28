@@ -9,7 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+
 
 
 
@@ -29,7 +29,8 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
   ],
   controllers: [],
   providers: [
-    JwtStrategy, RoleStrategy
+    JwtStrategy,
+    RoleStrategy
   ],
 })
 export class AppModule {}

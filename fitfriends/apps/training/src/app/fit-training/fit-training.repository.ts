@@ -59,33 +59,33 @@ export class FitTrainingRepository implements CRUDRepository<FitTrainingEntity, 
     return this.prisma.training.findMany({
       where: {
         coachId: userId,
-        // trainingTime: { in: trainingTime },
-        // AND: [
-        //   {
-        //     price: {
-        //       gte: priceMin
-        //     }
-        //   },
-        //   {
-        //     price: {
-        //       lte: priceMax ?? Price.Max
-        //     }
-        //   },
-        //   {
-        //     rating: {
-        //       gte: ratingMin ?? Rating.Min
-        //     }
-        //   },
-        //   {
-        //     rating: {
-        //       lte: ratingMax ?? Rating.Max
-        //     }
-        //   }
-        // ],
+        trainingTime: { in: trainingTime },
+        AND: [
+          {
+            price: {
+              gte: priceMin
+            }
+          },
+          {
+            price: {
+              lte: priceMax ?? Price.Max
+            }
+          },
+          {
+            rating: {
+              gte: ratingMin ?? Rating.Min
+            }
+          },
+          {
+            rating: {
+              lte: ratingMax ?? Rating.Max
+            }
+          }
+        ],
       },
-      // orderBy: {
-      //   [sortBy]: sortDirection,
-      // },
+      orderBy: {
+        [sortBy]: sortDirection,
+      },
       include: {
         reviews: true,
       },

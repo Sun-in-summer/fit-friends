@@ -38,3 +38,20 @@ export enum Price {
   Min = 0,
   Max = 1000000
 }
+
+export enum OrderSortBy {
+  Amount = 'amount',
+  Quantity = 'quantity'
+}
+
+
+export enum PrismaSortDirection {
+  Default = 'desc',
+  Desc = 'desc',
+  Asc = 'asc'
+}
+
+export enum DefaultPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
