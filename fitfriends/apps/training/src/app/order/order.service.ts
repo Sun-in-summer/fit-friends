@@ -1,5 +1,5 @@
 import { Order, Training } from '@fitfriends/shared-types';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderEntity } from './order.entity';
 import { OrderRepository } from './order.repository';
@@ -25,8 +25,13 @@ export class OrderService {
 
 
 
-   async getOrderById(id: number, ): Promise<Order> {
-    const order = this.orderRepository.findById(id);
+   async getOrderById(id: number, userId: string ): Promise<Order> {
+    const order = await this.orderRepository.findById(id);
+    if (order.userId !== userId) {
+      console.log("order.userId" , order.userId );
+      console.log("userId", userId);
+      throw new UnauthorizedException()
+  }
     return  order;
   }
 
@@ -38,9 +43,12 @@ export class OrderService {
   }
 
   async updateOrder(id: number, dto: CreateOrderDto, userId: string): Promise<Order> {
-    const existOrder = await this.getOrderById(id);
+    const existOrder = await this.getOrderById(id, userId);
+   console.log('existOrder');
 
     if (existOrder.userId !== userId) {
+      console.log(existOrder.userId);
+      console.log(userId);
       throw new ForbiddenException('Редактировать заказ может только автор заказа');
     }
 

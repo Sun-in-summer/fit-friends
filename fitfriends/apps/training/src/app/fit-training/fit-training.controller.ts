@@ -32,7 +32,6 @@ req: RequestWithTokenPayload<User>) {
     const trainingId = parseInt(id, 10);
     const existTraining = await this.fitTrainingService.getTrainingById(trainingId);
     const training=  fillObject(CreatedFitTrainingRdo, existTraining);
-   console.log(user);
     return training;
   }
 

@@ -16,6 +16,7 @@ export class OrderRepository implements CRUDRepository<OrderEntity, number, Orde
       return this.prisma.order.create({
         data: {
           ...entityData,
+          amount: entityData.price * entityData.quantity
         }
     });
   }
@@ -35,7 +36,7 @@ export class OrderRepository implements CRUDRepository<OrderEntity, number, Orde
       },
       include: {
         gym: true,
-        workout: true
+        training: true
 
       }
     });
@@ -58,7 +59,7 @@ export class OrderRepository implements CRUDRepository<OrderEntity, number, Orde
              },
        include: {
         gym: true,
-        workout: true
+        training: true
       },
       orderBy: {
         [sortBy]: sortDirection,
@@ -69,6 +70,7 @@ export class OrderRepository implements CRUDRepository<OrderEntity, number, Orde
   }
 
   public update(id: number, item: Partial<OrderEntity>): Promise<Order> {
+
     return this.prisma.order.update({
       where: { id },
       data: {
