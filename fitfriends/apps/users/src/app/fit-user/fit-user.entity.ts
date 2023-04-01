@@ -25,6 +25,7 @@ export class FitUserEntity implements ExtendedUser {
   public isReadyToTrainPersonally?: boolean;
   public credits?: string;
   public certificate?: string;
+  public myFriends?: string[];
 
 
 
@@ -68,5 +69,6 @@ export class FitUserEntity implements ExtendedUser {
     this.isReadyToTrainPersonally = fitUser.isReadyToTrainPersonally;
     this.certificate = fitUser.certificate;
     this.credits = fitUser.credits;
+    this.myFriends =[...fitUser.myFriends] ;
   }
 }

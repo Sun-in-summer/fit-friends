@@ -1,7 +1,7 @@
 import { CaloriesToDrop, CaloriesToSpendADay, CoachCreditsLength, TrainingTypesQty, UserNameLength } from '@fitfriends/shared-constants';
 import { Gender, UserRole, Place, TrainingType} from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsEmail, IsEnum, IsInt, IsISO8601, IsNotEmpty, IsString, Max, MaxLength, Min, MinLength, ValidateIf } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsEmail, IsEnum, IsInt, IsISO8601, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, MinLength, ValidateIf } from 'class-validator';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { AUTH_USER_DATE_BIRTH_NOT_VALID, AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
@@ -172,5 +172,14 @@ export class CreateUserNewDto  {
   @ValidateIf(o => o.role === UserRole.Coach)
   @IsBoolean()
   public isReadyToTrainPersonally?: boolean;
+
+
+  @ApiProperty({
+    description: 'Friends of the user',
+    example: ' ["64176d7eb195908961eedff8" ]'
+  })
+  @IsOptional()
+  @IsMongoId({each: true})
+  public myFriends?: string[];
 
 }

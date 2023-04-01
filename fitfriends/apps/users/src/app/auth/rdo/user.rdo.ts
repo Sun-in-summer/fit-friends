@@ -102,8 +102,11 @@ export class UserRdo {
   @Expose()
   caloriesToDrop?: number;
 
-    @Expose()
- createdAt?: Date;
+  @Expose()
+  createdAt?: Date;
+
+  @Expose()
+  myFriends?: string[];
 
 }
 

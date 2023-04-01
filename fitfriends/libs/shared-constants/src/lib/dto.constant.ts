@@ -36,6 +36,11 @@ export enum TrainingTitleLength {
   Max = 15
 }
 
+
+export enum GymNameLength {
+  Min = 1,
+  Max = 15
+}
 export enum TrainingPrice {
   Min = 0,
 }
@@ -43,6 +48,26 @@ export enum TrainingPrice {
 export enum TrainingDescriptionLength {
   Min  = 10,
   Max = 140
+}
+
+export enum GymDescriptionLength {
+  Min  = 1,
+  Max = 140
+}
+
+export enum GymLocation {
+  Pionerskaya = 'Пионерская',
+  Petrogradskaya = 'Петроградская',
+  Udelnaya = 'Удельная',
+  Zvezdnaya ='Звёздная',
+  Sportivnaya = 'Спортивная'
+}
+
+export enum GymFeature {
+  SwimmingPool = 'бассейн',
+  FreeParking = 'бесплатная парковка',
+  KidsRoom = 'детская комната',
+  Massage = 'массаж',
 }
 
 export const IMAGE_URL_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/ ;

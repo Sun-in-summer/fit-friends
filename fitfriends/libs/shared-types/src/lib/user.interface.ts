@@ -18,7 +18,7 @@ export interface BasicUser {
   role: UserRole;
   place: Place;
   createdAt?: Date;
-  myFriends?: User[];
+  myFriends?: string[];
   trainingLevel:TrainingLevel;
   trainingType: TrainingType[];
 }

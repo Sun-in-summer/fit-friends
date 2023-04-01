@@ -1,0 +1,44 @@
+###
+# Create a new gym
+POST http://localhost:3333/api/gyms HTTP/1.
+Content-Type: application/json
+
+{
+   "name": "Some name2",
+   "location": "Пионерская",
+   "isVerified": true,
+   "features": ["бассейн", "массаж"],
+   "photos": "q.png",
+   "description": "some description2",
+   "oneTrainingPrice": 500
+}
+
+###
+# Get the list of all gyms
+GET http://localhost:3333/api/gyms HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTMzNDg1LCJleHAiOjE2Nzk5MzQzODV9.h87Q5rZn6u7y9yJyl6GAONkZ_75i-5c8X-ajpHxKFUY
+
+
+
+
+### Update gym
+PATCH http://localhost:3333/api/gyms/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk5MzIwMzIsImV4cCI6MTY3OTkzMjkzMn0.dbjXqd8kFUgY3yDkVZhOyDuP-UNkfEfz6nIkpPwgIOA
+Content-Type: application/json
+
+{
+   "name": "Some name4",
+   "location": "Пионерская",
+   "isVerified": true,
+   "features": ["бассейн", "массаж"],
+   "photos": "q.png",
+   "description": "some description2",
+   "oneTrainingPrice": 1500
+}
+
+### Get detailed information about gym
+ 
+GET http://localhost:3333/api/gyms/2
+
+
+

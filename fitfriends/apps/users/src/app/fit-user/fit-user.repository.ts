@@ -1,6 +1,6 @@
 import {CRUDRepository} from '@fitfriends/core';
 import {FitUserEntity} from './fit-user.entity';
-import {CoachUser, TraineeUser, User} from '@fitfriends/shared-types';
+import {CoachUser, TraineeUser} from '@fitfriends/shared-types';
 import {InjectModel} from '@nestjs/mongoose';
 import { FitUserCoachModel } from './fit-user-coach.model';
 import {Model} from 'mongoose';
@@ -69,6 +69,12 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
     .skip( page > 0 ? ( ( page - 1 ) * limit ) : 0 )
       .limit( limit )
       return users;
+  }
+
+  public async getFriends(userId: string): Promise<FitUserNewModel[]>{
+    const user = await this.fitUserNewModel.findById({_id: userId});
+    const friendsIds = user.myFriends;
+    return this.fitUserNewModel.find({_id: {$in: friendsIds }});
   }
 
 }

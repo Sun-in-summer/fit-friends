@@ -22,6 +22,7 @@ export class FitUserCoachModel extends Document implements CoachUser{
   public createdAt: Date;
   public trainingLevel: TrainingLevel;
   public trainingType: TrainingType[];
+  public myFriends?: string[];
 
 
   @Prop({

@@ -25,6 +25,7 @@ export class FitUserTraineeModel extends Document implements TraineeUser{
   public role: UserRole;
   public trainingLevel: TrainingLevel;
   public trainingType: TrainingType[];
+  public myFriends?: string[];
 
 
   @Prop({

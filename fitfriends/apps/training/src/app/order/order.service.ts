@@ -1,4 +1,4 @@
-import { Order, Training } from '@fitfriends/shared-types';
+import { Order } from '@fitfriends/shared-types';
 import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderEntity } from './order.entity';

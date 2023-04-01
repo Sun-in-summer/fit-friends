@@ -7,10 +7,11 @@ import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
 import { JwtAuthGuard } from '../../../../training/src/app/guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload} from '@fitfriends/shared-types';
+import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload, TokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { UserQuery } from './query/user.query';
+import { HttpExceptionFilter } from './http.exception-filter';
 
 
 
@@ -97,4 +98,42 @@ export class AuthController {
     const users = await this.authService.getUsers(query);
     return fillObject(UserRdo, users);
   }
+
+   @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The list of  friends of authorized user'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('friends/:id')
+  @HttpCode(HttpStatus.OK)
+  async getFriendsList(
+    @Param('id') id: string,
+    @Req() req: RequestWithTokenPayload<TokenPayload>)
+   {
+    const userId = req.user.sub;
+    const users=  await this.authService.getFriends(userId);
+    return fillObject(UserRdo, users);
+  }
+
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The user added in friends'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('addfriend/:id')
+  @HttpCode(HttpStatus.OK)
+  async addFriend(
+    @Param('id') id: string,
+    @Req() req: RequestWithTokenPayload<TokenPayload>
+  ) {
+    const userId = req.user.sub;
+    const friendId = id;
+    return await this.authService.addFriend(userId, friendId);
+  }
+
+
 }
+
+
+

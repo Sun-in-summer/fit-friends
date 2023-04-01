@@ -3,17 +3,17 @@ POST http://localhost:3332/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "3449@notfound.local",
+  "email": "3451@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
   "avatar": "1.jpg",
-  "gender": "мужско",
+  "gender": "мужской",
   "role": "тренер",
   "place": "Удельная",
   "trainingLevel": "новичок",
   "trainingType": ["бокс"],
-  "certificate": "images/1.pd",
+  "certificate": "images/1.pdf",
   "credits": "some credits",
   "isReadyToTrainPersonally": false
 }
@@ -26,7 +26,7 @@ POST http://localhost:3332/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user76@notfound.local",
+  "email": "user79@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
@@ -55,7 +55,7 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user9@notfound.local",
+  "email": "user76@notfound.local",
   "password": "123456"
 }
 
@@ -123,3 +123,14 @@ Content-Type: application/json
 
 GET http://localhost:3332/api/auth?trainingType=бокс&page=3&sortDirection=1 HTTP/1.1
 Content-Type: application/json
+
+
+### Add friend
+GET http://localhost:3332/api/auth/addfriend/64288418090540b430310707 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwMzc2MTQ2LCJleHAiOjE2ODAzNzcwNDZ9.Fj0CEyA2DvA3O7mmwDI6RVtOA_UmjmnvNUOddHJXo9c
+#
+
+### Get list of friends with details
+GET http://localhost:3332/api/auth/friends/64288130ab218eeca1ff7acd HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwMzgzNTYzLCJleHAiOjE2ODAzODQ0NjN9.VAzKXF4KZqLMB55DdhjCgB8oEryumwC2H-AEfQr5ZRk
+

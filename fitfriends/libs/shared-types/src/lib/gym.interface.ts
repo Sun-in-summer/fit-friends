@@ -1,13 +1,12 @@
-import { GymFeatureType } from './gym.types/gym-feature.enum';
 
 export interface Gym {
   id?: number;
   name: string;
-  location: Location;
+  location: string;
   isVerified?: boolean;
-  features: GymFeatureType[];
+  features: string[];
   photos: string[];
   description: string;
   oneTrainingPrice: number;
-  createdAt: Date;
+  createdAt?: Date;
 }

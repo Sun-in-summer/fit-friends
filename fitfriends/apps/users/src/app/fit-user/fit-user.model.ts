@@ -1,23 +1,8 @@
 import { Document } from 'mongoose';
-import { BasicUser,  Gender, Place,    TrainingType,    User,    UserRole } from '@fitfriends/shared-types';
+import { BasicUser,  Gender, Place, TrainingType,  UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
 
-
-
-
-// class TraineeOrCoachUser   {
-//   trainingLevel: TrainingLevel;
-//   trainingType: TrainingType[];
-//   trainingTime?: TrainingTime;
-//   caloriesToDrop?: number;
-//   caloriesToSpendPerDay?: number;
-//   isReadyForTraining?: boolean;
-//   role: UserRole;
-//   certificate?: string;
-//   credits?: string;
-//   isReadyToTrainPersonally?: boolean;
-// }
 
 
 @Schema({
@@ -57,15 +42,6 @@ export class FitUserModel extends Document implements BasicUser{
   })
   public role: UserRole;
 
-  // @Prop({
-  //   type: String,
-  //   required: true,
-  //   enum: [FitUserCoachModel.name, FitUserTraineeModel.name ],
-  // })
-  // kind: string;
-
-
-
   @Prop({
     required: true,
     type: String,
@@ -88,7 +64,7 @@ export class FitUserModel extends Document implements BasicUser{
   @Prop({
     type: Array,
   })
-  myFriends?: User[];
+  myFriends?: string[];
 
   @Prop({
     required: true,

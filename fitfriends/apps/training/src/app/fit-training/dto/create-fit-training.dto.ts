@@ -136,20 +136,6 @@ export class CreateFitTrainingDto implements CreateTraining {
   isSpecialOffer: boolean;
 
 
-  // @ApiProperty({
-  //   description: 'Reviews for this training',
-  //   example: true
-  // })
-  // @IsOptional()
-  // reviews: Review[];
-
-  // @ApiProperty({
-  //   description: 'Orders for this training',
-  //   example: true
-  // })
-  // @IsOptional()
-  // orders: Order[];
-
   @ApiProperty({
     description: 'The date of creation of this training',
     example: true

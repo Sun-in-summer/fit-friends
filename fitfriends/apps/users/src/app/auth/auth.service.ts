@@ -1,5 +1,5 @@
 import { RefreshTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { randomUUID } from 'crypto';
@@ -35,6 +35,7 @@ export class AuthService {
       dateBirth: dayjs(dateBirth).toDate(),
       password: '',
       passwordHash: '',
+      myFriends: []
     };
 
 
@@ -116,17 +117,6 @@ export class AuthService {
      const updatedUserEntity = new FitUserEntity({...existUser, ...dto});
      const updatedUser =  await this.fitUserRepository.update(id, updatedUserEntity);
 
-     // this.rabbitClient.emit(
-    //     createEvent(CommandEvent.DeleteSubscriber),////
-    //     {
-    //       id: updatedUserEntity._id,
-    //       firstname: updatedUserEntity.firstname,
-    //       lastname: updatedUserEntity.lastname,
-    //       email: updatedUserEntity.email,
-    //       isSubscribed: updatedUserEntity.isSubscribed,
-    //     }
-    //   )
-
     return updatedUser;
   }
 
@@ -134,6 +124,28 @@ export class AuthService {
     return await this.fitUserRepository.find(query);
   }
 
+
+   public async addFriend(userId: string, friendId: string) {
+    const userData = await this.fitUserRepository.findById(userId);
+    if (!friendId) {
+      throw new NotFoundException('No user with such id');
+    }
+    const userFriends = [...userData.myFriends];
+    const friendInMyFriends = userFriends.some((id) => id === friendId);
+    if (friendInMyFriends) {
+      throw new BadRequestException('The user already is in friends');
+    }
+    userFriends.push(friendId);
+    const updatedUserEntity = new FitUserEntity({...userData, myFriends: userFriends });
+    return  await this.fitUserRepository.update(userId, updatedUserEntity );
+  }
+
+
+  public async getFriends(userId: string) {
+
+    return  await this.fitUserRepository.getFriends(userId);
+
+  }
 }
 
 
