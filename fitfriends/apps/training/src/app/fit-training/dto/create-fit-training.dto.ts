@@ -100,7 +100,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsNotEmpty()
   @IsEnum(TrainingForGender)
-  trainingForGender: TrainingForGender;
+  trainingForGender: string;
 
   @ApiProperty({
     description: 'Video of this training',

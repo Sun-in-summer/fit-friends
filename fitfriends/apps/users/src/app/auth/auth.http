@@ -3,7 +3,7 @@ POST http://localhost:3332/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "3451@notfound.local",
+  "email": "3452@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
@@ -55,7 +55,7 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user76@notfound.local",
+  "email": "3450@notfound.local",
   "password": "123456"
 }
 
@@ -127,10 +127,25 @@ Content-Type: application/json
 
 ### Add friend
 GET http://localhost:3332/api/auth/addfriend/64288418090540b430310707 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwMzc2MTQ2LCJleHAiOjE2ODAzNzcwNDZ9.Fj0CEyA2DvA3O7mmwDI6RVtOA_UmjmnvNUOddHJXo9c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwNDQzNzg0LCJleHAiOjE2ODA0NDQ2ODR9.SLl_N5FlNwzocoHkawMZVai92MA97uG1IcvhzANXNH8
 #
 
 ### Get list of friends with details
 GET http://localhost:3332/api/auth/friends/64288130ab218eeca1ff7acd HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwMzgzNTYzLCJleHAiOjE2ODAzODQ0NjN9.VAzKXF4KZqLMB55DdhjCgB8oEryumwC2H-AEfQr5ZRk
 
+
+###  Upload  user's avatar
+POST http://localhost:3332/api/auth/avatar/6428812aab218eeca1ff7ac9 HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEyYWFiMjE4ZWVjYTFmZjdhYzkiLCJlbWFpbCI6IjM0NTBAbm90Zm91bmQubG9jYWwiLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiZmlyc3RuYW1lIjoiS2VrcyIsImlhdCI6MTY4MDQ1ODczOSwiZXhwIjoxNjgwNDU5NjM5fQ.UW_pnPPSMstl0Ky56fr5ZhV14pUYJgObHN4Wlcl9Vj4
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="avatar"; filename="avatar2.jpg"
+Content-Type: image/png
+
+< /Users/user/Pictures/avatar2.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+###

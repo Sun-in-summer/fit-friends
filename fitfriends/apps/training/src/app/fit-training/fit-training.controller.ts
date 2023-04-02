@@ -1,18 +1,19 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req,  Query, Patch, UseInterceptors,  } from '@nestjs/common';
+import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req,  Query, Patch, UseInterceptors, ParseFilePipeBuilder,  } from '@nestjs/common';
 import { FitTrainingService } from './fit-training.service';
 import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
-import { fillObject } from '@fitfriends/core';
+import { fillObject, getFileInterceptorOptions } from '@fitfriends/core';
 import { CreatedFitTrainingRdo } from './rdo/created-fit-training.rdo';
 import { RolesGuard } from '../guards/roles.guard';
 import { RequestWithTokenPayload, TokenPayload, User, UserRole } from '@fitfriends/shared-types';
 import { Role } from './decorators/role.decorator';
-import { ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { TrainingQuery } from './query/training.query';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { Multer } from 'multer';
-import { UploadedFiles } from '@nestjs/common/decorators';
+import { UploadedFile, UploadedFiles } from '@nestjs/common/decorators';
+import { JPG_PNG_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
 
 
 
@@ -89,4 +90,34 @@ req: RequestWithTokenPayload<TokenPayload>) {
     const updatedTraining = await this.fitTrainingService.updateTraining(trainingId, dto, userId)
     return fillObject(CreatedFitTrainingRdo, updatedTraining);
   }
+
+ @ApiResponse({
+    type: CreatedFitTrainingRdo,
+    status: HttpStatus.OK,
+    description: 'Uploading route for backgroundImage'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post('background_image/:id')
+  @UseInterceptors(FileInterceptor('backgroundImage', getFileInterceptorOptions()))
+  public async uploadFile(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: JPG_PNG_REG_EXP,
+        })
+        .addMaxSizeValidator({
+          maxSize: JPG_PNG_MAX_SIZE
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+        })
+    ) file: Express.Multer.File,
+    @Req() req: RequestWithTokenPayload<TokenPayload>,
+    @Param('id') id: string,
+  ) {
+    const trainingId = parseInt(id, 10);
+    const updatedTraining = this.fitTrainingService.setBackgroundImage(trainingId, `${file.filename}`, req.user.sub);
+    return fillObject(CreatedFitTrainingRdo, updatedTraining);
+  }
+
 }

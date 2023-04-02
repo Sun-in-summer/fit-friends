@@ -13,18 +13,13 @@ import { UserQuery } from '../auth/query/user.query';
 export class FitUserRepository implements CRUDRepository<FitUserEntity, string, TraineeUser |CoachUser> {
   constructor(
     @InjectModel(FitUserNewModel.name) private readonly fitUserNewModel: Model<FitUserNewModel>,
-    // @InjectModel(UserRole.Coach) private readonly fitUserCoachModel: Model<FitUserCoachModel>,
-    // @InjectModel(UserRole.Trainee) private readonly fitUserTraineeModel: Model<FitUserTraineeModel>,
+
     )
      {}
 
   public async create(item: FitUserEntity): Promise<FitUserNewModel> {
 
 
-    // if (item.role === UserRole.Coach) {
-    //   const newFitUser = new this.fitUserCoachModel(item);
-    //   return newFitUser.save()
-    // }
     const newFitUser = new this.fitUserNewModel(item);
     return newFitUser.save()
   }

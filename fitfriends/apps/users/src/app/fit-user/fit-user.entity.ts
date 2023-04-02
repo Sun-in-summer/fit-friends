@@ -69,6 +69,6 @@ export class FitUserEntity implements ExtendedUser {
     this.isReadyToTrainPersonally = fitUser.isReadyToTrainPersonally;
     this.certificate = fitUser.certificate;
     this.credits = fitUser.credits;
-    this.myFriends =[...fitUser.myFriends] ;
+    this.myFriends =fitUser.myFriends ;
   }
 }

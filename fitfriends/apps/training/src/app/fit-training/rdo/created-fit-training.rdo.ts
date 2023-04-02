@@ -117,7 +117,7 @@ export class CreatedFitTrainingRdo  implements Training {
     required: true
   })
   @IsEnum(TrainingForGender)
-  trainingForGender: TrainingForGender;
+  trainingForGender: string;
 
   @Expose()
   @ApiProperty({

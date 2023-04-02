@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Patch, Post, Query, Req, UseFilters, UseGuards, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, Req, UploadedFile, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -12,6 +12,10 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { UserQuery } from './query/user.query';
 import { HttpExceptionFilter } from './http.exception-filter';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ConfigService } from '@nestjs/config';
+import {  JPG_PNG_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
+import { getFileInterceptorOptions } from '@fitfriends/core';
 
 
 
@@ -21,7 +25,8 @@ import { HttpExceptionFilter } from './http.exception-filter';
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService
   ) {}
 
   @Post('register')
@@ -130,6 +135,34 @@ export class AuthController {
     const userId = req.user.sub;
     const friendId = id;
     return await this.authService.addFriend(userId, friendId);
+  }
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'Uploading route for avatar'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post('avatar/:id')
+  @UseInterceptors(FileInterceptor('avatar', getFileInterceptorOptions()))
+  public async uploadFile(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: JPG_PNG_REG_EXP,
+        })
+        .addMaxSizeValidator({
+          maxSize: JPG_PNG_MAX_SIZE
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+        })
+    ) file: Express.Multer.File,
+    @Req() req: RequestWithTokenPayload<TokenPayload>
+  ) {
+
+    const user = this.authService.setAvatarPath(req.user.sub, `${file.filename}`);
+    return fillObject(UserRdo, user);
   }
 
 

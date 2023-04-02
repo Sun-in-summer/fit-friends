@@ -13,6 +13,8 @@ import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
 import {UserQuery} from './query/user.query';
+import * as fs from 'fs';
+import { DEFAULT_AVATAR_FILE_NAME } from '@fitfriends/shared-constants';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +37,8 @@ export class AuthService {
       dateBirth: dayjs(dateBirth).toDate(),
       password: '',
       passwordHash: '',
-      myFriends: []
+      myFriends: [],
+      avatar: DEFAULT_AVATAR_FILE_NAME
     };
 
 
@@ -106,7 +109,7 @@ export class AuthService {
     };
   }
 
-  async updateUser(id: string, dto:CreateUserNewDto) {
+  async updateUser(id: string, dto:CreateUserNewDto | Omit<CreateUserNewDto, 'password'> ) {
 
     const existUser = await this.fitUserRepository.findById(id);
 
@@ -142,9 +145,25 @@ export class AuthService {
 
 
   public async getFriends(userId: string) {
-
     return  await this.fitUserRepository.getFriends(userId);
+  }
 
+
+  public async setAvatarPath(userId: string, avatar: string) {
+    const existUser = await this.fitUserRepository.findById(userId);
+    const prevAvatar = existUser.avatar;
+
+    if (fs.existsSync(prevAvatar)) {
+      fs.unlink(prevAvatar, (err) => {
+        if (err) {
+         console.error(err);
+         return err;
+        }
+      });
+    }
+
+    const updatedUserEntity = new FitUserEntity({...existUser, avatar});
+    return this.updateUser(userId, updatedUserEntity);
   }
 }
 

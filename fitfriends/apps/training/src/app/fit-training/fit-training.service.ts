@@ -6,6 +6,7 @@ import { FitTrainingRepository } from './fit-training.repository';
 import { TrainingQuery } from './query/training.query';
 import { Express } from 'express';
 import { Multer } from 'multer';
+import * as fs from 'fs';
 
 @Injectable()
 export class FitTrainingService {
@@ -47,4 +48,25 @@ export class FitTrainingService {
 
     return this.fitTrainingRepository.update(id, new FitTrainingEntity(dto));
   }
+
+    public async setBackgroundImage(trainingId: number, backgroundImage: string, userId: string) {
+    const existTraining = await this.fitTrainingRepository.findById(trainingId);
+    const prevBackgroundImage = existTraining.backgroundImage;
+
+    if (fs.existsSync(prevBackgroundImage)) {
+      fs.unlink(prevBackgroundImage, (err) => {
+        if (err) {
+         console.error(err);
+         return err;
+        }
+      });
+    }
+
+    const updatedTrainingEntity = new FitTrainingEntity({...existTraining, backgroundImage});
+    return this.updateTraining(trainingId, updatedTrainingEntity, userId );
+  }
+
+
+
+
 }

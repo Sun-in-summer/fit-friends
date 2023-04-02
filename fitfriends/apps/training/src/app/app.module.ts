@@ -5,12 +5,11 @@ import { GymModule } from './gym/gym.module';
 import { ReviewModule } from './review/review.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
-
-
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({
@@ -26,6 +25,13 @@ import { RoleStrategy } from './strategies/role.strategy';
         envFilePath: ENV_FILE_PATH,
         load: [jwtOptions],
       }),
+      MulterModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        dest: configService.get<string>('multer.uploadDirectory')
+      }),
+      inject: [ConfigService]
+    }),
   ],
   controllers: [],
   providers: [

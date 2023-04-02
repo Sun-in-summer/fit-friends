@@ -1,14 +1,14 @@
 ###
 # Create a new order
 POST http://localhost:3333/api/orders HTTP/1.
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODAyODk3ODAsImV4cCI6MTY4MDI5MDY4MH0.CHERAh_oQlLJ_3M_t3tRUU7lvCwq21uD_KFbgwXazIQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEyYWFiMjE4ZWVjYTFmZjdhYzkiLCJlbWFpbCI6IjM0NTBAbm90Zm91bmQubG9jYWwiLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiZmlyc3RuYW1lIjoiS2VrcyIsImlhdCI6MTY4MDQ1Nzg4MiwiZXhwIjoxNjgwNDU4NzgyfQ.T90-uh6oqpK6ptU40zMW0NWlYM7VcNEbDJYsyGTzsaQ
 Content-Type: application/json
 
 {
    "orderType": "абонемент",
    "userId": "6416c5ebf7bfa48f67aac14f",
    "trainingId": 1,
-   "gymId": 1,
+   "gymId": 2,
    "price": 100,
    "quantity": 5,
    "paymentWay": "mir"
