@@ -37,8 +37,32 @@ Content-Type: application/json
 }
 
 ### Get detailed information about gym
- 
+
 GET http://localhost:3333/api/gyms/2
+
+
+
+### Upload photos for gym
+
+POST http://localhost:3333/api/gyms/photos/4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzVlYmY3YmZhNDhmNjdhYWMxNGYiLCJlbWFpbCI6InVzZXI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2Nzk5MzIwMzIsImV4cCI6MTY3OTkzMjkzMn0.dbjXqd8kFUgY3yDkVZhOyDuP-UNkfEfz6nIkpPwgIOA
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+Content-Disposition: form-data; name="image1"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< /Users/user/Pictures/1.jpg
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+Content-Disposition: form-data; name="image2"; filename="2.jpg"
+Content-Type: image/jpeg
+
+< /Users/user/Pictures/2.jpg
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
 

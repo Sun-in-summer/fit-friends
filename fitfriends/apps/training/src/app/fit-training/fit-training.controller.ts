@@ -12,8 +12,8 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { Multer } from 'multer';
-import { UploadedFile, UploadedFiles } from '@nestjs/common/decorators';
-import { JPG_PNG_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
+import { UploadedFile } from '@nestjs/common/decorators';
+import { FILE_MAX_SIZE, JPG_PNG_REG_EXP, VIDEO_REG_EXP } from '@fitfriends/shared-constants';
 
 
 
@@ -99,14 +99,14 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @UseGuards(JwtAuthGuard)
   @Post('background_image/:id')
   @UseInterceptors(FileInterceptor('backgroundImage', getFileInterceptorOptions()))
-  public async uploadFile(
+  public async uploadImageFile(
     @UploadedFile(
       new ParseFilePipeBuilder()
         .addFileTypeValidator({
           fileType: JPG_PNG_REG_EXP,
         })
         .addMaxSizeValidator({
-          maxSize: JPG_PNG_MAX_SIZE
+          maxSize: FILE_MAX_SIZE
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
@@ -115,8 +115,40 @@ req: RequestWithTokenPayload<TokenPayload>) {
     @Req() req: RequestWithTokenPayload<TokenPayload>,
     @Param('id') id: string,
   ) {
+    const field = "backgroundImage";
     const trainingId = parseInt(id, 10);
-    const updatedTraining = this.fitTrainingService.setBackgroundImage(trainingId, `${file.filename}`, req.user.sub);
+    const updatedTraining = this.fitTrainingService.setFile(trainingId, field, `${file.filename}`, req.user.sub);
+    return fillObject(CreatedFitTrainingRdo, updatedTraining);
+  }
+
+
+  @ApiResponse({
+    type: CreatedFitTrainingRdo,
+    status: HttpStatus.OK,
+    description: 'Uploading route for video of training'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Post('video/:id')
+  @UseInterceptors(FileInterceptor('video', getFileInterceptorOptions()))
+  public async uploadVideoFile(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: VIDEO_REG_EXP,
+        })
+        .addMaxSizeValidator({
+          maxSize: FILE_MAX_SIZE
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+        })
+    ) file: Express.Multer.File,
+    @Req() req: RequestWithTokenPayload<TokenPayload>,
+    @Param('id') id: string,
+  ) {
+    const field = 'video'
+    const trainingId = parseInt(id, 10);
+    const updatedTraining = this.fitTrainingService.setFile(trainingId, field, `${file.filename}`, req.user.sub);
     return fillObject(CreatedFitTrainingRdo, updatedTraining);
   }
 

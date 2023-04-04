@@ -12,6 +12,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 
+
 @Module({
   imports: [
     FitUserModule,

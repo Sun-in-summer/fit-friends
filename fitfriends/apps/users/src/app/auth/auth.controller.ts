@@ -1,6 +1,6 @@
 import { fillObject } from '@fitfriends/core';
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, Req, UploadedFile, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
-import { ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
@@ -14,10 +14,8 @@ import { UserQuery } from './query/user.query';
 import { HttpExceptionFilter } from './http.exception-filter';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
-import {  JPG_PNG_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
+import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared-constants';
 import { getFileInterceptorOptions } from '@fitfriends/core';
-
-
 
 
 // @UseFilters(HttpExceptionFilter)
@@ -152,7 +150,7 @@ export class AuthController {
           fileType: JPG_PNG_REG_EXP,
         })
         .addMaxSizeValidator({
-          maxSize: JPG_PNG_MAX_SIZE
+          maxSize: FILE_MAX_SIZE
         })
         .build({
           errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
@@ -163,6 +161,38 @@ export class AuthController {
 
     const user = this.authService.setAvatarPath(req.user.sub, `${file.filename}`);
     return fillObject(UserRdo, user);
+  }
+
+
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.OK,
+    description: 'Uploading route for certificate  of coach'
+  })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiConsumes('multipart/form-data')
+  @Post('certificate/:id')
+  @UseInterceptors(FileInterceptor('certificate', getFileInterceptorOptions()))
+  public async uploadVideoFile(
+    @UploadedFile(
+      new ParseFilePipeBuilder()
+        .addFileTypeValidator({
+          fileType: PDF_REG_EXP,
+        })
+        .addMaxSizeValidator({
+          maxSize: FILE_MAX_SIZE
+        })
+        .build({
+          errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY
+        })
+    ) file: Express.Multer.File,
+    @Req() req: RequestWithTokenPayload<TokenPayload>,
+    @Param('id') userId: string,
+  ) {
+    const field = 'certificate'
+    const updatedUser = this.authService.setFile(userId, field, `${file.filename}`);
+    return fillObject(UserRdo, updatedUser);
   }
 
 

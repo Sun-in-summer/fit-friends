@@ -8,8 +8,6 @@ import { validateEnvironments } from './env.validation';
 import { MongooseModule } from '@nestjs/mongoose/dist';
 import { getMongoDbConfig } from '../config/mongodb.config';
 import {jwtOptions} from '../config/jwt.config';
-import { AuthService } from './auth/auth.service';
-
 
 @Module({
   imports: [
@@ -24,6 +22,8 @@ import { AuthService } from './auth/auth.service';
     FitUserModule,
     AuthModule],
   controllers: [],
-  providers: [],
+  providers: [
+
+  ],
 })
 export class AppModule {}

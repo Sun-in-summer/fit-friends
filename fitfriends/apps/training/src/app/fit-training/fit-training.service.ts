@@ -49,12 +49,12 @@ export class FitTrainingService {
     return this.fitTrainingRepository.update(id, new FitTrainingEntity(dto));
   }
 
-    public async setBackgroundImage(trainingId: number, backgroundImage: string, userId: string) {
+    public async setFile(trainingId: number, field: string, file: string, userId: string) {
     const existTraining = await this.fitTrainingRepository.findById(trainingId);
-    const prevBackgroundImage = existTraining.backgroundImage;
+    const prevFile = existTraining[field];
 
-    if (fs.existsSync(prevBackgroundImage)) {
-      fs.unlink(prevBackgroundImage, (err) => {
+    if (fs.existsSync(prevFile)) {
+      fs.unlink(prevFile, (err) => {
         if (err) {
          console.error(err);
          return err;
@@ -62,11 +62,8 @@ export class FitTrainingService {
       });
     }
 
-    const updatedTrainingEntity = new FitTrainingEntity({...existTraining, backgroundImage});
+    const updatedTrainingEntity = new FitTrainingEntity({...existTraining, [field]: file});
     return this.updateTraining(trainingId, updatedTrainingEntity, userId );
   }
-
-
-
 
 }

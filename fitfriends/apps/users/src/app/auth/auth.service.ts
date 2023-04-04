@@ -165,6 +165,25 @@ export class AuthService {
     const updatedUserEntity = new FitUserEntity({...existUser, avatar});
     return this.updateUser(userId, updatedUserEntity);
   }
+
+
+  public async setFile(userId: string, field: string, file: string, ) {
+    const existUser = await this.fitUserRepository.findById(userId);
+    const prevFile = existUser[field];
+
+    if (fs.existsSync(prevFile)) {
+      fs.unlink(prevFile, (err) => {
+        if (err) {
+         console.error(err);
+         return err;
+        }
+      });
+    }
+
+    const updatedUserEntity = new FitUserEntity({...existUser, [field]: file});
+    return this.updateUser(userId, updatedUserEntity );
+  }
+
 }
 
 
