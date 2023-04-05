@@ -3,8 +3,7 @@ import { GymRepository } from './gym.repository';
 import { Gym } from '@fitfriends/shared-types';
 import { GymEntity } from './gym.entity';
 import { CreateGymDto } from './dto/create-gym.dto';
-import fs, { readdir } from 'fs';
-import path from 'path';
+import fs from 'fs';
 
 
 @Injectable()

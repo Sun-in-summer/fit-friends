@@ -5,9 +5,9 @@ import { fillObject, getFileInterceptorOptions } from '@fitfriends/core';
 import { CreateGymDto } from './dto/create-gym.dto';
 import { ApiResponse } from '@nestjs/swagger';
 import { RequestWithTokenPayload, TokenPayload } from '@fitfriends/shared-types';
-import { FILE_MAX_SIZE, GYM_PHOTOS_MAX_QTY, GYM_PHOTOS_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
+import {  GYM_PHOTOS_MAX_QTY, GYM_PHOTOS_MAX_SIZE, JPG_PNG_REG_EXP } from '@fitfriends/shared-constants';
 import { UploadedFiles } from '@nestjs/common/decorators';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 
 
 @Controller('gyms')
