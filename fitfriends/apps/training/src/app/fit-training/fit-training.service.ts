@@ -4,8 +4,6 @@ import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
 import { FitTrainingEntity } from './fit-training.entity';
 import { FitTrainingRepository } from './fit-training.repository';
 import { TrainingQuery } from './query/training.query';
-import { Express } from 'express';
-import { Multer } from 'multer';
 import * as fs from 'fs';
 
 @Injectable()

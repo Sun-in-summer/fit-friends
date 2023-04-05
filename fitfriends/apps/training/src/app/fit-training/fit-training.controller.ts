@@ -11,11 +11,8 @@ import { TrainingQuery } from './query/training.query';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { Multer } from 'multer';
 import { UploadedFile } from '@nestjs/common/decorators';
 import { FILE_MAX_SIZE, JPG_PNG_REG_EXP, VIDEO_REG_EXP } from '@fitfriends/shared-constants';
-
-
 
 
 @Controller('trainings')
@@ -28,8 +25,7 @@ export class FitTrainingController {
   @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async show(@Param('id') id: string, @Req()
-req: RequestWithTokenPayload<User>) {
-    const user = req.user;
+_req: RequestWithTokenPayload<User>) {
     const trainingId = parseInt(id, 10);
     const existTraining = await this.fitTrainingService.getTrainingById(trainingId);
     const training=  fillObject(CreatedFitTrainingRdo, existTraining);
@@ -61,12 +57,8 @@ req: RequestWithTokenPayload<TokenPayload>) {
   async create(
     @Body(new ValidationPipe()) dto: CreateFitTrainingDto,
     @Req() req: RequestWithTokenPayload<TokenPayload>,
-    // @UploadedFiles() files: { video?: Express.Multer.File[], backgroundImage?: Express.Multer.File[]}
   ) {
     const userId = req.user.sub;
-    // const {video, backgroundImage} = files;
-    // const videoFile = video[0].buffer.toString();
-    // const backgroundImageFile = backgroundImage[0].buffer.toString();
     const newTraining = await this.fitTrainingService.createTraining(dto, userId);
     return fillObject(CreatedFitTrainingRdo, newTraining);
 

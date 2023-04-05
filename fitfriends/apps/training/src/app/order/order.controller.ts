@@ -1,7 +1,7 @@
 import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req,  Query, Patch  } from '@nestjs/common';
 import { fillObject } from '@fitfriends/core';
 import { RolesGuard } from '../guards/roles.guard';
-import { RequestWithTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
+import { RequestWithTokenPayload, TokenPayload } from '@fitfriends/shared-types';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { OrderService } from './order.service';

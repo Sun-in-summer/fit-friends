@@ -1,5 +1,5 @@
 import { CRUDRepository } from '@fitfriends/core';
-import { Order, Training, User } from '@fitfriends/shared-types';
+import { Order} from '@fitfriends/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { OrderEntity } from './order.entity';
