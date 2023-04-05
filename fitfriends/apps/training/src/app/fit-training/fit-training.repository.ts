@@ -1,6 +1,6 @@
 import { CRUDRepository } from '@fitfriends/core';
 import { FitTrainingEntity } from './fit-training.entity'
-import { Training, User } from '@fitfriends/shared-types';
+import { Training } from '@fitfriends/shared-types';
 import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 import { TrainingQuery } from './query/training.query';
@@ -51,8 +51,6 @@ export class FitTrainingRepository implements CRUDRepository<FitTrainingEntity, 
       page,
       sortDirection,
       sortBy,
-      trainingType,
-
 
     } = query;
 
