@@ -12,7 +12,7 @@ datasource db {
 }
 
 model Training {
-  id                Int      @id @default(autoincrement())
+  id                Int             @id @default(autoincrement())
   title             String
   backgroundImage   String
   trainingLevel     String
@@ -27,8 +27,10 @@ model Training {
   coachId           String
   isSpecialOffer    Boolean
   reviews           Review[]
-  createdAt         DateTime @default(now())
+  createdAt         DateTime        @default(now())
   orders            Order[]
+  TrainingDiary     TrainingDiary[]
+  UserBalance       UserBalance[]
 
   @@map("trainings")
 }
@@ -95,4 +97,54 @@ model Notification {
   createdAt DateTime @default(now())
 
   @@map("notificatons")
+}
+
+model FoodDiary {
+  id          Int      @id @default(autoincrement())
+  caloriesQty Int
+  date        DateTime
+  meal        String
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@map("food_diary")
+}
+
+model TrainingDiary {
+  id            Int       @id @default(autoincrement())
+  userId        String
+  trainingId    Int?
+  training      Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
+  spentCalories Int       @default(0)
+  spentTime     String
+  date          DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+
+  @@map("training_diary")
+}
+
+model UserBalance {
+  id                    Int           @id @default(autoincrement())
+  userId                String
+  training              Training?     @relation(fields: [trainingId], references: [id], onDelete: NoAction)
+  trainingId            Int?
+  trainingAvaliable     Int           @default(0)
+  trainingSpent         Int           @default(0)
+  subscription          Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId        Int?
+  subscriptionAvaliable Int           @default(0)
+  subscriptionSpent     Int           @default(0)
+  updatedAt             DateTime      @default(now())
+
+  @@map("user_balance")
+}
+
+model Subscription {
+  id                   Int           @id @default(autoincrement())
+  trainingId           Int
+  trainingsQtyIncluded Int
+  UserBalance          UserBalance[]
+
+  @@map("subscription")
 }

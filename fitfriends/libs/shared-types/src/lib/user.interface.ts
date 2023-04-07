@@ -21,6 +21,8 @@ export interface BasicUser {
   myFriends?: string[];
   trainingLevel:TrainingLevel;
   trainingType: TrainingType[];
+  favoriteGyms: number[];
+  balanceId: number;
 }
 
 

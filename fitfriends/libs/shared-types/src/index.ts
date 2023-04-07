@@ -18,6 +18,10 @@ export * from './lib/review.interface';
 export * from './lib/jwt-payload.interface';
 export * from './lib/order.types/order-type.enum'
 export * from './lib/order.types/payment-method.enum'
-
+export * from './lib/meal.enum';
+export * from './lib/training-diary.interface';
+export * from './lib/food-diary.interface';
+export * from './lib/user-balance.interface';
+export * from './lib/subscription.interface';
 
 
