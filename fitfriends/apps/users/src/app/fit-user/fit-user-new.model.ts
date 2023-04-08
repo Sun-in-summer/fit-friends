@@ -123,10 +123,12 @@ export class FitUserNewModel extends Document implements ExtendedUser{
   })
   public isReadyForTraining?: boolean;
 
+  @Prop({
 
+    type: Array,
 
-
-
+  })
+  public favoriteGyms?: number[];
 
 }
 

@@ -108,6 +108,9 @@ export class UserRdo {
   @Expose()
   myFriends?: string[];
 
+  @Expose()
+  favoriteGyms?: number[];
+
 }
 
 

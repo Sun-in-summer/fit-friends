@@ -26,6 +26,7 @@ export class FitUserTraineeModel extends Document implements TraineeUser{
   public trainingLevel: TrainingLevel;
   public trainingType: TrainingType[];
   public myFriends?: string[];
+  public favoriteGyms?: number[];
 
 
   @Prop({

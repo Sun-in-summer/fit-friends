@@ -38,6 +38,7 @@ export class AuthService {
       password: '',
       passwordHash: '',
       myFriends: [],
+      favoriteGyms: [],
       avatar: DEFAULT_AVATAR_FILE_NAME
     };
 
@@ -183,6 +184,43 @@ export class AuthService {
     const updatedUserEntity = new FitUserEntity({...existUser, [field]: file});
     return this.updateUser(userId, updatedUserEntity );
   }
+
+
+  async toggleFavoriteGym(gymId: number, id: string) {
+
+    const existUser = await this.fitUserRepository.findById(id);
+
+    if (!existUser) {
+      throw new UserExistsException("user not found");
+    }
+
+    const userFavoriteGyms = [...existUser.favoriteGyms];
+    const isGymInFavoriteGyms = userFavoriteGyms.some((id) => id === gymId);
+    let filteredFavoriteGyms =[];
+    if (isGymInFavoriteGyms) {
+        filteredFavoriteGyms = userFavoriteGyms.filter((id) =>
+        id !== gymId);
+     }
+    else {
+
+       userFavoriteGyms.push(gymId);
+       filteredFavoriteGyms = [...userFavoriteGyms];
+    }
+
+    const updatedUserEntity = new FitUserEntity({...existUser, favoriteGyms: filteredFavoriteGyms });
+    return  await this.fitUserRepository.update(id, updatedUserEntity );
+  }
+
+
+  async getFavoriteGymList (userId: string){
+      const existUser = await this.fitUserRepository.findById(userId);
+      if (!existUser) {
+      throw new UserExistsException(userId);
+      }
+      const usersGyms = existUser.favoriteGyms;
+      return usersGyms;
+  }
+
 
 }
 

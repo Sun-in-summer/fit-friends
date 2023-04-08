@@ -16,6 +16,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared-constants';
 import { getFileInterceptorOptions } from '@fitfriends/core';
+import { TraineeRoleGuard } from './guards/trainee-role.guard';
+import { UserGymsRdo } from './rdo/user-gyms.rdo';
 
 
 // @UseFilters(HttpExceptionFilter)
@@ -193,6 +195,35 @@ export class AuthController {
     const field = 'certificate'
     const updatedUser = this.authService.setFile(userId, field, `${file.filename}`);
     return fillObject(UserRdo, updatedUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseGuards(TraineeRoleGuard)
+  @Post('favorites/gym/:gymId')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  async toggleFavoriteGym(
+    @Param('gymId', new ValidationPipe) gymId: number,
+    @Req() request: RequestWithTokenPayload<TokenPayload>){
+
+      const { user: tokenPayload } = request;
+      const id=  tokenPayload.sub;
+      const newUser = await  this.authService.toggleFavoriteGym(gymId,id);
+      return fillObject(UserRdo, newUser);
+  }
+
+
+  @UseGuards(JwtAuthGuard)
+  @Get('favorites/gym')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  async getFavoriteGymsList(
+      @Req() request: RequestWithTokenPayload<TokenPayload>){
+      const { user: tokenPayload } = request;
+      const id=  tokenPayload.sub;
+      const gyms = await  this.authService.getFavoriteGymList(id);
+      // return gyms.forEach((gym)=> fillObject(UserGymsRdo, gym)) ;
+      return gyms;
   }
 
 

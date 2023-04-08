@@ -55,7 +55,7 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "3450@notfound.local",
+  "email": "user79@notfound.local",
   "password": "123456"
 }
 
@@ -160,3 +160,21 @@ Content-Type: application/pdf
 
 < /Users/user/Pictures/GREEN.pdf
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+
+###  Add Gym to Favorite Gyms by  user with role Trainee
+
+POST http://localhost:3332/api/auth/favorites/gym/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwOTgwNzQ0LCJleHAiOjE2ODA5ODE2NDR9.eaCdPrrD4V9iV3wZhKe2OtXb0w1K1TkyqWqMHSKOlt0
+
+
+###  Add Gym to Favorite Gyms by  user with role Coach
+
+POST http://localhost:3332/api/auth/favorites/gym/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMyOWYwNTNmMjc0NTkzZWJiZDkiLCJlbWFpbCI6IjM0NTJAbm90Zm91bmQubG9jYWwiLCJyb2xlIjoi0YLRgNC10L3QtdGAIiwiZmlyc3RuYW1lIjoiS2VrcyIsImlhdCI6MTY4MDk4NDc3OSwiZXhwIjoxNjgwOTg1Njc5fQ.9Oh_DItwLr9IW0Ao_syfYRcIE4a5tQMn_HoXCyzRyww
+
+
+### Read  the list of favorite gyms  by user
+
+GET http://localhost:3332/api/auth/favorites/gym HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwOTg2NDU1LCJleHAiOjE2ODA5ODczNTV9.nE7Ey7hBrIXZsBFGsa8IoMOTOE9RnODmqM6bSnQRzaM

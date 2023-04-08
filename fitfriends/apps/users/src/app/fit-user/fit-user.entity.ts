@@ -27,7 +27,7 @@ export class FitUserEntity implements ExtendedUser {
   public certificate?: string;
   public myFriends?: string[];
   public favoriteGyms: number[];
-  public balanceId: number;
+
 
 
 
@@ -73,6 +73,6 @@ export class FitUserEntity implements ExtendedUser {
     this.credits = fitUser.credits;
     this.myFriends =fitUser.myFriends ;
     this.favoriteGyms = fitUser.favoriteGyms;
-    this.balanceId = fitUser.balanceId;
+
   }
 }

@@ -11,6 +11,7 @@ import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { MulterModule } from '@nestjs/platform-express';
+import { TraineeRoleStrategy } from './strategies/trainee-role.strategy';
 
 
 @Module({
@@ -37,6 +38,7 @@ import { MulterModule } from '@nestjs/platform-express';
     JwtStrategy,
     LocalStrategy,
     JwtRefreshStrategy,
+    TraineeRoleStrategy
    ],
 })
 export class AuthModule {}

@@ -8,6 +8,8 @@ import { validateEnvironments } from './env.validation';
 import { MongooseModule } from '@nestjs/mongoose/dist';
 import { getMongoDbConfig } from '../config/mongodb.config';
 import {jwtOptions} from '../config/jwt.config';
+import { TraineeRoleStrategy } from './auth/strategies/trainee-role.strategy';
+import { JwtStrategy } from './auth/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import {jwtOptions} from '../config/jwt.config';
     AuthModule],
   controllers: [],
   providers: [
+
 
   ],
 })
