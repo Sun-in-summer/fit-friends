@@ -12,6 +12,9 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 import { TraineeRoleStrategy } from './strategies/trainee-role.strategy';
+import { ClientsModule } from '@nestjs/microservices';
+import { RABBITMQ_SERVICE } from './auth.constant';
+import { getRabbitMqConfig } from '../../config/rabbitmq.config';
 
 
 @Module({
@@ -31,6 +34,13 @@ import { TraineeRoleStrategy } from './strategies/trainee-role.strategy';
       }),
       inject: [ConfigService]
     }),
+    ClientsModule.registerAsync([
+      {
+        name: RABBITMQ_SERVICE,
+        useFactory: getRabbitMqConfig,
+        inject: [ConfigService]
+      }
+    ]),
   ],
   controllers: [AuthController],
   providers: [

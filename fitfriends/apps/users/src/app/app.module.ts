@@ -8,8 +8,7 @@ import { validateEnvironments } from './env.validation';
 import { MongooseModule } from '@nestjs/mongoose/dist';
 import { getMongoDbConfig } from '../config/mongodb.config';
 import {jwtOptions} from '../config/jwt.config';
-import { TraineeRoleStrategy } from './auth/strategies/trainee-role.strategy';
-import { JwtStrategy } from './auth/strategies/jwt.strategy';
+import { rabbitMqOptions } from '../config/rabbitmq.config';
 
 @Module({
   imports: [
@@ -17,7 +16,7 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
       cache: true,
       isGlobal:true,
       envFilePath: ENV_FILE_PATH,
-      load: [databaseConfig, jwtOptions],
+      load: [databaseConfig, jwtOptions, rabbitMqOptions],
       validate: validateEnvironments,
     }),
     MongooseModule.forRootAsync(getMongoDbConfig()),

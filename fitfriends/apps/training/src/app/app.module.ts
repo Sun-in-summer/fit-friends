@@ -10,6 +10,7 @@ import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
 import { MulterModule } from '@nestjs/platform-express';
+import {rabbitMqOptions} from './config/rabbitmq.config';
 
 
 @Module({
@@ -23,7 +24,7 @@ import { MulterModule } from '@nestjs/platform-express';
         cache: true,
         isGlobal: true,
         envFilePath: ENV_FILE_PATH,
-        load: [jwtOptions],
+        load: [jwtOptions, rabbitMqOptions],
       }),
       MulterModule.registerAsync({
       imports: [ConfigModule],

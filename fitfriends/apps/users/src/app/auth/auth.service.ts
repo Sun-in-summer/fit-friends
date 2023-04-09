@@ -1,4 +1,4 @@
-import { RefreshTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
+import { CommandEvent, RefreshTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -15,6 +15,8 @@ import { UserExistsException, UserNotFoundException, UserNotRegisteredException,
 import {UserQuery} from './query/user.query';
 import * as fs from 'fs';
 import { DEFAULT_AVATAR_FILE_NAME } from '@fitfriends/shared-constants';
+import { ClientProxy } from '@nestjs/microservices';
+import { RABBITMQ_SERVICE } from './auth.constant';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +25,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly refreshTokenService: RefreshTokenService,
     @Inject (jwtOptions.KEY) private readonly jwtConfig: ConfigType<typeof jwtOptions>,
+    @Inject(RABBITMQ_SERVICE) private readonly rabbitClient: ClientProxy,
   ) {}
 
   async register(dto: CreateUserNewDto
@@ -56,7 +59,19 @@ export class AuthService {
 
 
 
-    return this.fitUserRepository.create(userEntity);
+    const createdUser = await  this.fitUserRepository.create(userEntity);
+
+    this.rabbitClient.emit(
+      { cmd: CommandEvent.AddSubscriber },
+      {
+        email:  createdUser.email,
+        firstname: createdUser.firstname,
+        userId: createdUser._id.toString(),
+
+      }
+    );
+
+    return createdUser;
   }
 
   async verifyUser(dto:LoginUserDto) {
@@ -141,6 +156,26 @@ export class AuthService {
     }
     userFriends.push(friendId);
     const updatedUserEntity = new FitUserEntity({...userData, myFriends: userFriends });
+    return  await this.fitUserRepository.update(userId, updatedUserEntity );
+  }
+
+
+
+   public async deleteFriend(userId: string, friendId: string) {
+    const userData = await this.fitUserRepository.findById(userId);
+    if (!friendId) {
+      throw new NotFoundException('No user with such id');
+    }
+    const userFriends = [...userData.myFriends];
+    const friendInMyFriends = userFriends.some((id) => id === friendId);
+    let theRestFriends;
+    if (friendInMyFriends) {
+       theRestFriends = userFriends.filter((id)=> id !== friendId);
+    }
+    else {
+      throw new NotFoundException('There was  no  friend in the list with this id');
+    }
+    const updatedUserEntity = new FitUserEntity({...userData, myFriends: theRestFriends });
     return  await this.fitUserRepository.update(userId, updatedUserEntity );
   }
 

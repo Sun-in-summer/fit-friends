@@ -23,5 +23,7 @@ export * from './lib/training-diary.interface';
 export * from './lib/food-diary.interface';
 export * from './lib/user-balance.interface';
 export * from './lib/subscription.interface';
+export * from './lib/subscriber.interface';
+export * from './lib/command-event.enum';
 
 

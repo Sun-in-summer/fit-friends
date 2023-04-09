@@ -126,6 +126,7 @@ export class AuthController {
     description: 'The user added in friends'
   })
   @UseGuards(JwtAuthGuard)
+  @UseGuards(TraineeRoleGuard)
   @Get('addfriend/:id')
   @HttpCode(HttpStatus.OK)
   async addFriend(
@@ -135,6 +136,23 @@ export class AuthController {
     const userId = req.user.sub;
     const friendId = id;
     return await this.authService.addFriend(userId, friendId);
+  }
+
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'The user is deleted from  friends'
+  })
+  @UseGuards(JwtAuthGuard)
+  @Get('deletefriend/:id')
+  @HttpCode(HttpStatus.OK)
+  async deleteFriend(
+    @Param('id') id: string,
+    @Req() req: RequestWithTokenPayload<TokenPayload>
+  ) {
+    const userId = req.user.sub;
+    const friendId = id;
+    return await this.authService.deleteFriend(userId, friendId);
   }
 
   @ApiResponse({
@@ -222,7 +240,6 @@ export class AuthController {
       const { user: tokenPayload } = request;
       const id=  tokenPayload.sub;
       const gyms = await  this.authService.getFavoriteGymList(id);
-      // return gyms.forEach((gym)=> fillObject(UserGymsRdo, gym)) ;
       return gyms;
   }
 

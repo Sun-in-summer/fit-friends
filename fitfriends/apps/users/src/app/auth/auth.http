@@ -3,7 +3,7 @@ POST http://localhost:3332/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "3452@notfound.local",
+  "email": "3454@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
@@ -26,7 +26,7 @@ POST http://localhost:3332/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user79@notfound.local",
+  "email": "user81@notfound.local",
   "dateBirth": "2012-02-22",
   "firstname": "Keks",
   "password": "123456",
@@ -55,7 +55,7 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user79@notfound.local",
+  "email": "user80@notfound.local",
   "password": "123456"
 }
 
@@ -126,13 +126,18 @@ Content-Type: application/json
 
 
 ### Add friend
-GET http://localhost:3332/api/auth/addfriend/64288418090540b430310707 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwNDQzNzg0LCJleHAiOjE2ODA0NDQ2ODR9.SLl_N5FlNwzocoHkawMZVai92MA97uG1IcvhzANXNH8
+GET http://localhost:3332/api/auth/addfriend/6432dd529ab9e6caf4b325f9 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgxMDU1NDk4LCJleHAiOjE2ODEwNTYzOTh9.M3m3Bmv2sxOyWv9i7_odB8HYSojxncHjan6A3azkPmU
 #
 
+### Delete friend
+
+GET http://localhost:3332/api/auth/deletefriend/64319c29f053f274593ebbd9 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgxMDU0MzMyLCJleHAiOjE2ODEwNTUyMzJ9.zm7cORKJjlL8C9MnR6PtcDSlYHwi1se3NQXVCscw3TI
+
 ### Get list of friends with details
-GET http://localhost:3332/api/auth/friends/64288130ab218eeca1ff7acd HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEzMGFiMjE4ZWVjYTFmZjdhY2QiLCJlbWFpbCI6InVzZXI3NkBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwMzgzNTYzLCJleHAiOjE2ODAzODQ0NjN9.VAzKXF4KZqLMB55DdhjCgB8oEryumwC2H-AEfQr5ZRk
+GET http://localhost:3332/api/auth/friends/64319c39f053f274593ebbdd HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgxMDUzNTk3LCJleHAiOjE2ODEwNTQ0OTd9.hP_YiOYdnHwNBEk2xaq1l_KVDkLUOam0XHLEveYsph8
 
 
 ###  Upload  user's avatar
@@ -177,4 +182,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMyO
 ### Read  the list of favorite gyms  by user
 
 GET http://localhost:3332/api/auth/favorites/gym HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgwOTg2NDU1LCJleHAiOjE2ODA5ODczNTV9.nE7Ey7hBrIXZsBFGsa8IoMOTOE9RnODmqM6bSnQRzaM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMxOWMzOWYwNTNmMjc0NTkzZWJiZGQiLCJlbWFpbCI6InVzZXI3OUBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgxMDUzNTk3LCJleHAiOjE2ODEwNTQ0OTd9.hP_YiOYdnHwNBEk2xaq1l_KVDkLUOam0XHLEveYsph8
