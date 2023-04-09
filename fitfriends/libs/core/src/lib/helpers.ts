@@ -1,4 +1,5 @@
 import {plainToInstance, ClassConstructor} from 'class-transformer';
+import { CommandEvent } from '@fitfriends/shared-types';
 
 export function fillObject<T, V>(someDto: ClassConstructor<T>, plainObject: V) {
   return plainToInstance(someDto, plainObject, {excludeExtraneousValues: true});
@@ -24,4 +25,9 @@ export function transformToMax(value: unknown, borderMin: number, borderMax: num
   }
 
   return max;
+}
+
+
+export function createEvent(commandEvent: CommandEvent) {
+  return { cmd: commandEvent}
 }

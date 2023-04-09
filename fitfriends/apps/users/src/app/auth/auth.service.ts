@@ -17,6 +17,7 @@ import * as fs from 'fs';
 import { DEFAULT_AVATAR_FILE_NAME } from '@fitfriends/shared-constants';
 import { ClientProxy } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './auth.constant';
+import { createEvent } from '@fitfriends/core';
 
 @Injectable()
 export class AuthService {
@@ -62,14 +63,13 @@ export class AuthService {
     const createdUser = await  this.fitUserRepository.create(userEntity);
 
     this.rabbitClient.emit(
-      { cmd: CommandEvent.AddSubscriber },
-      {
-        email:  createdUser.email,
-        firstname: createdUser.firstname,
-        userId: createdUser._id.toString(),
-
-      }
-    );
+        createEvent(CommandEvent.AddSubscriber),
+        {
+          id: createdUser._id,
+          firstname: createdUser.firstname,
+          email: createdUser.email
+        }
+      );
 
     return createdUser;
   }

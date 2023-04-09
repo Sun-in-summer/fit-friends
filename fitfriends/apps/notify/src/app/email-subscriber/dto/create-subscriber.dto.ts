@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 import {
   EMAIL_NOT_VALID,
   FIRST_NAME_IS_EMPTY,
@@ -15,11 +15,4 @@ export class CreateSubscriberDto {
   @IsNotEmpty({ message: USER_ID_IS_EMPTY })
   userId: string;
 
-  @IsOptional()
-  @IsBoolean()
-  isEmailVerified?: boolean;
-
-  @IsOptional()
-  @IsBoolean()
-  isReadyToGetNotifications?: boolean;
 }
