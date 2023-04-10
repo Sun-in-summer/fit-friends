@@ -124,11 +124,39 @@ export class FitUserNewModel extends Document implements ExtendedUser{
   public isReadyForTraining?: boolean;
 
   @Prop({
-
     type: Array,
-
   })
   public favoriteGyms?: number[];
+
+  @Prop({
+    default: false,
+    type: Boolean,
+  })
+  public isEmailVerified?: boolean;
+
+  @Prop({
+    default: true,
+    type: Boolean,
+  })
+  public isReadyToGetNotifications?: boolean;
+
+  @Prop({
+    default: [],
+    type: Array,
+  })
+  public favoriteCoaches?: string[];
+
+  @Prop({
+    default: [],
+    type: Array,
+  })
+  sentRequestForFriends: string[];
+
+  @Prop({
+    default: [],
+    type: Array,
+  })
+  gotRequestForFriends: string[];
 
 }
 

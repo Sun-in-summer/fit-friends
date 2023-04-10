@@ -3,5 +3,6 @@ export enum CommandEvent {
   AddTraining = 'addTraining',
   AddFriend = 'addFriend',
   ConfirmFriend= 'confirmFriend',
-  DeleteSubscriber = 'deleteSubscriber'
+  DeleteSubscriber = 'deleteSubscriber',
+  BecameFriends = 'becameFriends'
 }

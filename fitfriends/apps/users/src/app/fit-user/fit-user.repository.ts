@@ -72,8 +72,5 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
     return this.fitUserNewModel.find({_id: {$in: friendsIds }});
   }
 
-
-
-
 }
 

@@ -43,6 +43,8 @@ export class AuthService {
       passwordHash: '',
       myFriends: [],
       favoriteGyms: [],
+      sentRequestForFriends: [],
+      gotRequestForFriends: [],
       avatar: DEFAULT_AVATAR_FILE_NAME
     };
 
@@ -149,14 +151,56 @@ export class AuthService {
     if (!friendId) {
       throw new NotFoundException('No user with such id');
     }
+    const friendData = await this.fitUserRepository.findById(friendId);
     const userFriends = [...userData.myFriends];
     const friendInMyFriends = userFriends.some((id) => id === friendId);
     if (friendInMyFriends) {
       throw new BadRequestException('The user already is in friends');
     }
-    userFriends.push(friendId);
-    const updatedUserEntity = new FitUserEntity({...userData, myFriends: userFriends });
+    const friendsOfNewFriend = [...friendData.myFriends];
+    const friendsRequestsForFriendship = [...friendData.sentRequestForFriends];
+    const userInFriendsFriends = friendsOfNewFriend.some((id) => id === userId);
+    const userInFriendsRequestsForFriendship  = friendsRequestsForFriendship.some((id) => id === userId);
+    if ( userInFriendsFriends || userInFriendsRequestsForFriendship ) {
+      if (userInFriendsRequestsForFriendship) {
+        friendsRequestsForFriendship.filter((id) => id!== userId);
+        friendsOfNewFriend.push(userId);
+        const updatedFriendEntity = new FitUserEntity({...friendData, myFriends: friendsOfNewFriend, sentRequestForFriends: friendsRequestsForFriendship});
+        await this.fitUserRepository.update(friendId, updatedFriendEntity);
+
+        this.rabbitClient.emit(
+          {cmd: CommandEvent.BecameFriends},
+          {
+            addresseeId: friendId,
+            adresseeEmail: friendData.email,
+            adresseeName: friendData.firstname,
+            senderId: userId,
+            senderEmail: userData.email,
+            senderName: userData.firstname
+          }
+        );
+      }
+      userFriends.push(friendId);
+      const updatedUserEntity = new FitUserEntity({...userData, myFriends: userFriends });
+      return  await this.fitUserRepository.update(userId, updatedUserEntity );
+    }
+    const sentRequestForFriends  =  [...userData.sentRequestForFriends];
+    sentRequestForFriends.push(friendId);
+
+    this.rabbitClient.emit(
+      {cmd: CommandEvent.AddFriend},
+      {
+        addresseeId: friendId,
+        adresseeEmail: friendData.email,
+        adresseeName: friendData.firstname,
+        senderId: userId,
+        senderEmail: userData.email,
+        senderName: userData.firstname
+      }
+    );
+    const updatedUserEntity = new FitUserEntity({...userData, sentRequestForFriends: sentRequestForFriends });
     return  await this.fitUserRepository.update(userId, updatedUserEntity );
+
   }
 
 

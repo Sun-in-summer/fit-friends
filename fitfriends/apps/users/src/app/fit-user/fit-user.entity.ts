@@ -27,6 +27,11 @@ export class FitUserEntity implements ExtendedUser {
   public certificate?: string;
   public myFriends?: string[];
   public favoriteGyms: number[];
+  public isEmailVerified?: boolean;
+  public isReadyToGetNotifications?: boolean;
+  public favoriteCoaches?: string[];
+  public sentRequestForFriends: string[];
+  public gotRequestForFriends: string[];
 
 
 
@@ -73,6 +78,11 @@ export class FitUserEntity implements ExtendedUser {
     this.credits = fitUser.credits;
     this.myFriends =fitUser.myFriends ;
     this.favoriteGyms = fitUser.favoriteGyms;
+    this.isEmailVerified = fitUser.isEmailVerified
+    this.isReadyToGetNotifications= fitUser.isReadyToGetNotifications
+    this.favoriteCoaches= fitUser.favoriteCoaches;
+    this.sentRequestForFriends= fitUser.sentRequestForFriends;
+    this.gotRequestForFriends= fitUser.gotRequestForFriends;
 
   }
 }

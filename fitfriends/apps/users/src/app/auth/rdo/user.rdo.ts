@@ -111,6 +111,45 @@ export class UserRdo {
   @Expose()
   favoriteGyms?: number[];
 
+
+  @Expose()
+  @ApiProperty({
+    description: 'Is email verified or not ',
+    example: 'false',
+    default: false
+  })
+  public isEmailVerified?: boolean;
+
+  @Expose()
+  @ApiProperty({
+    description: 'Is user ready to get emails  or not ',
+    example: 'true',
+    default: true
+  })
+  public isReadyToGetNotifications?: boolean;
+
+  @Expose()
+  @ApiProperty({
+    description: 'The coaches IDs whose trainings user is ready to get notifications about ',
+    example: ' 64319c29f053f274593ebbd9',
+  })
+  public favoriteCoaches?: string[];
+
+
+  @Expose()
+  @ApiProperty({
+    description: 'The Ids of  users to whom the request to be friends was sent',
+    example: ' 64319c29f053f274593ebbd9',
+  })
+  public sentRequestForFriends: string[];
+
+  @Expose()
+  @ApiProperty({
+    description: 'The Ids of users from whom the request to be friends is received ',
+    example: ' 64319c29f053f274593ebbd9',
+  })
+  public gotReuestForFriends: string[];
+
 }
 
 

@@ -22,7 +22,11 @@ export interface BasicUser {
   trainingLevel:TrainingLevel;
   trainingType: TrainingType[];
   favoriteGyms?: number[];
-
+  isEmailVerified?: boolean;
+  isReadyToGetNotifications?: boolean;
+  favoriteCoaches?: string[];
+  sentRequestForFriends: string[];
+  gotRequestForFriends: string[];
 }
 
 

@@ -23,4 +23,7 @@ export class LoggedUserRdo {
     example: 'user4541661617@uter'
   })
   public accessToken: string;
+
+
+
 }

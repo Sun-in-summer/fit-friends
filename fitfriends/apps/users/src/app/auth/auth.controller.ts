@@ -17,7 +17,7 @@ import { ConfigService } from '@nestjs/config';
 import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared-constants';
 import { getFileInterceptorOptions } from '@fitfriends/core';
 import { TraineeRoleGuard } from './guards/trainee-role.guard';
-import { UserGymsRdo } from './rdo/user-gyms.rdo';
+
 
 
 // @UseFilters(HttpExceptionFilter)
@@ -123,7 +123,7 @@ export class AuthController {
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: 'The user added in friends'
+    description: 'To add  friends to users list of friends'
   })
   @UseGuards(JwtAuthGuard)
   @UseGuards(TraineeRoleGuard)

@@ -25,5 +25,6 @@ export * from './lib/user-balance.interface';
 export * from './lib/subscription.interface';
 export * from './lib/subscriber.interface';
 export * from './lib/command-event.enum';
+export * from './lib/friends-request-notification.interface';
 
 
