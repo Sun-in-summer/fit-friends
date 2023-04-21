@@ -55,3 +55,8 @@ export enum DefaultPagination {
   DefaultCountLimit = 25,
   DefaultPageCount =1
 }
+
+export enum FoodDiaryPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
