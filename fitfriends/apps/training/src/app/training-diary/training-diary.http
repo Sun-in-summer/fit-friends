@@ -1,0 +1,50 @@
+###
+# Create a new training-dairy
+POST http://localhost:3333/api/training-diary HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjczMzQ1LCJleHAiOjE2ODIyNzQyNDV9.4x6pv3aZoSfyl6ZC-gxIT0jOJiwAyzFYzE9Bil5vuoA
+Content-Type: application/json
+
+{
+   "spentTime": "30-50 мин",
+   "spentCalories": 1500,
+   "date": "1994-11-05T08:15:30-05:00",
+   "trainingId": 1
+
+}
+
+###
+# Get the list of all food dairies of the user
+GET http://localhost:3333/api/training-diary HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+
+###
+# Get the diary by Id
+GET http://localhost:3333/api/training-diary/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+### Update diary
+PATCH http://localhost:3333/api/training-diary/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjczMzQ1LCJleHAiOjE2ODIyNzQyNDV9.4x6pv3aZoSfyl6ZC-gxIT0jOJiwAyzFYzE9Bil5vuoA
+Content-Type: application/json
+
+{
+   "spentTime": "10-30 мин",
+   "spentCalories": 1500,
+   "date": "1994-11-05T08:15:30-05:00",
+   "trainingId": 1
+
+}
+
+
+### Delete diary
+DELETE http://localhost:3333/api/training-diary/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjczMzQ1LCJleHAiOjE2ODIyNzQyNDV9.4x6pv3aZoSfyl6ZC-gxIT0jOJiwAyzFYzE9Bil5vuoA
+
+
+
+
+
+
+
+

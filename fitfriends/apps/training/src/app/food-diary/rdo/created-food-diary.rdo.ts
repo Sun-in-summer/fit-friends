@@ -55,7 +55,7 @@ export class CreatedFoodDiaryRdo implements FoodDiary {
     example: true
   })
   @IsOptional()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @Expose()
   @ApiProperty({

@@ -69,7 +69,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @Expose()
   @ApiProperty({
     description: 'Training duration ',
-    example: '10-30 min',
+    example: '10-30 мин',
     required: true
   })
   @IsDefined()

@@ -17,11 +17,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1M
 
 
 ###
-# Get the diary by Id 
+# Get the diary by Id
 GET http://localhost:3333/api/food-diary/1 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
 
-### Update diary 
+### Update diary
 PATCH http://localhost:3333/api/food-diary/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
 Content-Type: application/json
@@ -32,9 +32,6 @@ Content-Type: application/json
    "date": "1994-11-05T08:15:30-05:00"
 }
 
-### Get detailed information about gym
-
-GET http://localhost:3333/api/food-diary/2
 
 
 

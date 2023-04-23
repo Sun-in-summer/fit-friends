@@ -1,5 +1,6 @@
 
 export interface TrainingDiary {
+
   id?: number ;
   userId?: string;
   trainingId: number;

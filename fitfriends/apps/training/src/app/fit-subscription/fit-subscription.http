@@ -1,0 +1,13 @@
+###
+# Create a new subscription
+POST http://localhost:3333/api/fit-subscription HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjc4OTUzLCJleHAiOjE2ODIyNzk4NTN9.kXb4vUvPFLn6qv2Ssrd9Q0Hz--VoflTr3tqWynYRkS0
+Content-Type: application/json
+
+{
+   "trainingId": 2,
+   "trainingsQtyIncluded": 10
+}
+
+
+

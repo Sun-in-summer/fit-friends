@@ -12,6 +12,10 @@ import { RoleStrategy } from './strategies/role.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 import {rabbitMqOptions} from './config/rabbitmq.config';
 import { FoodDiaryModule } from './food-diary/food-diary.module';
+import { TrainingDiaryModule } from './training-diary/training-diary.module';
+import { UserBalanceModule } from './user-balance/user-balance.module';
+import { FitSubscriptionModule } from './fit-subscription/fit-subscription.module';
+
 
 
 @Module({
@@ -22,6 +26,9 @@ import { FoodDiaryModule } from './food-diary/food-diary.module';
       GymModule,
       FoodDiaryModule,
       ReviewModule,
+      TrainingDiaryModule,
+      UserBalanceModule,
+      FitSubscriptionModule,
       ConfigModule.forRoot({
         cache: true,
         isGlobal: true,

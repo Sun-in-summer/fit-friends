@@ -1,0 +1,48 @@
+###
+# Create a new user balance
+POST http://localhost:3333/api/user-balance HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjc5MDcyLCJleHAiOjE2ODIyNzk5NzJ9.RV_i9EH86tPALr0eFdPkQGpJhG2LIqlgz5x38ND6dqg
+Content-Type: application/json
+
+{
+   "userId": "6432dd529ab9e6caf4b325f9",
+   "subscriptionId": 1 ,
+   "subscriptionAvaliable": 1,
+   "subscriptionSpent": 1,
+   "trainingId": 2,
+   "trainingAvaliable": 2,
+   "trainingSpent": 2
+}
+
+###
+# Get the user balance by userId
+GET http://localhost:3333/api/user-balance HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+
+###
+# Get the user balance  by  id of user balance
+GET http://localhost:3333/api/user-balance/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+### Update user balance
+PATCH http://localhost:3333/api/user-balance/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+Content-Type: application/json
+
+{
+   "userId": "6432dd529ab9e6caf4b325f9",
+   "subscriptionId": 1 ,
+   "subscriptionAvaliable": 1,
+   "subscriptionSpent": 1,
+   "trainingId": 3,
+   "trainingAvaliable": 3,
+   "trainingSpent": 4
+}
+
+
+
+
+
+
+

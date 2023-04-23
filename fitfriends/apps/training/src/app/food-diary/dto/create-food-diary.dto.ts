@@ -1,6 +1,6 @@
 import { FoodDiary, Meal } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
-import {IsDate, IsDateString, IsDefined, IsEnum, IsInt, IsOptional, IsString} from 'class-validator';
+import { IsDateString, IsDefined, IsEnum, IsInt, IsMongoId, IsOptional, IsString} from 'class-validator';
 
 
 export class CreateFoodDiaryDto implements FoodDiary {
@@ -9,10 +9,11 @@ export class CreateFoodDiaryDto implements FoodDiary {
     description: 'userId',
     example: '1',
   })
+  @IsMongoId()
   userId?: string;
 
   @ApiProperty({
-    description: 'id of Gym',
+    description: 'id of food diary',
     example: '1',
   })
   id?: number;
@@ -53,7 +54,7 @@ export class CreateFoodDiaryDto implements FoodDiary {
     example: true
   })
   @IsOptional()
-  updateddAt: Date;
+  updatedAt: Date;
 
   @ApiProperty({
     description: 'The date of the meal',

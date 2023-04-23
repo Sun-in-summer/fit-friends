@@ -1,6 +1,6 @@
 import {  IsEnum, IsInt, IsNumber, IsOptional} from 'class-validator';
 import { Transform } from 'class-transformer';
-import {  Price, Rating, TrainingPagination, TraningSortDirection } from '@fitfriends/shared-constants';
+import {  Rating, TrainingPagination, TraningSortDirection } from '@fitfriends/shared-constants';
 import { SortByType} from '@fitfriends/shared-constants';
 import { TrainingType } from '@fitfriends/shared-types';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';

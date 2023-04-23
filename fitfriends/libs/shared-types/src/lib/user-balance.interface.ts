@@ -3,9 +3,9 @@ export interface UserBalance {
   userId: string;
   updatedAt?: Date;
   subscriptionId: number;
-  subscriptionAvailable: number;
+  subscriptionAvaliable: number;
   subscriptionSpent: number;
   trainingId: number;
-  trainingAvailable: number;
+  trainingAvaliable: number;
   trainingSpent: number;
 }

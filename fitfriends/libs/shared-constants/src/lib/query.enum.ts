@@ -60,3 +60,19 @@ export enum FoodDiaryPagination {
   DefaultCountLimit = 25,
   DefaultPageCount =1
 }
+
+
+export enum TrainingDiaryPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
+
+export enum UserBalancePagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
+
+export enum FitSubscriptionPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
