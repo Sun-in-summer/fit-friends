@@ -5,12 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import { JwtPayload, UserRole } from '@fitfriends/shared-types';
 
 
-
-
 const WRONG_ROLE_MESSAGE = 'Неверная роль пользователя';
 
 @Injectable()
-export class RoleStrategy extends PassportStrategy(Strategy, 'role') {
+export class TraineeRoleStrategy extends PassportStrategy(Strategy, 'trainee-role') {
   constructor(
     private readonly configService: ConfigService,
 
@@ -23,7 +21,7 @@ export class RoleStrategy extends PassportStrategy(Strategy, 'role') {
   }
 
   async validate(payload: JwtPayload): Promise<JwtPayload> {
-      if (payload.role !== UserRole.Coach) {
+      if (payload.role !== UserRole.Trainee) {
         throw new ForbiddenException(WRONG_ROLE_MESSAGE);
       }
 

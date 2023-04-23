@@ -31,8 +31,8 @@ export class FoodDiaryService {
 
 
 
-  async getFoodDiariesByUserId(query: FoodDiaryQuery, userId: string): Promise<FoodDiary[]> {
-    return this.foodDiaryRepository.find(query, userId);
+  async getFoodDiariesByUserId(userId: string, query?: FoodDiaryQuery): Promise<FoodDiary[]> {
+    return this.foodDiaryRepository.find(userId, query);
   }
 
   async updateFoodDiary(id: number, dto: CreateFoodDiaryDto, userId: string): Promise<FoodDiary> {

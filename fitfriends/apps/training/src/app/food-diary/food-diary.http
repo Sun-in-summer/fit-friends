@@ -1,0 +1,43 @@
+###
+# Create a new food-dairy
+POST http://localhost:3333/api/food-diary HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU2ODU3LCJleHAiOjE2ODIyNTc3NTd9.9QLEVp6LkXUoNg7eakCOwRRG7HcyUBug08n7W1uyMmA
+Content-Type: application/json
+
+{
+   "meal": "обед",
+   "caloriesQty": 1500 ,
+   "date": "1994-11-05T08:15:30-05:00"
+}
+
+###
+# Get the list of all food dairies of the user
+GET http://localhost:3333/api/food-diary HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+
+###
+# Get the diary by Id 
+GET http://localhost:3333/api/food-diary/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+
+### Update diary 
+PATCH http://localhost:3333/api/food-diary/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyMjU4MzEwLCJleHAiOjE2ODIyNTkyMTB9.R1D8Z_3gDuVrwk-EgorVbLSX-IxBYfI4H27ep4ZJu1o
+Content-Type: application/json
+
+{
+   "meal": "обед",
+   "caloriesQty": 2500 ,
+   "date": "1994-11-05T08:15:30-05:00"
+}
+
+### Get detailed information about gym
+
+GET http://localhost:3333/api/food-diary/2
+
+
+
+
+
+

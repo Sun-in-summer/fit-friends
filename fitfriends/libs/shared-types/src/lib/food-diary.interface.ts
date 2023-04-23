@@ -4,7 +4,7 @@ export interface FoodDiary {
   caloriesQty: number;
   date: Date;
   meal: string;
-  userId: string;
+  userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

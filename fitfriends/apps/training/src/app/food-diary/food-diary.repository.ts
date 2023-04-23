@@ -37,7 +37,7 @@ export class FoodDiaryRepository implements CRUDRepository<FoodDiaryEntity, numb
 
 
 
-  public find(query: FoodDiaryQuery, userId : string): Promise<FoodDiary[]> {
+  public find(userId : string, query?: FoodDiaryQuery, ): Promise<FoodDiary[]> {
     const {
       limit,
       page,

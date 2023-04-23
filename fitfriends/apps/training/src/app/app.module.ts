@@ -11,6 +11,7 @@ import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 import {rabbitMqOptions} from './config/rabbitmq.config';
+import { FoodDiaryModule } from './food-diary/food-diary.module';
 
 
 @Module({
@@ -19,6 +20,7 @@ import {rabbitMqOptions} from './config/rabbitmq.config';
       FitTrainingModule,
       OrderModule,
       GymModule,
+      FoodDiaryModule,
       ReviewModule,
       ConfigModule.forRoot({
         cache: true,
