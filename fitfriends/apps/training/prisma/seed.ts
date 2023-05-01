@@ -36,7 +36,7 @@ async function fillDb() {
       name: 'Какое-то название3',
       location: "Звёздная",
       isVerified: false,
-      features: 'детская комната, массаж',
+      features: ['детская комната', 'массаж'],
       photos: '3.jpg',
       description: 'Просторный3 фитнес от 990₽/мес. Без очередей.',
       oneTrainingPrice: 2150,
