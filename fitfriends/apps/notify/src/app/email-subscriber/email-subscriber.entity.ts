@@ -1,5 +1,5 @@
 import { Entity } from '@fitfriends/core';
-import { Subscriber } from '@fitfriends/shared-types';
+import { Subscriber, SubscriberOfCoach } from '@fitfriends/shared-types';
 
 export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Subscriber {
   public id: string;
@@ -8,6 +8,7 @@ export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Sub
   public userId: string;
   public isEmailVerified: boolean;
   public isReadyToGetNotifications: boolean;
+  public subscribers?: SubscriberOfCoach[];
 
   constructor(emailSubscriber: Subscriber) {
     this.fillEntity(emailSubscriber);
@@ -21,6 +22,7 @@ export class EmailSubscriberEntity implements Entity<EmailSubscriberEntity>, Sub
     this.isEmailVerified = entity.isEmailVerified;
     this.isReadyToGetNotifications = entity.isReadyToGetNotifications;
     this.id = entity.id ?? '';
+    this.subscribers = entity.subscribers ?? [];
   }
 
   public toObject(): EmailSubscriberEntity {

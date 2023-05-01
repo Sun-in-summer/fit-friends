@@ -1,5 +1,6 @@
 export enum CommandEvent {
   AddSubscriber = 'addSubscriber',
+  AddSubsriptionOnCoach = 'addSubscriptionOnCoach',
   AddTraining = 'addTraining',
   AddFriend = 'addFriend',
   ConfirmFriend= 'confirmFriend',

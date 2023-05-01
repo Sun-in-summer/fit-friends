@@ -1,22 +1,37 @@
-import { Training } from '@fitfriends/shared-types';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { CommandEvent, Training } from '@fitfriends/shared-types';
+import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
 import { FitTrainingEntity } from './fit-training.entity';
 import { FitTrainingRepository } from './fit-training.repository';
 import { TrainingQuery } from './query/training.query';
 import * as fs from 'fs';
+import { RABBITMQ_SERVICE } from './fit-training.constant';
+import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
 export class FitTrainingService {
   constructor(
-    private readonly fitTrainingRepository: FitTrainingRepository
+    private readonly fitTrainingRepository: FitTrainingRepository,
+    @Inject(RABBITMQ_SERVICE) private readonly rabbitClient: ClientProxy,
   ) {}
 
   async createTraining(dto: CreateFitTrainingDto, userId: string): Promise<Training> {
 
 
     const trainingEntity = new FitTrainingEntity({...dto, coachId: userId } );
-    return this.fitTrainingRepository.create(trainingEntity);
+
+    const createdTraining = await this.fitTrainingRepository.create(trainingEntity);
+
+    this.rabbitClient.emit(
+      { cmd: CommandEvent.AddTraining},
+      {
+        coachId: createdTraining.coachId,
+        trainingTitle: createdTraining.title,
+        trainingId: createdTraining.id,
+      }
+    );
+
+    return createdTraining;
   }
 
   async deleteTraining(id: number): Promise<void> {
@@ -25,7 +40,7 @@ export class FitTrainingService {
 
 
 
-   async getTrainingById(id: number, ): Promise<Training> {
+   async getTrainingById(id: number, ): Promise<Training | null> {
     const training = this.fitTrainingRepository.findById(id);
     return  training;
   }
@@ -37,8 +52,12 @@ export class FitTrainingService {
     return this.fitTrainingRepository.find(query, userId);
   }
 
-  async updateTraining(id: number, dto: CreateFitTrainingDto, userId: string): Promise<Training> {
+  async updateTraining(id: number, dto: CreateFitTrainingDto, userId: string): Promise<Training | null> {
     const existTraining = await this.getTrainingById(id);
+
+    if (!existTraining) {
+      throw new NotFoundException("Тренировка не существует или была удалена");
+    }
 
     if (existTraining.coachId !== userId) {
       throw new ForbiddenException('Редактировать тренировку может только автор тренировки');
@@ -49,6 +68,11 @@ export class FitTrainingService {
 
     public async setFile(trainingId: number, field: string, file: string, userId: string) {
     const existTraining = await this.fitTrainingRepository.findById(trainingId);
+
+    if (!existTraining) {
+      throw new NotFoundException("Тренировка не существует или была удалена");
+    }
+
     const prevFile = existTraining[field];
 
     if (fs.existsSync(prevFile)) {

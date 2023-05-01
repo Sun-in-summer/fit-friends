@@ -17,7 +17,7 @@ export class CreatedFitTrainingRdo  implements Training {
   })
   @IsOptional()
   @Expose()
-  id?: number;
+  public id?: number;
 
 
 
@@ -31,7 +31,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsString()
   @MinLength(TrainingTitleLength.Min)
   @MaxLength(TrainingTitleLength.Max)
-  title: string;
+  public title: string;
 
   @Expose()
   @ApiProperty({
@@ -44,7 +44,7 @@ export class CreatedFitTrainingRdo  implements Training {
   // eslint-disable-next-line no-useless-escape
   @Matches('(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\.(?:jpg|png))(?:\?([^#]*))?(?:#(.*))?')
   @IsString()
-  backgroundImage: string;
+  public backgroundImage: string;
 
   @Expose()
   @ApiProperty({
@@ -54,7 +54,7 @@ export class CreatedFitTrainingRdo  implements Training {
   })
   @IsEnum(TrainingLevel)
   @IsDefined()
-  trainingLevel: TrainingLevel
+  public trainingLevel: TrainingLevel
 
   @Expose()
   @ApiProperty({
@@ -64,7 +64,7 @@ export class CreatedFitTrainingRdo  implements Training {
   })
   @IsEnum(TrainingType)
   @IsDefined()
-  trainingType: TrainingType;
+  public trainingType: TrainingType;
 
   @Expose()
   @ApiProperty({
@@ -74,7 +74,7 @@ export class CreatedFitTrainingRdo  implements Training {
   })
   @IsDefined()
   @IsEnum(TrainingTime)
-  trainingTime: TrainingTime;
+  public trainingTime: TrainingTime;
 
   @Expose()
   @ApiProperty({
@@ -85,7 +85,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsDefined()
   @IsInt()
   @Min(TrainingPrice.Min)
-  price: number;
+  public price: number;
 
   @Expose()
   @ApiProperty({
@@ -97,7 +97,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsInt()
   @Min(CaloriesToDrop.Min)
   @Max(CaloriesToDrop.Max)
-  calories: number;
+  public calories: number;
 
   @Expose()
   @ApiProperty({
@@ -108,7 +108,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsNotEmpty()
   @Min(TrainingDescriptionLength.Min)
   @Max(TrainingDescriptionLength.Max)
-  description: string;
+  public description: string;
 
   @Expose()
  @ApiProperty({
@@ -117,7 +117,7 @@ export class CreatedFitTrainingRdo  implements Training {
     required: true
   })
   @IsEnum(TrainingForGender)
-  trainingForGender: string;
+  public trainingForGender: string;
 
   @Expose()
   @ApiProperty({
@@ -129,7 +129,7 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsDataURI()
   @Matches(VIDEO_URL_REG_EXP)
   @IsString()
-  video: string;
+  public video: string;
 
   @Expose()
   @ApiProperty({
@@ -139,14 +139,14 @@ export class CreatedFitTrainingRdo  implements Training {
   @IsOptional()
   @IsNumber()
   @Min(DEFAULT_RATING)
-  rating: number;
+  public rating: number;
 
   @Expose()
   @ApiProperty({
     description: 'Id of the coach',
     example: true
   })
-  coachId?: string;
+  public coachId?: string;
 
   @Expose()
   @ApiProperty({
@@ -155,7 +155,7 @@ export class CreatedFitTrainingRdo  implements Training {
   })
   @IsOptional()
   @IsBoolean()
-  isSpecialOffer: boolean;
+  public isSpecialOffer: boolean;
 
   @Expose()
   @ApiProperty({
@@ -163,7 +163,7 @@ export class CreatedFitTrainingRdo  implements Training {
     example: true
   })
   @IsOptional()
-  reviews: Review[];
+  public reviews: Review[];
 
   @Expose()
   @ApiProperty({
@@ -171,8 +171,8 @@ export class CreatedFitTrainingRdo  implements Training {
     example: true
   })
   @IsOptional()
-  orders: Order[];
+  public orders: Order[];
 
   @Expose()
-  createdAt: Date;
+  public createdAt: Date;
 }

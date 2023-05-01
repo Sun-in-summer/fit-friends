@@ -243,6 +243,20 @@ export class AuthController {
       return gyms;
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('subscription/:coachId')
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.OK)
+  async addSubscriptionOnCoachTrainings (
+    @Param('coachId') coachId: string,
+    @Req() request: RequestWithTokenPayload<TokenPayload>) {
+      const {user : TokenPayload} = request;
+      const userId = TokenPayload.sub;
+      const subscription = await this.authService.addSubscriptionOnCoach(coachId, userId);
+      return subscription;
+  }
+
+
 
 }
 

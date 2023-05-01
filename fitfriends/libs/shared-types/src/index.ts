@@ -26,5 +26,7 @@ export * from './lib/subscription.interface';
 export * from './lib/subscriber.interface';
 export * from './lib/command-event.enum';
 export * from './lib/friends-request-notification.interface';
+export * from './lib/subscriber-of-coach.interface';
+export * from './lib/training-notification.interface';
 
 

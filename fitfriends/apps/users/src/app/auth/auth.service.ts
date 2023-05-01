@@ -301,6 +301,24 @@ export class AuthService {
   }
 
 
+  async addSubscriptionOnCoach(coachId: string, userId: string) {
+      const user = await this.fitUserRepository.findById(userId);
+      const userEmail = user.email;
+
+      const coach = await this.fitUserRepository.findById(coachId);
+      const coachName= coach.firstname;
+      this.rabbitClient.emit(
+      {cmd: CommandEvent.AddSubsriptionOnCoach},
+      {
+        coachId: coachId,
+        coachName: coachName,
+        userId: userId,
+        userEmail: userEmail,
+      }
+    );
+  }
+
+
 }
 
 

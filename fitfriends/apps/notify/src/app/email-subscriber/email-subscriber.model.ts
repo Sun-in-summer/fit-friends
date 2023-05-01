@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Subscriber } from '@fitfriends/shared-types';
+import { Subscriber, SubscriberOfCoach } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 const SUBSCRIBERS_COLLECTION_NAME = 'email-subscribers';
@@ -24,6 +24,9 @@ export class EmailSubscriberModel extends Document implements  Subscriber {
 
   @Prop()
   isReadyToGetNotifications: boolean;
+
+  @Prop()
+  subscribers: SubscriberOfCoach[];
 }
 
 export const EmailSubscriberSchema = SchemaFactory.createForClass(EmailSubscriberModel);

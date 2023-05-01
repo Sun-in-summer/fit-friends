@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { EmailSubscriberRepository } from './email-subscriber.repository';
 import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { EMAIL_SUBSCRIBER_EXISTS } from './email-subscriber.constant';
 import { EmailSubscriberEntity } from './email-subscriber.entity';
 import { MailService } from '../mail/mail.service';
 import { FriendsRequestNotification } from '@fitfriends/shared-types';
+import { CreateSubscriberOfCoachDto } from './dto/create-subscriber-of-coach.dto';
 
 @Injectable()
 export class EmailSubscriberService {
@@ -25,6 +26,24 @@ export class EmailSubscriberService {
 
     return this.emailSubscriberRepository
       .create(new EmailSubscriberEntity(subscriber));
+  }
+
+
+
+   public async addSubscriberToCoach(subscriberOfCoach: CreateSubscriberOfCoachDto) {
+     const {coachId, userId, userEmail} = subscriberOfCoach;
+     const existsCoach = await this.emailSubscriberRepository.findById(coachId);
+     if (!existsCoach) {
+      throw new NotFoundException();
+    }
+    const coachSubscribers = existsCoach.subscribers;
+    const isUserSigned = coachSubscribers.find((item) => item.userId === userId);
+    if (!isUserSigned) {
+      coachSubscribers.push({userId, email: userEmail });
+    }
+
+    const updatedCoachEntity = new EmailSubscriberEntity({...existsCoach, subscribers: coachSubscribers});
+    return await this.emailSubscriberRepository.update(coachId, updatedCoachEntity);
   }
 
 

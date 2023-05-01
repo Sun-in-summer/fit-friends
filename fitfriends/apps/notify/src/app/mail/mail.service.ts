@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { FriendsRequestNotification, Subscriber } from '@fitfriends/shared-types';
-import { EMAIL_ADD_SUBSCRIBER_SUBJECT, EMAIL_FRIENDSHIP_REQUEST  } from './mail.constant';
+import { FriendsRequestNotification, Subscriber, SubscriberOfCoach } from '@fitfriends/shared-types';
+import { EMAIL_ADD_SUBSCRIBER_SUBJECT, EMAIL_FRIENDSHIP_REQUEST, EMAIL_NEW_TRAINING_SUBJECT  } from './mail.constant';
 
 
 @Injectable()
@@ -16,6 +16,19 @@ export class MailService {
       context: {
         user: `${subscriber.firstname}`,
         email: `${subscriber.email}`,
+      }
+    })
+  }
+
+
+  public async sendNotifyNewTraining(subscriber: SubscriberOfCoach, trainingTitle: string, coachName: string) {
+    await this.mailerService.sendMail({
+      to: subscriber.email,
+      subject: EMAIL_NEW_TRAINING_SUBJECT,
+      template: './new-training',
+      context: {
+        trainingTitle: `${trainingTitle}`,
+        coachName: `${coachName}`
       }
     })
   }

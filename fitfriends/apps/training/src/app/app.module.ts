@@ -10,43 +10,50 @@ import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
 import { MulterModule } from '@nestjs/platform-express';
-import {rabbitMqOptions} from './config/rabbitmq.config';
+import { getRabbitMqConfig, rabbitMqOptions } from './config/rabbitmq.config';
 import { FoodDiaryModule } from './food-diary/food-diary.module';
 import { TrainingDiaryModule } from './training-diary/training-diary.module';
 import { UserBalanceModule } from './user-balance/user-balance.module';
 import { FitSubscriptionModule } from './fit-subscription/fit-subscription.module';
-
+import { CliModule } from './cli/cli.module';
+import { ClientsModule } from '@nestjs/microservices';
+import { RABBITMQ_SERVICE } from './fit-training/fit-training.constant';
 
 
 @Module({
   imports: [
-      PrismaModule,
-      FitTrainingModule,
-      OrderModule,
-      GymModule,
-      FoodDiaryModule,
-      ReviewModule,
-      TrainingDiaryModule,
-      UserBalanceModule,
-      FitSubscriptionModule,
-      ConfigModule.forRoot({
-        cache: true,
-        isGlobal: true,
-        envFilePath: ENV_FILE_PATH,
-        load: [jwtOptions, rabbitMqOptions],
-      }),
-      MulterModule.registerAsync({
+    PrismaModule,
+    FitTrainingModule,
+    OrderModule,
+    GymModule,
+    FoodDiaryModule,
+    ReviewModule,
+    TrainingDiaryModule,
+    UserBalanceModule,
+    FitSubscriptionModule,
+    ConfigModule.forRoot({
+      cache: true,
+      isGlobal: true,
+      envFilePath: ENV_FILE_PATH,
+      load: [jwtOptions, rabbitMqOptions],
+    }),
+    MulterModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        dest: configService.get<string>('multer.uploadDirectory')
+        dest: configService.get<string>('multer.uploadDirectory'),
       }),
-      inject: [ConfigService]
+      inject: [ConfigService],
     }),
+    CliModule,
+    ClientsModule.registerAsync([
+      {
+        name: RABBITMQ_SERVICE,
+        useFactory: getRabbitMqConfig,
+        inject: [ConfigService]
+      }
+    ])
   ],
   controllers: [],
-  providers: [
-    JwtStrategy,
-    RoleStrategy
-  ],
+  providers: [JwtStrategy, RoleStrategy],
 })
 export class AppModule {}

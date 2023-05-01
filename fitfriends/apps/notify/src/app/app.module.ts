@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { NOTIFY_SERVICE_ENV_PATH } from './app.constant';
-import { getMongoDbConfig, mongoDbOptions } from '../../config/mongodb.config';
+import { getMongoDbConfig, mongoDbOptions } from './config/mongodb.config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { validateEnvironments } from './env.validation';
-import { rabbitMqOptions } from '../../config/rabbitmq.config';
+import { rabbitMqOptions } from './config/rabbitmq.config';
 import { EmailSubscriberModule } from './email-subscriber/email-subscriber.module';
-import { mailOptions } from 'apps/notify/config/mail.config';
+import { mailOptions } from 'apps/notify/src/app/config/mail.config';
+import { TrainingNotificationModule } from './training-notifications/training-notification.module';
+import {jwtOptions } from 'apps/notify/src/app/config/jwt.config';
 
 @Module({
   imports: [
@@ -14,11 +16,12 @@ import { mailOptions } from 'apps/notify/config/mail.config';
       cache: true,
       isGlobal: true,
       envFilePath: NOTIFY_SERVICE_ENV_PATH,
-      load: [mongoDbOptions, rabbitMqOptions, mailOptions],
+      load: [mongoDbOptions, rabbitMqOptions, mailOptions, jwtOptions],
       validate: validateEnvironments,
     }),
     MongooseModule.forRootAsync(getMongoDbConfig()),
     EmailSubscriberModule,
+    TrainingNotificationModule
   ],
   controllers: [],
   providers: [],

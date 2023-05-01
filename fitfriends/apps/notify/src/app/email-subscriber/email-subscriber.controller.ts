@@ -3,6 +3,7 @@ import { CreateSubscriberDto } from './dto/create-subscriber.dto';
 import { EventPattern } from '@nestjs/microservices';
 import { CommandEvent, FriendsRequestNotification } from '@fitfriends/shared-types';
 import { Controller } from '@nestjs/common';
+import { CreateSubscriberOfCoachDto } from './dto/create-subscriber-of-coach.dto';
 
 @Controller()
 export class EmailSubscriberController {
@@ -15,6 +16,10 @@ export class EmailSubscriberController {
     return this.subscriberService.addSubscriber(subscriber);
   }
 
+  @EventPattern( {cmd: CommandEvent.AddSubsriptionOnCoach})
+  public async addSubscriberToCoach(subscriber: CreateSubscriberOfCoachDto ){
+    return this.subscriberService.addSubscriberToCoach(subscriber);
+  }
 
   @EventPattern({ cmd: CommandEvent.AddFriend}) ////
   public async notifyFriend(notification: FriendsRequestNotification) {

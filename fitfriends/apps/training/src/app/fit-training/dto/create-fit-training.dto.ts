@@ -10,8 +10,6 @@ import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training
 
 export class CreateFitTrainingDto implements CreateTraining {
 
-
-
   @ApiProperty({
     description: 'Training\'s  title',
     example: 'Best training for women',
@@ -21,7 +19,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsString()
   @MinLength(TrainingTitleLength.Min)
   @MaxLength(TrainingTitleLength.Max)
-  title: string;
+  public title: string;
 
 
   @ApiProperty({
@@ -32,7 +30,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsDefined()
   @Matches(IMAGE_URL_REG_EXP)
   @IsString()
-  backgroundImage: string;
+  public backgroundImage: string;
 
  @ApiProperty({
     description: 'Training level of this training',
@@ -41,7 +39,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsEnum(TrainingLevel)
   @IsDefined()
-  trainingLevel: string;
+  public trainingLevel: string;
 
   @ApiProperty({
     description: 'Training type of  the training ',
@@ -50,7 +48,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsEnum(TrainingType)
   @IsDefined()
-  trainingType: string;
+  public trainingType: string;
 
   @ApiProperty({
     description: 'Training duration ',
@@ -59,7 +57,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsDefined()
   @IsEnum(TrainingTime)
-  trainingTime: string;
+  public trainingTime: string;
 
 
   @ApiProperty({
@@ -70,7 +68,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsDefined()
   @IsInt()
   @Min(TrainingPrice.Min)
-  price: number;
+  public price: number;
 
   @ApiProperty({
     description: 'Qty of calories  user can drop on this training ',
@@ -81,7 +79,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsInt()
   @Min(CaloriesToDrop.Min)
   @Max(CaloriesToDrop.Max)
-  calories: number;
+  public calories: number;
 
 
   @ApiProperty({
@@ -91,7 +89,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsNotEmpty()
   @Length(TrainingDescriptionLength.Min, TrainingDescriptionLength.Max )
-  description: string;
+  public description: string;
 
  @ApiProperty({
     description: 'Gender of users for whom this training',
@@ -100,7 +98,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsNotEmpty()
   @IsEnum(TrainingForGender)
-  trainingForGender: string;
+  public trainingForGender: string;
 
   @ApiProperty({
     description: 'Video of this training',
@@ -110,7 +108,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsDefined()
   @Matches(VIDEO_URL_REG_EXP)
   @IsString()
-  video: string;
+  public video: string;
 
   @ApiProperty({
     description: 'Training raiting',
@@ -119,13 +117,13 @@ export class CreateFitTrainingDto implements CreateTraining {
   @IsOptional()
   @IsNumber()
   @Min(DEFAULT_RATING)
-  rating: number;
+  public rating: number;
 
   @ApiProperty({
     description: 'Id of the coach',
     example: true
   })
-  coachId?: string;
+  public oachId?: string;
 
   @ApiProperty({
     description: 'Is the training  special offer',
@@ -133,7 +131,7 @@ export class CreateFitTrainingDto implements CreateTraining {
   })
   @IsOptional()
   @IsBoolean()
-  isSpecialOffer: boolean;
+  public isSpecialOffer: boolean;
 
 
   @ApiProperty({
@@ -141,6 +139,6 @@ export class CreateFitTrainingDto implements CreateTraining {
     example: true
   })
   @IsOptional()
-  createdAt: Date;
+  public createdAt: Date;
 
 }
