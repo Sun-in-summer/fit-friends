@@ -10,7 +10,7 @@ import { ENV_FILE_PATH } from './app.constant';
 import { jwtOptions } from './config/jwt.config';
 import { RoleStrategy } from './strategies/role.strategy';
 import { MulterModule } from '@nestjs/platform-express';
-import { getRabbitMqConfig, rabbitMqOptions } from './config/rabbitmq.config';
+import {   rabbitMqOptions } from './config/rabbitmq.config';
 import { FoodDiaryModule } from './food-diary/food-diary.module';
 import { TrainingDiaryModule } from './training-diary/training-diary.module';
 import { UserBalanceModule } from './user-balance/user-balance.module';
@@ -18,6 +18,7 @@ import { FitSubscriptionModule } from './fit-subscription/fit-subscription.modul
 import { CliModule } from './cli/cli.module';
 import { ClientsModule } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './fit-training/fit-training.constant';
+import { PersonalTrainingOrderModule } from './personal-training-order/personal-training-order.module';
 
 
 @Module({
@@ -31,6 +32,7 @@ import { RABBITMQ_SERVICE } from './fit-training/fit-training.constant';
     TrainingDiaryModule,
     UserBalanceModule,
     FitSubscriptionModule,
+    PersonalTrainingOrderModule,
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,
@@ -45,13 +47,13 @@ import { RABBITMQ_SERVICE } from './fit-training/fit-training.constant';
       inject: [ConfigService],
     }),
     CliModule,
-    ClientsModule.registerAsync([
-      {
-        name: RABBITMQ_SERVICE,
-        useFactory: getRabbitMqConfig,
-        inject: [ConfigService]
-      }
-    ])
+    // ClientsModule.registerAsync([
+    //   {
+    //     name: RABBITMQ_SERVICE,
+    //     useFactory: getNewTrainingsRabbitMqConfig,
+    //     inject: [ConfigService]
+    //   }
+    // ]),
   ],
   controllers: [],
   providers: [JwtStrategy, RoleStrategy],

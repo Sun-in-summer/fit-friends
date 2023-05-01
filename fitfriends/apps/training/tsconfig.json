@@ -12,6 +12,7 @@
   ],
   "compilerOptions": {
     "esModuleInterop": true,
-     "strictPropertyInitialization": false
+     "strictPropertyInitialization": false,
+     "types": ["node"]
   }
 }

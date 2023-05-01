@@ -9,6 +9,7 @@ import { EmailSubscriberModule } from './email-subscriber/email-subscriber.modul
 import { mailOptions } from 'apps/notify/src/app/config/mail.config';
 import { TrainingNotificationModule } from './training-notifications/training-notification.module';
 import {jwtOptions } from 'apps/notify/src/app/config/jwt.config';
+import { NotificationModule } from './notifications/notification.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import {jwtOptions } from 'apps/notify/src/app/config/jwt.config';
     }),
     MongooseModule.forRootAsync(getMongoDbConfig()),
     EmailSubscriberModule,
-    TrainingNotificationModule
+    TrainingNotificationModule,
+    NotificationModule,
   ],
   controllers: [],
   providers: [],

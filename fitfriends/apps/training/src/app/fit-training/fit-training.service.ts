@@ -5,7 +5,7 @@ import { FitTrainingEntity } from './fit-training.entity';
 import { FitTrainingRepository } from './fit-training.repository';
 import { TrainingQuery } from './query/training.query';
 import * as fs from 'fs';
-import { RABBITMQ_SERVICE } from './fit-training.constant';
+import { FitTrainingExceptionMessage, RABBITMQ_SERVICE } from './fit-training.constant';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
@@ -52,15 +52,21 @@ export class FitTrainingService {
     return this.fitTrainingRepository.find(query, userId);
   }
 
+
+   async getAllTrainings(query: TrainingQuery): Promise<Training[]> {
+
+    return this.fitTrainingRepository.findAll(query);
+  }
+
   async updateTraining(id: number, dto: CreateFitTrainingDto, userId: string): Promise<Training | null> {
     const existTraining = await this.getTrainingById(id);
 
     if (!existTraining) {
-      throw new NotFoundException("Тренировка не существует или была удалена");
+      throw new NotFoundException(FitTrainingExceptionMessage.NotFound);
     }
 
     if (existTraining.coachId !== userId) {
-      throw new ForbiddenException('Редактировать тренировку может только автор тренировки');
+      throw new ForbiddenException(FitTrainingExceptionMessage.NotOwnFitTraining);
     }
 
     return this.fitTrainingRepository.update(id, new FitTrainingEntity(dto));
@@ -70,7 +76,7 @@ export class FitTrainingService {
     const existTraining = await this.fitTrainingRepository.findById(trainingId);
 
     if (!existTraining) {
-      throw new NotFoundException("Тренировка не существует или была удалена");
+      throw new NotFoundException(FitTrainingExceptionMessage.NotFound);
     }
 
     const prevFile = existTraining[field];

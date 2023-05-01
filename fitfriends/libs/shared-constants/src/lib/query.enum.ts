@@ -76,3 +76,15 @@ export enum FitSubscriptionPagination {
   DefaultCountLimit = 25,
   DefaultPageCount =1
 }
+
+
+export enum PersonalTrainingOrderPagination {
+  DefaultCountLimit = 25,
+  DefaultPageCount =1
+}
+
+export enum PersonalTrainingOrderSortDirection {
+  Default = 'desc',
+  Desc = 'desc',
+  Asc = 'asc'
+}

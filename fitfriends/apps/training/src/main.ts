@@ -9,7 +9,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
-import { getRabbitMqConfig } from './app/config/rabbitmq.config';
+import { getNewTrainingsRabbitMqConfig, getPersonalTrainingsRabbitMqConfig,  } from './app/config/rabbitmq.config';
 
 
 async function bootstrap() {
@@ -22,7 +22,8 @@ async function bootstrap() {
     .build();
 
   const configService = app.get<ConfigService>(ConfigService);
-  app.connectMicroservice(getRabbitMqConfig(configService));
+  app.connectMicroservice(getNewTrainingsRabbitMqConfig(configService));
+  app.connectMicroservice(getPersonalTrainingsRabbitMqConfig(configService));
 
   await app.startAllMicroservices();
   Logger.log(`🚀 Training service is running on`);
@@ -47,3 +48,6 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+
+

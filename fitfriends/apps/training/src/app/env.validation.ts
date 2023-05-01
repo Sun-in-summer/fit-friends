@@ -23,8 +23,12 @@ class EnvironmentsConfig {
   @IsString({
     message: EnvValidationMessage.RMQSubscriberQueue
   })
-  public RABBIT_NOTIFY_SERVICE_QUEUE: string;
+  public RABBIT_TRAININGS_SERVICE_QUEUE: string;
 
+  @IsString({
+    message: EnvValidationMessage.RMQSubscriberQueue
+  })
+  public RABBIT_PERSONAL_TRAININGS_SERVICE_QUEUE: string;
 
 }
 

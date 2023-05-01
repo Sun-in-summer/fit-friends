@@ -80,11 +80,12 @@ model Order {
 }
 
 model PersonalTrainingOrder {
-  id          Int      @id @default(autoincrement())
-  initiatorId Int
-  conductorId Int
-  status      String
-  createdAt   DateTime @default(now())
+  id               Int      @id @default(autoincrement())
+  initiatorId      String
+  conductorId      String
+  status           String
+  createdAt        DateTime @default(now())
+  statusChangeDate DateTime @default(now())
 
   @@map("personal_training_orders")
 }

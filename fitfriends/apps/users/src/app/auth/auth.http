@@ -55,7 +55,7 @@ POST http://localhost:3332/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user80@notfound.local",
+  "email": "34529@notfound.local",
   "password": "123456"
 }
 

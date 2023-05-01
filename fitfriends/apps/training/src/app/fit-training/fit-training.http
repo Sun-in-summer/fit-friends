@@ -5,7 +5,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDI4ODEyY
 Content-Type: application/json
 
 {
-   "title": "Пе=",
+   "title": "Тренировка1",
    "backgroundImage": "1.png",
    "trainingLevel": "любитель",
    "trainingType": "бокс",
@@ -23,13 +23,18 @@ Content-Type: application/json
 ###
 # Get the list of all trainings of the coach
 GET http://localhost:3333/api/trainings HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTMzNDg1LCJleHAiOjE2Nzk5MzQzODV9.h87Q5rZn6u7y9yJyl6GAONkZ_75i-5c8X-ajpHxKFUY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxMzIzZDBhMWRmMThjMGVjZGYiLCJlbWFpbCI6IjM0NTI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODI5NjI3OTIsImV4cCI6MTY4Mjk2MzY5Mn0.F9hMbImJOpNmZeRoU2xKbgGgfcggBmijAv9avhs3HEY
+
+###
+# Get the list of all trainings for customer
+GET http://localhost:3333/api/trainings/all HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxMzIzZDBhMWRmMThjMGVjZGYiLCJlbWFpbCI6IjM0NTI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODI5NjI3OTIsImV4cCI6MTY4Mjk2MzY5Mn0.F9hMbImJOpNmZeRoU2xKbgGgfcggBmijAv9avhs3HEY
 
 ###
 # Get the list of trainings of the coach with price
 
 GET http://localhost:3333/api/trainings?priceMin=1300&trainingTime=30-50 мин HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDE2YzY5ZDdiZTA0ZWFjNTlhOTk4N2MiLCJlbWFpbCI6InVzZXIxMEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLRgtGA0LXQvdC10YAiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjc5OTMzNDg1LCJleHAiOjE2Nzk5MzQzODV9.h87Q5rZn6u7y9yJyl6GAONkZ_75i-5c8X-ajpHxKFUY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxMzIzZDBhMWRmMThjMGVjZGYiLCJlbWFpbCI6IjM0NTI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODI5NjIzNzUsImV4cCI6MTY4Mjk2MzI3NX0.FmXJZ8W890ZR98UF1iyRLgadluI8TKkn9TN1ZUf5Iwo
 
 
 ### Update training

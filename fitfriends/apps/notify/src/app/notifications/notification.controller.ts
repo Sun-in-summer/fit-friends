@@ -1,5 +1,4 @@
-import {  Controller, Delete, Param, HttpCode, HttpStatus, Get,  UseGuards, Req  } from '@nestjs/common';
-import { RequestWithTokenPayload,  User } from '@fitfriends/shared-types';
+import {  Controller, Delete, Param, HttpCode, HttpStatus, Get,  UseGuards  } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { NotificationService } from './notification.service';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -16,8 +15,7 @@ export class NotificationController {
   @HttpCode(HttpStatus.OK)
   @Get('/:userId')
   async show(
-    @Param('userId') userId: string,
-    @Req() _req: RequestWithTokenPayload<User>) {
+    @Param('userId') userId: string) {
     const notifications = await this.notificationService.getNotificationsByUserId(userId);
     return notifications;
   }

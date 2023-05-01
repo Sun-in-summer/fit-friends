@@ -5,7 +5,7 @@ import { FitTrainingRepository } from './fit-training.repository';
 import { FitTrainingService } from './fit-training.service';
 import { ClientsModule } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './fit-training.constant';
-import { getRabbitMqConfig } from '../config/rabbitmq.config';
+import { getNewTrainingsRabbitMqConfig } from '../config/rabbitmq.config';
 import { ConfigService } from '@nestjs/config';
 
 @Module({
@@ -13,7 +13,7 @@ import { ConfigService } from '@nestjs/config';
     ClientsModule.registerAsync([
       {
         name: RABBITMQ_SERVICE,
-        useFactory: getRabbitMqConfig,
+        useFactory: getNewTrainingsRabbitMqConfig,
         inject: [ConfigService]
       }
     ]),

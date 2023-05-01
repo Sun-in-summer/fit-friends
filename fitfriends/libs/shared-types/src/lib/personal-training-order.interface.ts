@@ -1,12 +1,10 @@
-import { OrderStatus } from './order.types/order-status.enum';
+export  interface PersonalTrainingOrder {
 
-export  interface personalTrainingOrder {
-
-  id?: string;
-  initiatorId: string;
+  id?: number;
+  initiatorId?: string;
   conductorId: string;
   createdAt?: Date;
-  statusChangeDate: Date;
-  status: OrderStatus;
+  statusChangeDate?: Date;
+  status: string;
 
 }

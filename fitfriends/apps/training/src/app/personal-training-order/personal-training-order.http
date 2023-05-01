@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:3333/api
+
+### Personal Training Ordeer Request
+POST {{baseUrl}}/personal-training-order
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDMyZGQ1MjlhYjllNmNhZjRiMzI1ZjkiLCJlbWFpbCI6InVzZXI4MEBub3Rmb3VuZC5sb2NhbCIsInJvbGUiOiLQv9C-0LvRjNC30L7QstCw0YLQtdC70YwiLCJmaXJzdG5hbWUiOiJLZWtzIiwiaWF0IjoxNjgyOTYxNjQ5LCJleHAiOjE2ODI5NjI1NDl9.lJOH2rCJch_SSuUehc9QOQ_iAfg0ceiwM6Csu0hPqTc
+
+{
+  "conductorId":  "6434421323d0a1df18c0ecdf"
+}
+
+### Update Status of Personal Training Order Request
+PATCH {{baseUrl}}/personal-training-order/status/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxMzIzZDBhMWRmMThjMGVjZGYiLCJlbWFpbCI6IjM0NTI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODI5NjIyOTUsImV4cCI6MTY4Mjk2MzE5NX0.NzBKBim253YDYCb_QwYKYkFQwSyXtM4e3yCgKk16J5Y
+
+{
+  "id": 1,
+  "status": "принят"
+}

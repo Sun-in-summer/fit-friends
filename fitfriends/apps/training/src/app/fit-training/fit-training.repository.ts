@@ -92,6 +92,58 @@ export class FitTrainingRepository implements CRUDRepository<FitTrainingEntity, 
     });
   }
 
+
+  public findAll(query: TrainingQuery): Promise<Training[]> {
+    const {
+      priceMin,
+      priceMax,
+      ratingMax,
+      ratingMin,
+      trainingTime,
+      limit,
+      page,
+      sortDirection,
+      sortBy,
+
+    } = query;
+
+    return this.prisma.training.findMany({
+      where: {
+        trainingTime: { in: trainingTime },
+        AND: [
+          {
+            price: {
+              gte: priceMin
+            }
+          },
+          {
+            price: {
+              lte: priceMax ?? Price.Max
+            }
+          },
+          {
+            rating: {
+              gte: ratingMin ?? Rating.Min
+            }
+          },
+          {
+            rating: {
+              lte: ratingMax ?? Rating.Max
+            }
+          }
+        ],
+      },
+      orderBy: {
+        [sortBy]: sortDirection,
+      },
+      include: {
+        reviews: true,
+      },
+      skip: limit * (page - 1) || undefined,
+      take: limit,
+    });
+  }
+
   public update(id: number, item: Partial<FitTrainingEntity>): Promise<Training> {
     return this.prisma.training.update({
       where: { id },

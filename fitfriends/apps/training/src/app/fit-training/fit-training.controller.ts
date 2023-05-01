@@ -23,14 +23,26 @@ export class FitTrainingController {
   ) {}
 
   @UseGuards(JwtAuthGuard)
+  @Get('/all')
+  async showTrainings(@Query () query: TrainingQuery, @Req()
+req: RequestWithTokenPayload<TokenPayload>) {
+  const userId = req.user.sub;
+    const trainings = await this.fitTrainingService.getAllTrainings(query);
+    return fillObject(CreatedFitTrainingRdo, trainings);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get('/:id')
-  async show(@Param('id') id: string, @Req()
-_req: RequestWithTokenPayload<User>) {
+  async show(@Param('id') id: string,
+  @Req() _req: RequestWithTokenPayload<User>) {
     const trainingId = parseInt(id, 10);
     const existTraining = await this.fitTrainingService.getTrainingById(trainingId);
     const training=  fillObject(CreatedFitTrainingRdo, existTraining);
     return training;
   }
+
+
+
 
   @UseGuards(JwtAuthGuard)
   @UseGuards(RolesGuard)
@@ -41,6 +53,9 @@ req: RequestWithTokenPayload<TokenPayload>) {
     const trainings = await this.fitTrainingService.getTrainings(query, userId);
     return fillObject(CreatedFitTrainingRdo, trainings);
   }
+
+
+
 
   @UseGuards(JwtAuthGuard)
   @UseGuards(RolesGuard)
