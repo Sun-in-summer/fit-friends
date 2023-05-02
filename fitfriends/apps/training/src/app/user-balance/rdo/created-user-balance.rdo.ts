@@ -1,4 +1,5 @@
 
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import {ApiProperty} from '@nestjs/swagger';
 import { UserBalance } from '@prisma/client';
 import { Expose } from 'class-transformer';
@@ -18,8 +19,8 @@ export class CreatedUserBalanceRdo implements UserBalance {
 
   @Expose()
   @ApiProperty({
-    description: 'userId',
-    example: '1',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample
   })
   @IsMongoId()
   userId: string;

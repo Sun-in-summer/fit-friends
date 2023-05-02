@@ -1,3 +1,5 @@
+
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { TrainingDiary } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsDateString, IsDefined, IsEnum, IsInt, IsMongoId, IsOptional, IsString} from 'class-validator';
@@ -16,8 +18,8 @@ export class CreateTrainingDiaryDto implements TrainingDiary {
   trainingId: number;
 
   @ApiProperty({
-    description: 'userId',
-    example: '1',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample
   })
   @IsMongoId()
   userId?: string;

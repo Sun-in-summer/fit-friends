@@ -31,8 +31,8 @@ export class GymController {
 
   @Post('/')
   async create(@Body() dto: CreateGymDto) {
-    const newCategory = await this.gymService.createGym(dto);
-    return fillObject(CreatedGymRdo, newCategory);
+    const newGym = await this.gymService.createGym(dto);
+    return fillObject(CreatedGymRdo, newGym);
   }
 
   @Delete('/:id')

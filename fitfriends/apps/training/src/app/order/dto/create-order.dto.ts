@@ -1,3 +1,5 @@
+
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { Order, OrderType, PaymentMethod } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import {IsDefined, IsEnum, IsInt, IsMongoId,  IsOptional} from 'class-validator';
@@ -13,8 +15,8 @@ export class CreateOrderDto implements Omit<Order, 'amount'> {
   id?: number;
 
   @ApiProperty({
-    description: 'User\'s id ',
-    example: '6416c69d7be04eac59a9987c',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample,
     required: true
   })
   @IsDefined()

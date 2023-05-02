@@ -1,4 +1,5 @@
 
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { TrainingDiary } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
@@ -32,8 +33,8 @@ export class CreatedTrainingDiaryRdo implements TrainingDiary {
 
   @Expose()
   @ApiProperty({
-    description: 'userId',
-    example: '1',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample
   })
   userId: string;
 

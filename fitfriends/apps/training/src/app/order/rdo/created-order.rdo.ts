@@ -1,3 +1,5 @@
+
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { Order, OrderType, PaymentMethod } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
@@ -15,8 +17,8 @@ export class CreatedOrderRdo implements Order {
 
   @Expose()
   @ApiProperty({
-    description: 'User\'s id ',
-    example: '6416c69d7be04eac59a9987c',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample,
     required: true
   })
   @IsDefined()

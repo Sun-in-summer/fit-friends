@@ -74,3 +74,19 @@ export const IMAGE_URL_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/ ;
 export const VIDEO_URL_REG_EXP = /^.+(?:.mov)|.+(?:.avi)|.+(?:.mp4)$/;
 
 export const DEFAULT_RATING = 0;
+
+
+export enum ApiPropertyDescriptions {
+  UserId = 'Id of the user',
+  UserIdExample =  "64319c29f053f274593ebbd9",
+  TrainingId = "Id of the training",
+  IntIdExample = '1',
+  ReviewId = 'Id of the review',
+  Rating = "Rating",
+  RatingExample= '3',
+  ReviewText = 'The text of the review',
+  ReviewTextExample = 'It was a great experience',
+  CreatedAt = 'The date when this entity was created',
+  CreatedAtExample = '2023-05-01 20:03:48.876'
+
+}

@@ -1,3 +1,5 @@
+
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { UserBalance } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import { IsDefined,  IsInt, IsMongoId, IsOptional} from 'class-validator';
@@ -12,8 +14,8 @@ export class CreateUserBalanceDto implements UserBalance {
   public id?: number;
 
   @ApiProperty({
-    description: 'userId',
-    example: '1',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample
   })
   @IsMongoId()
   public userId: string;

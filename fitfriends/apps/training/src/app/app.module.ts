@@ -16,8 +16,6 @@ import { TrainingDiaryModule } from './training-diary/training-diary.module';
 import { UserBalanceModule } from './user-balance/user-balance.module';
 import { FitSubscriptionModule } from './fit-subscription/fit-subscription.module';
 import { CliModule } from './cli/cli.module';
-import { ClientsModule } from '@nestjs/microservices';
-import { RABBITMQ_SERVICE } from './fit-training/fit-training.constant';
 import { PersonalTrainingOrderModule } from './personal-training-order/personal-training-order.module';
 
 
@@ -33,6 +31,7 @@ import { PersonalTrainingOrderModule } from './personal-training-order/personal-
     UserBalanceModule,
     FitSubscriptionModule,
     PersonalTrainingOrderModule,
+    ReviewModule,
     ConfigModule.forRoot({
       cache: true,
       isGlobal: true,

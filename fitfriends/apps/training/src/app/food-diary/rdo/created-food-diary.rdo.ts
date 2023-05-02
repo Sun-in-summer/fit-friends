@@ -1,4 +1,5 @@
 
+import { ApiPropertyDescriptions } from '@fitfriends/shared-constants';
 import { FoodDiary, Meal } from '@fitfriends/shared-types';
 import {ApiProperty} from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
@@ -8,8 +9,8 @@ import {IsDefined, IsEnum, IsInt, IsOptional, IsString} from 'class-validator';
 export class CreatedFoodDiaryRdo implements FoodDiary {
   @Expose()
   @ApiProperty({
-    description: 'userId',
-    example: '1',
+    description: ApiPropertyDescriptions.UserId,
+    example: ApiPropertyDescriptions.UserIdExample
   })
   userId: string;
 
