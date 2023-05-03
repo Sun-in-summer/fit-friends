@@ -26,7 +26,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly configService: ConfigService
+    // private readonly configService: ConfigService
   ) {}
 
   @Post('register')

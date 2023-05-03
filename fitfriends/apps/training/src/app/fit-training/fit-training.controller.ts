@@ -1,4 +1,4 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req,  Query, Patch, UseInterceptors, ParseFilePipeBuilder,  } from '@nestjs/common';
+import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, ValidationPipe, UseGuards, Req,  Query, Patch, UseInterceptors, ParseFilePipeBuilder, RawBodyRequest,  } from '@nestjs/common';
 import { FitTrainingService } from './fit-training.service';
 import { CreateFitTrainingDto } from './dto/create-fit-training.dto';
 import { fillObject, getFileInterceptorOptions } from '@fitfriends/core';
@@ -25,7 +25,7 @@ export class FitTrainingController {
   @UseGuards(JwtAuthGuard)
   @Get('/all')
   async showTrainings(@Query () query: TrainingQuery, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
   const userId = req.user.sub;
     const trainings = await this.fitTrainingService.getAllTrainings(query);
     return fillObject(CreatedFitTrainingRdo, trainings);
@@ -34,7 +34,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @UseGuards(JwtAuthGuard)
   @Get('/:id')
   async show(@Param('id') id: string,
-  @Req() _req: RequestWithTokenPayload<User>) {
+  @Req() _req: RawBodyRequest<{user: TokenPayload}>) {
     const trainingId = parseInt(id, 10);
     const existTraining = await this.fitTrainingService.getTrainingById(trainingId);
     const training=  fillObject(CreatedFitTrainingRdo, existTraining);
@@ -48,7 +48,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @UseGuards(RolesGuard)
   @Get('/')
   async index(@Query () query: TrainingQuery, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
   const userId = req.user.sub;
     const trainings = await this.fitTrainingService.getTrainings(query, userId);
     return fillObject(CreatedFitTrainingRdo, trainings);
@@ -71,7 +71,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @HttpCode(HttpStatus.CREATED)
   async create(
     @Body(new ValidationPipe()) dto: CreateFitTrainingDto,
-    @Req() req: RequestWithTokenPayload<TokenPayload>,
+    @Req() req: RawBodyRequest<{user: TokenPayload}>,
   ) {
     const userId = req.user.sub;
     const newTraining = await this.fitTrainingService.createTraining(dto, userId);
@@ -91,7 +91,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @ApiBearerAuth()
   @Patch('/:id')
   async update(@Param('id') id: string, @Body() dto: CreateFitTrainingDto,  @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const trainingId = parseInt(id, 10);
     const updatedTraining = await this.fitTrainingService.updateTraining(trainingId, dto, userId)

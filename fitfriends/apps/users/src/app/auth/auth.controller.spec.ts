@@ -11,6 +11,8 @@ describe('AuthController', () => {
   const ApiServiceProvider = {
     provide: AuthService,
     useFactory: () => ({
+      register:  jest.fn(),
+      loginUser: jest.fn(),
       create: jest.fn(),
       login: jest.fn(),
       refresh: jest.fn(),
