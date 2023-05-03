@@ -1,8 +1,7 @@
-import { CoachUser, ExtendedUser, Gender, Place, TraineeUser, TrainingType, UserRole} from '@fitfriends/shared-types';
+import { CoachUser, ExtendedUser, TraineeUser} from '@fitfriends/shared-types';
 import {compare, genSalt, hash} from 'bcrypt';
 import {SALT_ROUNDS} from './fit-user.constant';
-import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
+
 
 
 export class FitUserEntity implements ExtendedUser {
@@ -11,14 +10,14 @@ export class FitUserEntity implements ExtendedUser {
   public email: string;
   public avatar: string;
   public dateBirth: Date;
-  public gender: Gender;
+  public gender: string;
   public passwordHash: string;
-  public role: UserRole;
-  public place: Place;
+  public role: string;
+  public place: string;
   public createdAt: Date;
-  public trainingLevel: TrainingLevel;
-  public trainingType: TrainingType[];
-  public trainingTime?: TrainingTime;
+  public trainingLevel: string;
+  public trainingType: string[];
+  public trainingTime?: string;
   public caloriesToDrop?: number;
   public caloriesToSpendPerDay?: number;
   public isReadyForTraining?: boolean;

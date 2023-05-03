@@ -28,5 +28,6 @@ export * from './lib/command-event.enum';
 export * from './lib/friends-request-notification.interface';
 export * from './lib/subscriber-of-coach.interface';
 export * from './lib/training-notification.interface';
-
+export * from './lib/training.types/training-level.enum';
+export * from './lib/training.types/training-time.enum';
 

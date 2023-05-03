@@ -5,7 +5,6 @@ import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
 import { LoggedUserRdo } from './rdo/logged-user.rdo';
 import { UserRdo } from './rdo/user.rdo';
-import { JwtAuthGuard } from '../../../../training/src/app/guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { RequestWithTokenPayload, RequestWithUser , RefreshTokenPayload, TokenPayload} from '@fitfriends/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
@@ -17,6 +16,7 @@ import { ConfigService } from '@nestjs/config';
 import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared-constants';
 import { getFileInterceptorOptions } from '@fitfriends/core';
 import { TraineeRoleGuard } from './guards/trainee-role.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 
 

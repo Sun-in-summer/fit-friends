@@ -1,9 +1,7 @@
 import { CaloriesToDrop, CaloriesToSpendADay, CoachCreditsLength, TrainingTypesQty, UserNameLength } from '@fitfriends/shared-constants';
-import { Gender, UserRole, Place, TrainingType} from '@fitfriends/shared-types';
+import { Gender, UserRole, Place, TrainingType, TrainingLevel, TrainingTime} from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMaxSize, ArrayMinSize, Contains, IsArray, IsBoolean, IsEmail, IsEnum, IsInt, IsISO8601, IsMongoId, IsNotEmpty, IsOptional, IsString, Max, MaxLength, Min, MinLength, ValidateIf } from 'class-validator';
-import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { AUTH_USER_DATE_BIRTH_NOT_VALID, AUTH_USER_EMAIL_NOT_VALID } from '../auth.constant';
 
 
@@ -48,7 +46,7 @@ export class CreateUserNewDto  {
     example: 'Male/Female/NoInfo'
   })
   @IsEnum(Gender)
-  public gender: Gender;
+  public gender: string;
 
   @ApiProperty({
     description: 'User password',
@@ -64,14 +62,14 @@ export class CreateUserNewDto  {
     example: 'Coach'
   })
   @IsEnum(UserRole)
-  public role: UserRole;
+  public role: string;
 
   @ApiProperty({
     description: 'Prefferred gym place',
     example: 'Udelnaya'
   })
   @IsEnum(Place)
-  public place: Place;
+  public place: string;
 
 
   @ApiProperty({
@@ -80,7 +78,7 @@ export class CreateUserNewDto  {
   })
   @IsEnum(TrainingLevel)
   @IsNotEmpty()
-  public trainingLevel: TrainingLevel;
+  public trainingLevel: string;
 
 
 
@@ -93,7 +91,7 @@ export class CreateUserNewDto  {
   @ArrayMinSize(TrainingTypesQty.Min)
   @ArrayMaxSize(TrainingTypesQty.Max)
   @IsEnum(TrainingType, { each: true })
-  public trainingType: TrainingType[];
+  public trainingType: string[];
 
 
   @ApiProperty({
@@ -103,7 +101,7 @@ export class CreateUserNewDto  {
   @ValidateIf(o => o.role === UserRole.Trainee)
   @IsNotEmpty()
   @IsEnum(TrainingTime)
-  public trainingTime?: TrainingTime;
+  public trainingTime?: string;
 
 
   @ApiProperty({

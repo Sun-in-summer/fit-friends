@@ -1,8 +1,9 @@
 import { Document } from 'mongoose';
 import {  ExtendedUser,  Gender, Place,    TrainingType,     UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
+import { TrainingLevel } from '@fitfriends/shared-types';
+import { TrainingTime } from '@fitfriends/shared-types';
+
 
 
 
@@ -42,7 +43,7 @@ export class FitUserNewModel extends Document implements ExtendedUser{
     type: String,
     enum: UserRole,
   })
-  public role: UserRole;
+  public role: string;
 
 
   @Prop({
@@ -50,14 +51,14 @@ export class FitUserNewModel extends Document implements ExtendedUser{
     type: String,
     enum: Gender,
   })
-  public gender: Gender;
+  public gender: string;
 
   @Prop({
     required: true,
     type: String,
     enum: Place,
   })
-  public place: Place;
+  public place: string;
 
   @Prop({
     type: Date
@@ -81,7 +82,7 @@ export class FitUserNewModel extends Document implements ExtendedUser{
     type: Array,
     enum: TrainingType
   })
-  public trainingType: TrainingType[];
+  public trainingType: string[];
 
   @Prop({
     type: String,

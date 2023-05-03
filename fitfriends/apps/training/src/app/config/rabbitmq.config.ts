@@ -16,6 +16,7 @@ export function getNewTrainingsRabbitMqConfig(configService: ConfigService): Rmq
   const queue = configService.get<string>('rmq.newTrainingsQueue');
   const url = `amqp://${user}:${password}@${host}`;
 
+
   return {
     transport: Transport.RMQ,
     options: {
@@ -36,6 +37,7 @@ export function getPersonalTrainingsRabbitMqConfig(configService: ConfigService)
   const host = configService.get<string>('rmq.host');
   const queue = configService.get<string>('rmq.newPersonalTrainingsOrdersQueue');
   const url = `amqp://${user}:${password}@${host}`;
+
 
   return {
     transport: Transport.RMQ,

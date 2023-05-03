@@ -5,4 +5,7 @@ export enum GymFeature {
   Massage = 'массаж',
 }
 
+
+
+
 export type GymFeatureType = keyof typeof GymFeature;

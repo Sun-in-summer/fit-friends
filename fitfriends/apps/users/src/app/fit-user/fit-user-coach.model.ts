@@ -1,8 +1,6 @@
 import { Document } from 'mongoose';
-import { CoachUser, Gender, Place,  UserRole } from '@fitfriends/shared-types';
+import { CoachUser, Gender,  UserRole } from '@fitfriends/shared-types';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { TrainingType } from 'libs/shared-types/src/lib/training.types/training-type.enum';
 
 
 
@@ -16,12 +14,12 @@ export class FitUserCoachModel extends Document implements CoachUser{
   public email: string;
   public firstname: string;
   public passwordHash: string;
-  public role: UserRole;
-  public gender: Gender;
-  public place: Place;
+  public role: string;
+  public gender: string;
+  public place: string;
   public createdAt: Date;
-  public trainingLevel: TrainingLevel;
-  public trainingType: TrainingType[];
+  public trainingLevel: string;
+  public trainingType: string[];
   public myFriends?: string[];
   public favoriteGyms?: number[];
   public sentRequestForFriends: string[];

@@ -87,5 +87,5 @@ export class CreateGymDto implements Gym {
     example: true
   })
   @IsOptional()
-  createdAt: Date;
+  createdAt?: Date;
 }

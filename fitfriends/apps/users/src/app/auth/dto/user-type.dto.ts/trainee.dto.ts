@@ -28,7 +28,7 @@ export class TraineeDto extends UserDetailsBaseDto {
   @ArrayMinSize(TrainingTypesQty.Min)
   @ArrayMaxSize(TrainingTypesQty.Max)
   @IsEnum(TrainingType, { each: true })
-  public trainingType: TrainingType[];
+  public trainingType: string[];
 
 
   @ApiProperty({

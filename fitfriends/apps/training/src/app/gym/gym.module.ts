@@ -7,6 +7,6 @@ import { GymController } from './gym.controller';
   imports: [],
   controllers: [GymController],
   providers: [GymService, GymRepository],
-  exports: [GymRepository]
+  exports: [GymRepository, GymService]
 })
 export class GymModule {}

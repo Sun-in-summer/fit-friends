@@ -1,5 +1,5 @@
 import { CreateTraining, TrainingType } from '@fitfriends/shared-types';
-import {CaloriesToDrop, TrainingDescriptionLength, TrainingPrice, TrainingTitleLength, VIDEO_URL_REG_EXP, IMAGE_URL_REG_EXP ,DEFAULT_RATING} from '@fitfriends/shared-constants';
+import {CaloriesToDrop, TrainingDescriptionLength, TrainingPrice, TrainingTitleLength, VIDEO_URL_REG_EXP, IMAGE_URL_REG_EXP ,DEFAULT_RATING, MAX_RATING} from '@fitfriends/shared-constants';
 import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { TrainingForGender } from 'libs/shared-types/src/lib/training.types/traning-for-gender';
 import {ApiProperty} from '@nestjs/swagger';
@@ -112,11 +112,12 @@ export class CreateFitTrainingDto implements CreateTraining {
 
   @ApiProperty({
     description: 'Training raiting',
-    example: 5
+    example: 5,
   })
   @IsOptional()
   @IsNumber()
   @Min(DEFAULT_RATING)
+  @Max(MAX_RATING)
   public rating: number;
 
   @ApiProperty({

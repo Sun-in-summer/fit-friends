@@ -5,5 +5,5 @@ export interface Review {
   trainingId: number;
   rating: number;
   text: string;
-  createdAt: Date;
+  createdAt?: Date;
 }

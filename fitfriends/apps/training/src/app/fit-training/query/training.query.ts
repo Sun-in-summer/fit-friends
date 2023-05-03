@@ -31,7 +31,7 @@ export class TrainingQuery {
   @IsOptional()
   @IsEnum(TrainingType, { each: true })
   @Transform(({ value }) => value.split(','))
-  public trainingType: TrainingType[] =[TrainingType.Boxing];
+  public trainingType: string[] =[TrainingType.Boxing];
 
 
   @IsNumber()

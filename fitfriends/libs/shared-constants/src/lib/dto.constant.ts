@@ -63,6 +63,7 @@ export enum GymLocation {
   Sportivnaya = 'Спортивная'
 }
 
+
 export enum GymFeature {
   SwimmingPool = 'бассейн',
   FreeParking = 'бесплатная парковка',
@@ -74,6 +75,8 @@ export const IMAGE_URL_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/ ;
 export const VIDEO_URL_REG_EXP = /^.+(?:.mov)|.+(?:.avi)|.+(?:.mp4)$/;
 
 export const DEFAULT_RATING = 0;
+export const MIN_RATING = 0;
+export const MAX_RATING = 5;
 
 
 export enum ApiPropertyDescriptions {
@@ -89,4 +92,9 @@ export enum ApiPropertyDescriptions {
   CreatedAt = 'The date when this entity was created',
   CreatedAtExample = '2023-05-01 20:03:48.876'
 
+}
+
+
+export enum DtoErrorMessage {
+  RatingNotValid = 'Rating mus be between 0 and 5, integer'
 }

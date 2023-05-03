@@ -23,6 +23,6 @@ import { ConfigService } from '@nestjs/config';
     FitTrainingService,
     FitTrainingRepository,
     JwtAuthGuard],
-  exports: [FitTrainingRepository]
+  exports: [FitTrainingRepository, FitTrainingService]
 })
 export class FitTrainingModule {}

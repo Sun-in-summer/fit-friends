@@ -1,8 +1,6 @@
-import { Gender, Place, TrainingType, UserRole,  } from '@fitfriends/shared-types';
+import { Gender,   UserRole,  } from '@fitfriends/shared-types';
 import { ApiProperty } from '@nestjs/swagger';
 import {Expose, Transform, Type} from 'class-transformer';
-import { TrainingLevel } from 'libs/shared-types/src/lib/training.types/training-level.enum';
-import { TrainingTime } from 'libs/shared-types/src/lib/training.types/training-time.enum';
 import { CoachDto } from '../dto/user-type.dto.ts/coach.dto';
 import { TraineeDto } from '../dto/user-type.dto.ts/trainee.dto';
 
@@ -65,7 +63,7 @@ export class UserRdo {
     description: 'User preffered  gym place',
     example: 'Udelnaya'
   })
-  place: Place;
+  place: string;
 
   @Expose()
   @ApiProperty({
@@ -85,10 +83,10 @@ export class UserRdo {
   public isReadyForTraining: boolean;
 
  @Expose()
-  trainingLevel?:TrainingLevel;
+  trainingLevel?: string;
 
   @Expose()
-  trainingType?: TrainingType[];
+  trainingType?: string[];
 
   @Expose()
   certificate?: string;
@@ -97,7 +95,7 @@ export class UserRdo {
   credits?: string;
 
   @Expose()
-  trainingTime?: TrainingTime;
+  trainingTime?: string;
 
   @Expose()
   caloriesToDrop?: number;

@@ -15,8 +15,8 @@ import { FoodDiaryModule } from './food-diary/food-diary.module';
 import { TrainingDiaryModule } from './training-diary/training-diary.module';
 import { UserBalanceModule } from './user-balance/user-balance.module';
 import { FitSubscriptionModule } from './fit-subscription/fit-subscription.module';
-import { CliModule } from './cli/cli.module';
 import { PersonalTrainingOrderModule } from './personal-training-order/personal-training-order.module';
+import { appConfig } from './config/app.config';
 
 
 @Module({
@@ -36,7 +36,7 @@ import { PersonalTrainingOrderModule } from './personal-training-order/personal-
       cache: true,
       isGlobal: true,
       envFilePath: ENV_FILE_PATH,
-      load: [jwtOptions, rabbitMqOptions],
+      load: [appConfig, jwtOptions, rabbitMqOptions ],
     }),
     MulterModule.registerAsync({
       imports: [ConfigModule],
@@ -45,14 +45,6 @@ import { PersonalTrainingOrderModule } from './personal-training-order/personal-
       }),
       inject: [ConfigService],
     }),
-    CliModule,
-    // ClientsModule.registerAsync([
-    //   {
-    //     name: RABBITMQ_SERVICE,
-    //     useFactory: getNewTrainingsRabbitMqConfig,
-    //     inject: [ConfigService]
-    //   }
-    // ]),
   ],
   controllers: [],
   providers: [JwtStrategy, RoleStrategy],
