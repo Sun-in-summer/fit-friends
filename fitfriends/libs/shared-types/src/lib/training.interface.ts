@@ -20,7 +20,7 @@ export interface Training {
   isSpecialOffer: boolean;
   reviews?: Review[];
   orders?: Order[];
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export type CreateTraining = Omit<

@@ -1,18 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { Gym,  } from '@fitfriends/shared-types';
+import { Gym  } from '@fitfriends/shared-types';
 import {GymLocationStations , DefaultGymPrice,DEFAULT_IMAGE_COUNT, GymFeaturesNames } from './mock.constant'
+import {makeArray} from './helper';
 
-
-
-
-
-function makeArray<T>(length: number, generator: () => T): T[] {
-  return Array.from({ length }, generator)
-}
 
 export const createGyms = (): Gym => {
   return {
-    id: faker.datatype.number({ precision: 1 , max: 15, min: 1}),
+    id: faker.datatype.number({ precision: 1 , max: 10, min: 1}),
     name: faker.commerce.productName(),
     location: faker.helpers.arrayElement(GymLocationStations),
     description: faker.lorem.sentences(2),
