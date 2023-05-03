@@ -1,6 +1,6 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch,  Req, UseGuards, Query  } from '@nestjs/common';
+import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch,  Req, UseGuards, Query, RawBodyRequest  } from '@nestjs/common';
 import { fillObject } from '@fitfriends/core';
-import { RequestWithTokenPayload, TokenPayload } from '@fitfriends/shared-types';
+import { TokenPayload } from '@fitfriends/shared-types';
 import { CreateTrainingDiaryDto } from './dto/create-training-diary.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { TraineeRoleGuard } from '../guards/trainee-role.guard';
@@ -21,7 +21,7 @@ export class TrainingDiaryController {
   @UseGuards(TraineeRoleGuard)
   @Post('/')
   async create(@Body() dto: CreateTrainingDiaryDto, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const newCategory = await this.trainingDiaryService.createTrainingDiary(dto, userId);
     return fillObject(CreatedTrainingDiaryRdo, newCategory);
@@ -31,7 +31,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @UseGuards(TraineeRoleGuard)
   @Get('/')
   async getTrainingDiariesForUser(@Query () query: TrainingDiaryQuery, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const existTrainingDiary = await this.trainingDiaryService.getTrainingDiariesByUserId(userId, query);
     return fillObject(CreatedTrainingDiaryRdo, existTrainingDiary);
@@ -61,7 +61,7 @@ id: string) {
   @UseGuards(TraineeRoleGuard)
   @Patch('/:id')
   async update(@Param('id') id: string, @Body() dto: CreateTrainingDiaryDto, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const trainingDiaryId = parseInt(id, 10);
     const updatedTrainingDiary = await this.trainingDiaryService.updateTrainingDiary(trainingDiaryId, dto, userId)

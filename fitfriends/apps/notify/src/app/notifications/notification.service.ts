@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { MailService } from '../mail/mail.service';
 import { NotificationRepository } from './notification.repository';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { NotificationEntity } from './notification.entity';
@@ -10,7 +9,6 @@ import { Notification } from '@fitfriends/shared-types';
 export class NotificationService {
   constructor(
     private readonly notificationRepository: NotificationRepository,
-    private readonly mailService: MailService,
   ) {}
 
   public async addNotification(notification: CreateNotificationDto) {
@@ -28,11 +26,4 @@ export class NotificationService {
   public async getNotificationsByUserId( userId: string): Promise<Notification[]> {
     return this.notificationRepository.findByUserId(userId);
   }
-
-
-
-
-
-
-
 }

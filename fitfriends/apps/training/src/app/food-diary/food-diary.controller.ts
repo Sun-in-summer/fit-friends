@@ -1,6 +1,6 @@
-import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch,  Req, UseGuards, Query  } from '@nestjs/common';
+import { Body, Post, Controller, Delete, Param, HttpCode, HttpStatus, Get, Patch,  Req, UseGuards, Query, RawBodyRequest  } from '@nestjs/common';
 import { fillObject } from '@fitfriends/core';
-import { RequestWithTokenPayload, TokenPayload } from '@fitfriends/shared-types';
+import { TokenPayload } from '@fitfriends/shared-types';
 import { CreatedFoodDiaryRdo } from './rdo/created-food-diary.rdo';
 import { FoodDiaryService } from './food-diary.service';
 import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
@@ -21,7 +21,7 @@ export class FoodDiaryController {
   @UseGuards(TraineeRoleGuard)
   @Post('/')
   async create(@Body() dto: CreateFoodDiaryDto, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const newCategory = await this.foodDiaryService.createFoodDiary(dto, userId);
     return fillObject(CreatedFoodDiaryRdo, newCategory);
@@ -31,7 +31,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   @UseGuards(TraineeRoleGuard)
   @Get('/')
   async getFoodDiariesForUser(@Query () query: FoodDiaryQuery, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const existFoodDiary = await this.foodDiaryService.getFoodDiariesByUserId(userId, query);
     return fillObject(CreatedFoodDiaryRdo, existFoodDiary);
@@ -61,7 +61,7 @@ id: string) {
   @UseGuards(TraineeRoleGuard)
   @Patch('/:id')
   async update(@Param('id') id: string, @Body() dto: CreateFoodDiaryDto, @Req()
-req: RequestWithTokenPayload<TokenPayload>) {
+req: RawBodyRequest<{user: TokenPayload}>) {
     const userId = req.user.sub;
     const foodDiaryId = parseInt(id, 10);
     const updatedFoodDiary = await this.foodDiaryService.updateFoodDiary(foodDiaryId, dto, userId)

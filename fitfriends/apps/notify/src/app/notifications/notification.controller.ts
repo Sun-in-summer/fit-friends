@@ -28,6 +28,4 @@ export class NotificationController {
   async destroy(@Param('notificationId') notificationId: string) {
       return this.notificationService.deleteNotification(notificationId);
   }
-
-
 }
