@@ -51,4 +51,8 @@ export class ReviewService {
     return this.reviewRepository.update(id, new ReviewEntity(dto));
   }
 
+  async getAllReviews(): Promise<Review[]>{
+    return this.reviewRepository.find();
+  }
+
 }

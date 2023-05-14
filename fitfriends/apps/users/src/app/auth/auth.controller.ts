@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, Req, UploadedFile, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, RawBodyRequest, Req, UploadedFile, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -57,6 +57,26 @@ export class AuthController {
     return this.authService.loginUser(user);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('checkAuth')
+  @HttpCode(HttpStatus.OK)
+  @ApiResponse({
+    type: LoggedUserRdo,
+    status: HttpStatus.OK,
+    description: 'User has been successfully checked for auth.'
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Checking of auth  failed.',
+  })
+  async checkAuth(@Req() req: RequestWithTokenPayload<TokenPayload>) {
+    const { user: tokenPayload } = req;
+    console.log(tokenPayload);
+    const userId = tokenPayload.sub;
+    const existUser= await this.authService.getUser(userId);
+    return fillObject(UserRdo, existUser);
+  }
+
   @UseGuards(JwtRefreshGuard)
   @Post('refresh')
   @HttpCode(HttpStatus.OK)
@@ -66,6 +86,7 @@ export class AuthController {
   })
   async refresh(@Req() request: RequestWithTokenPayload<RefreshTokenPayload>) {
     const { user: tokenPayload } = request;
+    console.log(tokenPayload);
      return this.authService.loginUser({
       firstname: tokenPayload.firstname,
       role: tokenPayload.role,

@@ -31,6 +31,13 @@ export class ReviewController {
   }
 
 
+  @Get('/')
+  async showAll() {
+    const reviews = await this.reviewService.getAllReviews();
+    return fillObject(CreatedReviewRdo, reviews);
+  }
+
+
 }
 
 

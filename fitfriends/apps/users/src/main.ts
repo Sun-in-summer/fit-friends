@@ -9,8 +9,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
    const config = new DocumentBuilder()
     .setTitle('The «Users» service')
@@ -33,6 +35,9 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
+
 }
+
+
 
 bootstrap();
