@@ -40,6 +40,7 @@ export class AuthController {
     return fillObject(UserRdo, newUser);
   }
 
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
@@ -71,7 +72,6 @@ export class AuthController {
   })
   async checkAuth(@Req() req: RequestWithTokenPayload<TokenPayload>) {
     const { user: tokenPayload } = req;
-    console.log(tokenPayload);
     const userId = tokenPayload.sub;
     const existUser= await this.authService.getUser(userId);
     return fillObject(UserRdo, existUser);
@@ -86,7 +86,6 @@ export class AuthController {
   })
   async refresh(@Req() request: RequestWithTokenPayload<RefreshTokenPayload>) {
     const { user: tokenPayload } = request;
-    console.log(tokenPayload);
      return this.authService.loginUser({
       firstname: tokenPayload.firstname,
       role: tokenPayload.role,

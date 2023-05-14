@@ -45,7 +45,7 @@ export class AuthService {
       favoriteGyms: [],
       sentRequestForFriends: [],
       gotRequestForFriends: [],
-      avatar: DEFAULT_AVATAR_FILE_NAME
+      // avatar: DEFAULT_AVATAR_FILE_NAME
     };
 
 
