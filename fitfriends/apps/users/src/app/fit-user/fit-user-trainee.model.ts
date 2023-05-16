@@ -11,7 +11,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 })
 export class FitUserTraineeModel extends Document implements TraineeUser{
 
-  public avatar: string;
+  public avatar: string ;
   public dateBirth: Date;
   public email: string;
   public firstname: string;

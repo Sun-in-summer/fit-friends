@@ -8,7 +8,7 @@ export class FitUserEntity implements ExtendedUser {
   public _id: string;
   public firstname: string;
   public email: string;
-  public avatar: string;
+  public avatar:  string;
   public dateBirth: Date;
   public gender: string;
   public passwordHash: string;

@@ -14,8 +14,10 @@ import { TrainingTime } from '@fitfriends/shared-types';
   discriminatorKey: 'role'
 })
 export class FitUserNewModel extends Document implements ExtendedUser{
-  @Prop()
-  public avatar: string;
+  @Prop({
+    type: String
+  })
+  public avatar:  string;
 
   @Prop({
     required: true,

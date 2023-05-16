@@ -9,7 +9,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
   timestamps: true,
 })
 export class FitUserCoachModel extends Document implements CoachUser{
-  public avatar: string;
+  public avatar: string ;
   public dateBirth: Date;
   public email: string;
   public firstname: string;

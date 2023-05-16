@@ -1,4 +1,4 @@
-import { CommandEvent, RefreshTokenPayload, TokenPayload, User } from '@fitfriends/shared-types';
+import { CommandEvent, RefreshTokenPayload, TokenPayload, TrainingLevel, TrainingType, User } from '@fitfriends/shared-types';
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -11,13 +11,15 @@ import { FitUserRepository } from '../fit-user/fit-user.repository';
 import { RefreshTokenService } from '../refresh-token/refresh-token.service';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { LoginUserDto } from './dto/login-user.dto';
-import { UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
+import { UserDoesntExistsException, UserExistsException, UserNotFoundException, UserNotRegisteredException, UserPasswordWrongException } from './exceptions';
 import {UserQuery} from './query/user.query';
 import * as fs from 'fs';
 import { DEFAULT_AVATAR_FILE_NAME } from '@fitfriends/shared-constants';
 import { ClientProxy } from '@nestjs/microservices';
 import { RABBITMQ_SERVICE } from './auth.constant';
 import { createEvent } from '@fitfriends/core';
+import { CreateBasicUserDto } from './dto/create-basic-user.dto';
+import { QuestionnaireDto } from './dto/questionnaire.dto';
 
 @Injectable()
 export class AuthService {
@@ -45,6 +47,58 @@ export class AuthService {
       favoriteGyms: [],
       sentRequestForFriends: [],
       gotRequestForFriends: [],
+      // avatar: DEFAULT_AVATAR_FILE_NAME
+    };
+
+
+
+    const existUser = await this.fitUserRepository.findByEmail(email);
+
+
+    if (existUser) {
+      throw new UserExistsException(email);
+    }
+
+    const userEntity = await new FitUserEntity(fitUser)
+    .setPassword(passwordToSave);
+
+
+
+    const createdUser = await  this.fitUserRepository.create(userEntity);
+
+    this.rabbitClient.emit(
+        createEvent(CommandEvent.AddSubscriber),
+        {
+          id: createdUser._id,
+          firstname: createdUser.firstname,
+          email: createdUser.email
+        }
+      );
+
+    return createdUser;
+  }
+
+
+  async registerBasicUser(dto: CreateBasicUserDto
+    , file:  Express.Multer.File[]){
+
+      const avatar = file &&  file[0];
+
+    const {email, password, dateBirth  } = dto;
+
+  const passwordToSave= password;
+
+  const fitUser = {
+      ...dto,
+      dateBirth: dayjs(dateBirth).toDate(),
+      password: '',
+      passwordHash: '',
+      myFriends: [],
+      favoriteGyms: [],
+      sentRequestForFriends: [],
+      gotRequestForFriends: [],
+      trainingLevel: TrainingLevel.Newbee,
+      trainingType: [TrainingType.Crossfit]
       // avatar: DEFAULT_AVATAR_FILE_NAME
     };
 
@@ -134,6 +188,21 @@ export class AuthService {
 
     if (!existUser) {
       throw new UserExistsException(dto.email);
+    }
+
+     const updatedUserEntity = new FitUserEntity({...existUser, ...dto});
+     const updatedUser =  await this.fitUserRepository.update(id, updatedUserEntity);
+
+    return updatedUser;
+  }
+
+  async addQuestionnaireInfo( dto: QuestionnaireDto ) {
+    const {id} = dto;
+
+    const existUser = await this.fitUserRepository.findById(id);
+
+    if (!existUser) {
+      throw new UserDoesntExistsException(dto.id);
     }
 
      const updatedUserEntity = new FitUserEntity({...existUser, ...dto});
@@ -234,14 +303,14 @@ export class AuthService {
     const existUser = await this.fitUserRepository.findById(userId);
     const prevAvatar = existUser.avatar;
 
-    if (fs.existsSync(prevAvatar)) {
-      fs.unlink(prevAvatar, (err) => {
-        if (err) {
-         console.error(err);
-         return err;
-        }
-      });
-    }
+    // if (fs.existsSync(prevAvatar)) {
+    //   fs.unlink(prevAvatar, (err) => {
+    //     if (err) {
+    //      console.error(err);
+    //      return err;
+    //     }
+    //   });
+    // }
 
     const updatedUserEntity = new FitUserEntity({...existUser, avatar});
     return this.updateUser(userId, updatedUserEntity);

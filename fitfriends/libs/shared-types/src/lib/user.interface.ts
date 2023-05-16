@@ -7,7 +7,7 @@ export interface BasicUser {
   _id?: string ;
   firstname: string;
   email: string;
-  avatar: string;
+  avatar: string ;
   passwordHash: string;
   gender: string;
   dateBirth?: Date;

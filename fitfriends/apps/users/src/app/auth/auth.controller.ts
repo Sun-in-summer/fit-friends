@@ -17,6 +17,8 @@ import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared
 import { getFileInterceptorOptions } from '@fitfriends/core';
 import { TraineeRoleGuard } from './guards/trainee-role.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { CreateBasicUserDto } from './dto/create-basic-user.dto';
+import { QuestionnaireDto } from './dto/questionnaire.dto';
 
 
 
@@ -37,6 +39,30 @@ export class AuthController {
   })
   async create(@Body() dto: CreateUserNewDto ) {
     const newUser = await this.authService.register(dto);
+    return fillObject(UserRdo, newUser);
+  }
+
+
+
+  @Post('register-basic')
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: 'The new user has been successfully created.'
+  })
+  async createBasicUser(@Body() dto: CreateBasicUserDto , file?:  Express.Multer.File[]) {
+    const newUser = await this.authService.registerBasicUser(dto, file);
+    return fillObject(UserRdo, newUser);
+  }
+
+  @Post('questionnaire')
+  @ApiResponse({
+    type: UserRdo,
+    status: HttpStatus.CREATED,
+    description: 'The new user has been successfully created.'
+  })
+  async addQuestionnaireInfo(@Body() dto: QuestionnaireDto, id: string ) {
+    const newUser = await this.authService.addQuestionnaireInfo(dto);
     return fillObject(UserRdo, newUser);
   }
 
