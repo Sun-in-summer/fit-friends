@@ -20,6 +20,7 @@ import { RABBITMQ_SERVICE } from './auth.constant';
 import { createEvent } from '@fitfriends/core';
 import { CreateBasicUserDto } from './dto/create-basic-user.dto';
 import { QuestionnaireDto } from './dto/questionnaire.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -81,6 +82,7 @@ export class AuthService {
 
   async registerBasicUser(dto: CreateBasicUserDto
     , file:  Express.Multer.File[]){
+
 
       const avatar = file &&  file[0];
 
@@ -182,7 +184,7 @@ export class AuthService {
     };
   }
 
-  async updateUser(id: string, dto:CreateUserNewDto | Omit<CreateUserNewDto, 'password'> ) {
+  async updateUser(id: string, dto:CreateUserNewDto | Omit<CreateUserNewDto, 'password'> | UpdateUserDto ) {
 
     const existUser = await this.fitUserRepository.findById(id);
 
@@ -197,7 +199,7 @@ export class AuthService {
   }
 
   async addQuestionnaireInfo( dto: QuestionnaireDto ) {
-    const {id} = dto;
+   const {id} = dto;
 
     const existUser = await this.fitUserRepository.findById(id);
 

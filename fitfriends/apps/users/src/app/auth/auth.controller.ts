@@ -19,6 +19,7 @@ import { TraineeRoleGuard } from './guards/trainee-role.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CreateBasicUserDto } from './dto/create-basic-user.dto';
 import { QuestionnaireDto } from './dto/questionnaire.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 
 
@@ -59,9 +60,10 @@ export class AuthController {
   @ApiResponse({
     type: UserRdo,
     status: HttpStatus.CREATED,
-    description: 'The new user has been successfully created.'
+    description: 'The questionnaire has been successfully sent.'
   })
-  async addQuestionnaireInfo(@Body() dto: QuestionnaireDto, id: string ) {
+  async addQuestionnaireInfo(@Body() dto: QuestionnaireDto ) {
+    console.log(dto);
     const newUser = await this.authService.addQuestionnaireInfo(dto);
     return fillObject(UserRdo, newUser);
   }
@@ -135,7 +137,7 @@ export class AuthController {
   @Patch('update/:id')
   @HttpCode(HttpStatus.OK)
   @ApiResponse({status: HttpStatus.OK, description: 'The user has been successfully updated '})
-  async update(@Param('id', MongoidValidationPipe) id: string, @Body(new ValidationPipe()) dto: CreateUserNewDto){
+  async update(@Param('id', MongoidValidationPipe) id: string, @Body(new ValidationPipe()) dto: UpdateUserDto){
     const newUser = await  this.authService.updateUser(id, dto);
     return fillObject(UserRdo, newUser);
   }

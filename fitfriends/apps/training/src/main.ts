@@ -14,6 +14,7 @@ import { getNewTrainingsRabbitMqConfig, getPersonalTrainingsRabbitMqConfig,  } f
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
 
     const config = new DocumentBuilder()
     .setTitle('The «Training» service')
