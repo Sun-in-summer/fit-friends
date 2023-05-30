@@ -11,7 +11,7 @@ export class ReviewController {
     private readonly reviewService: ReviewService
   ) {}
 
-  @Get('/trainings/:id')
+  @Get('/:id')
   async show(@Param('id') id: string) {
     const trainingId = parseInt(id, 10);
     const reviews = await this.reviewService.getReviewsByTrainingId(trainingId);

@@ -5,5 +5,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxM
 
 ###
 # Get the list of  reviews for training with id
-GET http://localhost:3333/api/reviews/trainings/:id HTTP/1.1
+GET http://localhost:3333/api/reviews/:id HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDM0NDIxMzIzZDBhMWRmMThjMGVjZGYiLCJlbWFpbCI6IjM0NTI5QG5vdGZvdW5kLmxvY2FsIiwicm9sZSI6ItGC0YDQtdC90LXRgCIsImZpcnN0bmFtZSI6Iktla3MiLCJpYXQiOjE2ODM0ODE5NzgsImV4cCI6MTY4MzQ4Mjg3OH0.lqfauKo6s-F_bE5aFwlEZrE8W3KNjfVrHg1RjZmjfAI

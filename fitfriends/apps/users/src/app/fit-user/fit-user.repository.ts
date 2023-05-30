@@ -66,6 +66,16 @@ export class FitUserRepository implements CRUDRepository<FitUserEntity, string, 
       return users;
   }
 
+
+
+  public async findAll(): Promise<FitUserNewModel[]> {
+
+
+      const users = await this.fitUserNewModel.find()
+
+      return users;
+  }
+
   public async getFriends(userId: string): Promise<FitUserNewModel[]>{
     const user = await this.fitUserNewModel.findById({_id: userId});
     const friendsIds = user.myFriends;

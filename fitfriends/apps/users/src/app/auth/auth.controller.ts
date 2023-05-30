@@ -147,10 +147,20 @@ export class AuthController {
     status: HttpStatus.OK,
     description: 'All users are  found'
   })
-  async showAllUsers(@Query() query: UserQuery){
-    const users = await this.authService.getUsers(query);
+  async showAllUsers(){
+    const users = await this.authService.getAllUsers();
     return fillObject(UserRdo, users);
   }
+
+  // @Get('/')
+  // @ApiResponse({
+  //   status: HttpStatus.OK,
+  //   description: 'All users are  found'
+  // })
+  // async showAllUsers(@Query() query?: UserQuery){
+  //   const users = await this.authService.getAllUsers();
+  //   return fillObject(UserRdo, users);
+  // }
 
    @ApiResponse({
     status: HttpStatus.OK,

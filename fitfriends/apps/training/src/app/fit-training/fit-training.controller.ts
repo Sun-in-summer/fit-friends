@@ -45,7 +45,7 @@ req: RawBodyRequest<{user: TokenPayload}>) {
 
 
   @UseGuards(JwtAuthGuard)
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
   @Get('/')
   async index(@Query () query: TrainingQuery, @Req()
 req: RawBodyRequest<{user: TokenPayload}>) {

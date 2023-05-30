@@ -30,7 +30,7 @@ export class UserQuery {
 
   @IsOptional()
   @IsEnum(TrainingType, { each: true })
-  public trainingType: string[] =[TrainingType.Boxing];
+  public trainingType: string[] =[TrainingType.Yoga];
 
 
 

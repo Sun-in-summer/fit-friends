@@ -30,7 +30,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   }
 
   @UseGuards(JwtAuthGuard)
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
   @Get('/')
   async index(@Query () query: OrderQuery, @Req()
 req: RequestWithTokenPayload<TokenPayload>) {
@@ -41,7 +41,7 @@ req: RequestWithTokenPayload<TokenPayload>) {
   }
 
   @UseGuards(JwtAuthGuard)
-  @UseGuards(RolesGuard)
+  // @UseGuards(RolesGuard)
   @Post('/')
   @ApiBearerAuth()
   @HttpCode(HttpStatus.CREATED)

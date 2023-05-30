@@ -217,6 +217,10 @@ export class AuthService {
     return await this.fitUserRepository.find(query);
   }
 
+  async getAllUsers(): Promise <FitUserNewModel[]>{
+    return await this.fitUserRepository.findAll();
+  }
+
 
    public async addFriend(userId: string, friendId: string) {
     const userData = await this.fitUserRepository.findById(userId);
