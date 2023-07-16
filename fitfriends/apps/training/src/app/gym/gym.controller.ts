@@ -16,6 +16,9 @@ export class GymController {
     private readonly gymService: GymService
   ) {}
 
+
+  SERVER_URL= 'http://localhost:3333/api/gyms'
+
   @Get('/:id')
   async show(@Param('id') id: string) {
     const gymId = parseInt(id, 10);
@@ -77,6 +80,34 @@ export class GymController {
     const photos = files.map((file) => file.filename);
     const updatedGym = this.gymService.setFiles(gymId, photos);
     return fillObject(CreatedGymRdo, updatedGym);
+  }
+
+
+  @ApiResponse({
+    type: CreatedGymRdo,
+    status: HttpStatus.OK,
+    description: 'Uploading route for photos of gym'
+  })
+  @Post('photosforgym/:id')
+  @UseInterceptors(FilesInterceptor('files', GYM_PHOTOS_MAX_QTY,  getFileInterceptorOptions()))
+  public async uploadPhotosForGym(
+    @UploadedFiles() files,
+    @Param('id') id: string,
+  ) {
+
+    const response = [];
+  files.forEach(file => {
+    const fileReponse = {
+      originalname: file.originalname,
+      filename: file.filename,
+    };
+    response.push(fileReponse);
+  });
+  return response;
+    // const gymId = parseInt(id, 10);
+    // const photos = files.map((file) => file.filename);
+    // const updatedGym = this.gymService.setFiles(gymId, photos);
+    // return fillObject(CreatedGymRdo, updatedGym);
   }
 }
 

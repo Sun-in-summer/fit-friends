@@ -2,10 +2,11 @@ import { registerAs } from '@nestjs/config';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
 import  {diskStorage} from 'multer';
 import { extname } from 'path';
+import {nanoid} from 'nanoid';
 
 
 function generateFilename(file) {
-  return `${Date.now()}${extname(file.originalname)}`;
+  return `${nanoid()}${extname(file.originalname)}`;
 }
 
 export const fileUploadOptions = registerAs('multer', () => ({
@@ -15,7 +16,7 @@ export const fileUploadOptions = registerAs('multer', () => ({
 export function getFileInterceptorOptions(): MulterOptions {
   return {
     storage: diskStorage({
-      destination: "./uploads",
+      destination: "./gym_uploads",
       filename: (req, file, callback) => {
           callback(null, generateFilename(file));
 

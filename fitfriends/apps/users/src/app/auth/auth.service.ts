@@ -21,6 +21,7 @@ import { createEvent } from '@fitfriends/core';
 import { CreateBasicUserDto } from './dto/create-basic-user.dto';
 import { QuestionnaireDto } from './dto/questionnaire.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserFiles } from '../pipes/user-files-validation.pipe';
 
 @Injectable()
 export class AuthService {
@@ -81,10 +82,10 @@ export class AuthService {
 
 
   async registerBasicUser(dto: CreateBasicUserDto
-    , file:  Express.Multer.File[]){
+    , files?: Express.Multer.File ){
 
 
-      const avatar = file &&  file[0];
+      const avatar = files  && files[0];
 
     const {email, password, dateBirth  } = dto;
 
@@ -211,6 +212,16 @@ export class AuthService {
      const updatedUser =  await this.fitUserRepository.update(id, updatedUserEntity);
 
     return updatedUser;
+  }
+
+  async addAvatar (id: string, file: string) {
+    const existUser = await this.fitUserRepository.findById(id);
+     if (!existUser) {
+      throw new UserDoesntExistsException(id);
+    }
+    const updatedUserEntity = new FitUserEntity({...existUser, avatar: file});
+    const updateUser = await this.fitUserRepository.update(id, updatedUserEntity);
+    return updateUser;
   }
 
    async getUsers(query: UserQuery): Promise <FitUserNewModel[]>{

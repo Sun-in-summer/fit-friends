@@ -1,5 +1,5 @@
 import { fillObject } from '@fitfriends/core';
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, RawBodyRequest, Req, UploadedFile, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Res, HttpCode, HttpStatus, Param, ParseFilePipeBuilder, Patch, Post, Query, RawBodyRequest, Req, UploadedFile, UploadedFiles, UseFilters, UseGuards, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { ApiTags, ApiResponse, ApiConsumes, ApiBearerAuth } from '@nestjs/swagger';
 import { MongoidValidationPipe } from '../pipes/mongoid-validation.pipe';
 import { AuthService } from './auth.service';
@@ -11,7 +11,7 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { CreateUserNewDto } from './dto/create-user-new.dto';
 import { UserQuery } from './query/user.query';
 import { HttpExceptionFilter } from './http.exception-filter';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { ConfigService } from '@nestjs/config';
 import {  FILE_MAX_SIZE, JPG_PNG_REG_EXP, PDF_REG_EXP } from '@fitfriends/shared-constants';
 import { getFileInterceptorOptions } from '@fitfriends/core';
@@ -20,6 +20,13 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { CreateBasicUserDto } from './dto/create-basic-user.dto';
 import { QuestionnaireDto } from './dto/questionnaire.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserFiles, UserFilesValidationPipe } from '../pipes/user-files-validation.pipe';
+import { diskStorage } from 'multer';
+import mime from 'mime';
+import { nanoid } from 'nanoid';
+import { extname } from 'path';
+
+
 
 
 
@@ -28,9 +35,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Controller('auth')
 export class AuthController {
   constructor(
+
     private readonly authService: AuthService,
     // private readonly configService: ConfigService
   ) {}
+
+  SERVER_URL =  "http://localhost:3332/api/auth";
 
   @Post('register')
   @ApiResponse({
@@ -38,7 +48,8 @@ export class AuthController {
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.'
   })
-  async create(@Body() dto: CreateUserNewDto ) {
+  async create(
+    @Body() dto: CreateUserNewDto) {
     const newUser = await this.authService.register(dto);
     return fillObject(UserRdo, newUser);
   }
@@ -51,10 +62,41 @@ export class AuthController {
     status: HttpStatus.CREATED,
     description: 'The new user has been successfully created.'
   })
-  async createBasicUser(@Body() dto: CreateBasicUserDto , file?:  Express.Multer.File[]) {
-    const newUser = await this.authService.registerBasicUser(dto, file);
+  async createBasicUser(
+    @Body() dto: CreateBasicUserDto ,
+    )
+    {
+
+    const newUser = await this.authService.registerBasicUser(dto);
     return fillObject(UserRdo, newUser);
   }
+
+   @Post('/:userId/avatar')
+   @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './avatars',
+      filename: (_req, file, callback) => {
+        const filename = nanoid();
+        return callback(null, `${filename}${extname(file.originalname)}`);
+      }
+    })
+  }))
+  async addAvatar(
+    @Param('userId') userId: string ,
+    @UploadedFile()
+    file: Express.Multer.File
+  ) {
+    console.log(userId);
+    if (!file) {
+        throw new BadRequestException('avatar required!');
+      }
+    const newUser =  await this.authService.addAvatar(userId, `${this.SERVER_URL}${file.path}`);
+    return fillObject(UserRdo, newUser);
+
+  }
+
+
+
 
   @Post('questionnaire')
   @ApiResponse({
@@ -312,6 +354,12 @@ export class AuthController {
       const userId = TokenPayload.sub;
       const subscription = await this.authService.addSubscriptionOnCoach(coachId, userId);
       return subscription;
+  }
+
+
+  @Get('avatars/:fileId')
+  async serveAvatar(@Param('fileId') fileId, @Res() res): Promise<any> {
+    res.sendFile(fileId, { root: 'avatars'});
   }
 
 

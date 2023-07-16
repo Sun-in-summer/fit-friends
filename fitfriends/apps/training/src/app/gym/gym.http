@@ -50,18 +50,35 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 
-Content-Disposition: form-data; name="image1"; filename="1.jpg"
+Content-Disposition: form-data; name="photos"; filename="1.jpg"
 Content-Type: image/jpeg
 
 < /Users/user/Pictures/1.jpg
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 
-Content-Disposition: form-data; name="image2"; filename="2.jpg"
+Content-Disposition: form-data; name="photos"; filename="2.jpg"
 Content-Type: image/jpeg
 
 < /Users/user/Pictures/2.jpg
 
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Upload2 photos for gym
+
+POST http://localhost:3333/api/gyms/photosforgym/4 HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="1.jpg"
+Content-Type: image/jpeg
+
+< /Users/user/Pictures/1.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="files"; filename="2.jpg"
+Content-Type: image/jpeg
+
+< /Users/user/Pictures/2.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
