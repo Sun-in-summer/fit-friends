@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  mongodb:
+    image: fitfriends.users.db
+    restart: always
+    volumes:
+      - fitfriends.users.mongodb.volume:/data/db
+    env_file:
+      - .fitfriends.users.mongodb.env
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongodb:27017/fitfriends-users --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - fitfriends.users.network
+
+  application:
+    image: fitfriends.users:latest
+    depends_on:
+      - mongodb
+    container_name: fitfriends.users.app
+    restart: 'always'
+    ports:
+      - 3332:3332
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .fitfriends.users.env
+    networks:
+      - fitfriends.users.network
