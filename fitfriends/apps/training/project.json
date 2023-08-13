@@ -92,6 +92,15 @@
         "command": "npx prisma db seed",
         "cwd": "apps/training"
       }
+    },
+    "buildDockerImage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run training:build",
+          "docker build --file ./apps/training/Dockerfile --tag fitfriends.training:latest."
+        ]
+      }
     }
   },
   "tags": []
