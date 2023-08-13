@@ -98,7 +98,7 @@
       "options": {
         "commands": [
           "nx run training:build",
-          "docker build --file ./apps/training/Dockerfile --tag fitfriends.training:latest."
+          "docker build --file ./apps/training/Dockerfile --tag fitfriends.training:latest ."
         ]
       }
     }
