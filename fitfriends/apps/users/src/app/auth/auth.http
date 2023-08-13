@@ -19,6 +19,27 @@ Content-Type: application/json
 }
 
 ###
+# Create a new user
+POST http://192.168.1.136:3332/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "345520@notfound.local",
+  "dateBirth": "2012-02-22",
+  "firstname": "Keks",
+  "password": "123456",
+  "avatar": "1.jpg",
+  "gender": "Мужской",
+  "role": "тренер",
+  "place": "Удельная",
+  "trainingLevel": "новичок",
+  "trainingType": ["бокс"],
+  "certificate": "images/1.pdf",
+  "credits": "some credits",
+  "isReadyToTrainPersonally": false
+}
+
+###
 
 # Create a new user
 

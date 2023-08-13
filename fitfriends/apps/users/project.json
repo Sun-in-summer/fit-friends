@@ -63,7 +63,7 @@
       "options": {
         "commands": [
           "nx run users:build",
-          "docker build --file ./apps/users/Dockerfile --tag fitfriends.users:1.0 ."
+          "docker build --file ./apps/users/Dockerfile --tag fitfriends.users:latest ."
         ]
       }
     }
