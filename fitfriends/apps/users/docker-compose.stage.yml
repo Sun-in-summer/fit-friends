@@ -29,3 +29,10 @@ services:
       - .fitfriends.users.env
     networks:
       - fitfriends.users.network
+
+networks:
+  fitfriends.users.network:
+    driver: bridge
+
+volumes:
+  fitfriends.users.mongo.volume: {}
